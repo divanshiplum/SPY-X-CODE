@@ -80,5 +80,7 @@ The objective of this project is to provide students with a **simple and persona
 ## 👩‍💻 Author
 
 **Divanshi Khosla**
+<br>
 **Aditi Bhangua**
+<br>
 **Vanshika Thakur**
