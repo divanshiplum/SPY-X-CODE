@@ -61,6 +61,10 @@ The dashboard can display information such as:
 * **Streamlit**
 * **Pandas**
 * **CSV / Database**
+* **Matplotlib**
+* **Numpy**
+* **PyPDF2**
+* **Scikit-learn**
 
 ## 🎯 Project Objective
 
