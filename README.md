@@ -1,6 +1,6 @@
 # 🎓 Student Portal
 
-A simple and secure **Student Portal** where college students can log in using their ** College Roll Number and Password** and access their personal academic and college-related information.
+A simple and secure **Student Portal** where college students can log in using their **College Roll Number and Password** and access their personal academic and college-related information.
 
 ## 📌 About the Project
 
