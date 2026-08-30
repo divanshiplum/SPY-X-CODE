@@ -1,6 +1,6 @@
 # 🎓 Student Portal
 
-A simple and secure **Student Portal** where college students can log in using their **Roll Number and Password** and access their personal academic and college-related information.
+A simple and secure **Student Portal** where college students can log in using their ** College Roll Number and Password** and access their personal academic and college-related information.
 
 ## 📌 About the Project
 
@@ -10,7 +10,7 @@ Students do not add or modify their information. Their college data is already s
 
 ## ✨ Features
 
-* 🔐 Student login using Roll Number and Password
+* 🔐 Student login using College Roll Number and Password
 * 👨‍🎓 Personalized student dashboard
 * 📚 View academic information
 * 🏫 View college and course details
@@ -22,13 +22,13 @@ Students do not add or modify their information. Their college data is already s
 
 Students log in using:
 
-* **Roll Number**
+* **College Roll Number**
 * **Password**
 
 After successful authentication, the student is shown only their own information.
 
 ```text
-Roll Number + Password
+College Roll Number + Password
           ↓
       Login
           ↓
@@ -44,7 +44,7 @@ Roll Number + Password
 The dashboard can display information such as:
 
 * Student Name
-* Roll Number
+* College Roll Number
 * Course / Program
 * Branch / Department
 * Semester
