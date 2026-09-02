@@ -115,26 +115,26 @@ timetable = {
             "teacher": "Manpreet Kaur"
         },
         {
-            "start": "10:00",
-            "end": "11:00",
+            "start": "09:40",
+            "end": "10:20",
             "subject": "Cybersecurity Fundamentals (Theory)",
             "teacher": "Manpreet Kaur"
         },
         {
-            "start": "11:00",
-            "end": "12:00",
+            "start": "10:20",
+            "end": "11:00",
             "subject": "Information System",
             "teacher": "Neha Sharma"
         },
         {
-            "start": "12:00",
-            "end": "01:00",
+            "start": "11:00",
+            "end": "11:40",
             "subject": "Data Structure (Theory)",
             "teacher": "Anshuman Sharma"
         },
         {
-            "start": "01:00",
-            "end": "02:00",
+            "start": "11:40",
+            "end": "12:20",
             "subject": "Operating System",
             "teacher": "Anshuman Sharma"
         }
@@ -148,26 +148,26 @@ timetable = {
             "teacher": "Manpreet Kaur"
         },
         {
-            "start": "09:00",
-            "end": "10:00",
+            "start": "09:40",
+            "end": "10:20",
             "subject": "Cybersecurity Fundamentals (Theory)",
             "teacher": "Manpreet Kaur"
         },
         {
-            "start": "10:00",
+            "start": "10:20",
             "end": "11:00",
             "subject": "Information System",
             "teacher": "Neha Sharma"
         },
         {
             "start": "11:00",
-            "end": "12:00",
+            "end": "11:40",
             "subject": "Data Structure (Theory)",
             "teacher": "Anshuman Sharma"
         },
         {
-            "start": "12:00",
-            "end": "01:00",
+            "start": "11:40",
+            "end": "12:20",
             "subject": "Operating System",
             "teacher": "Anshuman Sharma"
         }
@@ -176,31 +176,31 @@ timetable = {
     "Wednesday": [
         {
             "start": "09:00",
-            "end": "10:00",
+            "end": "09:40",
             "subject": "Computer Architecture",
             "teacher": "Manpreet Kaur"
         },
         {
-            "start": "10:00",
-            "end": "11:00",
+            "start": "09:40",
+            "end": "10:20",
             "subject": "Cybersecurity Fundamentals (Theory)",
             "teacher": "Manpreet Kaur"
         },
         {
-            "start": "11:00",
-            "end": "12:00",
+            "start": "10:20",
+            "end": "11:00",
             "subject": "Information System",
             "teacher": "Neha Sharma"
         },
         {
-            "start": "09:00",
-            "end": "10:00",
+            "start": "11:00",
+            "end": "11:40",
             "subject": "Data Structure (Theory)",
             "teacher": "Anshuman Sharma"
         },
         {
-            "start": "09:00",
-            "end": "10:00",
+            "start": "11:40",
+            "end": "12:20",
             "subject": "Operating System",
             "teacher": "Anshuman Sharma"
         }
@@ -214,26 +214,26 @@ timetable = {
             "teacher": "Manpreet Kaur Dhaliwal"
         },
         {
-            "start": "09:00",
-            "end": "10:00",
+            "start": "09:40",
+            "end": "10:20",
             "subject": "Cybersecurity Fundamentals (Theory)",
             "teacher": "Manpreet Kaur Dhaliwal"
         },
         {
-            "start": "10:00",
+            "start": "10:20",
             "end": "11:00",
             "subject": "Information System",
             "teacher": "Neha Sethi"
         },
         {
             "start": "11:00",
-            "end": "12:00",
+            "end": "11:40",
             "subject": "Data Structure (Theory)",
             "teacher": "Anshuman Sharma"
         },
         {
-            "start": "09:00",
-            "end": "10:00",
+            "start": "11:40",
+            "end": "12:20",
             "subject": "Operating System",
             "teacher": "Anshuman Sharma"
         }
@@ -242,31 +242,31 @@ timetable = {
     "Friday": [
         {
             "start": "09:00",
-            "end": "10:00",
+            "end": "09:40",
             "subject": "Computer Architecture",
             "teacher": "Manpreet Kaur Dhaliwal"
         },
         {
-            "start": "10:00",
-            "end": "11:00",
+            "start": "09:40",
+            "end": "10:20",
             "subject": "Cybersecurity Fundamentals (Practical)",
             "teacher": "Manpreet Kaur"
         },
         {
-            "start": "10:00",
+            "start": "10:20",
             "end": "11:00",
             "subject": "Information System",
             "teacher": "Neha Sethi"
         },
         {
             "start": "11:00",
-            "end": "12:00",
+            "end": "11:40",
             "subject": "Data Structure (Practical)",
             "teacher": "Anshuman Sharma"
         },
         {
-            "start": "10:00",
-            "end": "11:00",
+            "start": "11:40",
+            "end": "12:20",
             "subject": "Operating System",
             "teacher": "Anshuman Sharma"
         }
@@ -275,31 +275,31 @@ timetable = {
     "Saturday": [
         {
             "start": "09:00",
-            "end": "10:00",
+            "end": "09:40",
             "subject": "Computer Architecture",
             "teacher": "Manpreet Kaur"
         },
         {
-            "start": "09:00",
-            "end": "10:00",
+            "start": "09:40",
+            "end": "10:20",
             "subject": "Cybersecurity Fundamentals (Practical)",
             "teacher": "Manpreet Kaur"
         },
         {
-            "start": "09:00",
-            "end": "10:00",
+            "start": "10:20",
+            "end": "11:00",
             "subject": "Information System",
             "teacher": "Neha Sethi"
         },
         {
-            "start": "09:00",
-            "end": "10:00",
+            "start": "11:00",
+            "end": "11:40",
             "subject": "Data Structure (Practical)",
             "teacher": "Anshuman Sharma"
         },
         {
-            "start": "10:00",
-            "end": "11:00",
+            "start": "11:40",
+            "end": "12:20",
             "subject": "Operating System",
             "teacher": "Anshuman Sharma"
         }
