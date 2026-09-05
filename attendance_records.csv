@@ -1,156 +1,137 @@
-code,date,day,start_time,end_time,instructor,status
-
-SPO-113,2026-09-02,Wednesday,1:55 PM,2:45 PM,Manpreet Kaur Dhaliwal,Absent
-SPO-113,2026-09-01,Tuesday,1:55 PM,2:45 PM,Manpreet Kaur Dhaliwal,Absent
-SPO-113,2026-08-31,Monday,1:55 PM,2:45 PM,Manpreet Kaur Dhaliwal,Absent
-SPO-113,2026-08-29,Saturday,1:55 PM,2:45 PM,Manpreet Kaur Dhaliwal,Present
-SPO-113,2026-08-28,Friday,1:55 PM,2:45 PM,Manpreet Kaur Dhaliwal,Present
-SPO-113,2026-08-27,Thursday,1:55 PM,2:45 PM,Manpreet Kaur Dhaliwal,Present
-
-23BDA-401,2026-08-26,Wednesday,10:00 AM,10:50 AM,Neha Sethi,Absent
-23BDA-401,2026-08-25,Tuesday,10:00 AM,10:50 AM,Neha Sethi,Absent
-23BDA-401,2026-08-24,Monday,10:00 AM,10:50 AM,Neha Sethi,Absent
-23BDA-401,2026-08-22,Saturday,10:00 AM,10:50 AM,Neha Sethi,Absent
-23BDA-401,2026-08-21,Friday,10:00 AM,10:50 AM,Neha Sethi,Absent
-23BDA-401,2026-08-20,Thursday,10:00 AM,10:50 AM,Neha Sethi,Absent
-23BDA-401,2026-08-19,Wednesday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-18,Tuesday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-17,Monday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-15,Saturday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-14,Friday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-13,Thursday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-12,Wednesday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-11,Tuesday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-10,Monday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-08,Saturday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-07,Friday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-06,Thursday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-05,Wednesday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-04,Tuesday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-03,Monday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-08-01,Saturday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-07-31,Friday,10:00 AM,10:50 AM,Neha Sethi,Present
-23BDA-401,2026-07-30,Thursday,10:00 AM,10:50 AM,Neha Sethi,Present
-
-23BDA-402,2026-07-29,Wednesday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Absent
-23BDA-402,2026-07-28,Tuesday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Absent
-23BDA-402,2026-07-27,Monday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Absent
-23BDA-402,2026-07-25,Saturday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Absent
-23BDA-402,2026-07-24,Friday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Absent
-23BDA-402,2026-07-23,Thursday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-22,Wednesday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-21,Tuesday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-20,Monday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-18,Saturday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-17,Friday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-16,Thursday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-15,Wednesday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-14,Tuesday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-13,Monday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-11,Saturday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-10,Friday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-09,Thursday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-08,Wednesday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-23BDA-402,2026-07-07,Tuesday,11:00 AM,11:50 AM,Manpreet Kaur Dhaliwal,Present
-
-23BDA-403,2026-07-06,Monday,2:00 PM,2:50 PM,Anshuman Sharma,Absent
-23BDA-403,2026-07-04,Saturday,2:00 PM,2:50 PM,Anshuman Sharma,Absent
-23BDA-403,2026-07-03,Friday,2:00 PM,2:50 PM,Anshuman Sharma,Absent
-23BDA-403,2026-07-02,Thursday,2:00 PM,2:50 PM,Anshuman Sharma,Absent
-23BDA-403,2026-07-01,Wednesday,2:00 PM,2:50 PM,Anshuman Sharma,Absent
-23BDA-403,2026-06-30,Tuesday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-29,Monday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-27,Saturday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-26,Friday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-25,Thursday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-24,Wednesday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-23,Tuesday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-22,Monday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-20,Saturday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-19,Friday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-18,Thursday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-17,Wednesday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-16,Tuesday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-15,Monday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-13,Saturday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-12,Friday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-11,Thursday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-10,Wednesday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-09,Tuesday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-23BDA-403,2026-06-08,Monday,2:00 PM,2:50 PM,Anshuman Sharma,Present
-
-23CSR-449,2026-09-02,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Absent
-23CSR-449,2026-09-01,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Absent
-23CSR-449,2026-08-31,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-29,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-28,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-27,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-26,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Absent
-23CSR-449,2026-08-25,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Absent
-23CSR-449,2026-08-24,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Absent
-23CSR-449,2026-08-22,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-21,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-20,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-19,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-18,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-17,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-15,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Absent
-23CSR-449,2026-08-14,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Absent
-23CSR-449,2026-08-13,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-12,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-11,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-10,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-08,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-07,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-06,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-05,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-04,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-03,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-08-01,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-31,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-30,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-29,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-28,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-27,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Absent
-23CSR-449,2026-07-25,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Absent
-23CSR-449,2026-07-24,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Absent
-23CSR-449,2026-07-23,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-22,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-21,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-20,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-18,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-17,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-16,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-15,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-14,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-13,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-11,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-10,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-09,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-08,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-07,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-06,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-04,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-03,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-02,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-07-01,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-30,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-29,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-27,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-26,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-25,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-24,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-23,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-22,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-20,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-19,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-18,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-17,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-16,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-15,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-13,Saturday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-12,Friday,9:00 AM,10:40 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-11,Thursday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-10,Wednesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-09,Tuesday,9:00 AM,9:50 AM,Anshuman Sharma,Present
-23CSR-449,2026-06-08,Monday,9:00 AM,9:50 AM,Anshuman Sharma,Present
+code,date,day,start_time,end_time,room,instructor,status
+23BDA-402,2026-09-02,Wednesday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Absent
+23BDA-402,2026-09-01,Tuesday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Absent
+23BDA-402,2026-08-31,Monday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Absent
+23BDA-402,2026-08-29,Saturday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Present
+23BDA-402,2026-08-28,Friday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Present
+23BDA-402,2026-08-27,Thursday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Present
+SPO-113,2026-09-02,Wednesday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Absent
+SPO-113,2026-09-01,Tuesday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Absent
+SPO-113,2026-08-31,Monday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Absent
+SPO-113,2026-08-29,Saturday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Present
+SPO-113,2026-08-28,Friday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Present
+SPO-113,2026-08-27,Thursday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Present
+23BDA-401,2026-08-26,Wednesday,10:20 AM,11:00 AM,,Neha Sethi,Absent
+23BDA-401,2026-08-25,Tuesday,10:20 AM,11:00 AM,,Neha Sethi,Absent
+23BDA-401,2026-08-24,Monday,10:20 AM,11:00 AM,,Neha Sethi,Absent
+23BDA-401,2026-08-22,Saturday,10:20 AM,11:00 AM,,Neha Sethi,Absent
+23BDA-401,2026-08-21,Friday,10:20 AM,11:00 AM,,Neha Sethi,Absent
+23BDA-401,2026-08-20,Thursday,10:20 AM,11:00 AM,,Neha Sethi,Absent
+23BDA-401,2026-08-19,Wednesday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-18,Tuesday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-17,Monday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-15,Saturday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-14,Friday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-13,Thursday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-12,Wednesday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-11,Tuesday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-10,Monday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-08,Saturday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-07,Friday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-06,Thursday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-05,Wednesday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-04,Tuesday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-03,Monday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-08-01,Saturday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-07-31,Friday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23BDA-401,2026-07-30,Thursday,10:20 AM,11:00 AM,,Neha Sethi,Present
+23CSR-449,2026-09-02,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent
+23CSR-449,2026-09-01,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent
+23CSR-449,2026-08-31,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-29,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-28,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-27,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-26,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent
+23CSR-449,2026-08-25,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent
+23CSR-449,2026-08-24,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent
+23CSR-449,2026-08-22,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-21,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-20,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-19,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-18,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-17,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-15,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent
+23CSR-449,2026-08-14,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent
+23CSR-449,2026-08-13,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-12,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-11,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-10,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-08,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-07,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-06,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-05,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-04,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-03,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-08-01,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-31,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-30,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-29,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-28,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-27,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent
+23CSR-449,2026-07-25,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent
+23CSR-449,2026-07-24,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent
+23CSR-449,2026-07-23,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-22,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-21,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-20,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-18,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-17,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-16,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-15,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-14,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-13,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-11,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-10,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-09,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-08,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-07,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-06,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-04,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-03,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-02,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-07-01,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-30,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-29,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-27,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-26,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-25,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-24,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-23,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-22,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-20,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-19,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-18,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-17,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-16,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-15,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-13,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-12,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-11,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-10,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-09,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23CSR-449,2026-06-08,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present
+23BDA-403,2026-07-06,Monday,11:40 AM,12:20 PM,,Anshuman Sharma,Absent
+23BDA-403,2026-07-04,Saturday,11:40 AM,12:20 PM,,Anshuman Sharma,Absent
+23BDA-403,2026-07-03,Friday,11:40 AM,12:20 PM,,Anshuman Sharma,Absent
+23BDA-403,2026-07-02,Thursday,11:40 AM,12:20 PM,,Anshuman Sharma,Absent
+23BDA-403,2026-07-01,Wednesday,11:40 AM,12:20 PM,,Anshuman Sharma,Absent
+23BDA-403,2026-06-30,Tuesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-29,Monday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-27,Saturday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-26,Friday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-25,Thursday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-24,Wednesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-23,Tuesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-22,Monday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-20,Saturday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-19,Friday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-18,Thursday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-17,Wednesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-16,Tuesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-15,Monday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-13,Saturday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-12,Friday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-11,Thursday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-10,Wednesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-09,Tuesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
+23BDA-403,2026-06-08,Monday,11:40 AM,12:20 PM,,Anshuman Sharma,Present
