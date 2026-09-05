@@ -928,7 +928,7 @@ def subject_card_html(row, standalone=False):
         card_class += " subject-card-standalone"
         corner_extras = f'<div class="card-menu">⋮</div>'
     else:
-        corner_extras = f'<div class="card-menu">⋮</div><div class="card-chevron">›</div>'
+        corner_extras = f'<div class="card-menu">⋮</div>'
 
     return f"""
     <div class="{card_class}">
