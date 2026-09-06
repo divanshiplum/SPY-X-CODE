@@ -842,7 +842,7 @@ def render_course_card():
                 <div class="quick-title">Fees</div>
             </div>
             <div class="quick-item">
-                <div class="icon-wrap"><div class="quick-icon">🪪</div></div>
+                <div class="icon-wrap"><div class="quick-icon">🎫</div></div>
                 <div class="quick-title">ID Card</div>
             </div>
         </div>
