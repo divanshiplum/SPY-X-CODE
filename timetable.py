@@ -432,6 +432,15 @@ def render_schedule(day_name, day_lectures):
 
 # ============================================================
 # DAY SELECTION
+#
+# Built the same way as the bottom nav bar: no st.columns (its
+# internal row/column layout stacks vertically on narrow screens,
+# which is exactly what was happening here — the 7 day buttons
+# piling up one per row instead of staying side by side). Instead
+# every button goes directly inside container(key="day_selector"),
+# and that container is forced into a single flex row via CSS on
+# its own div.stVerticalBlock + st-key-* class, at every screen
+# size — matching what the maximized layout already looked like.
 # ============================================================
 
 days = list(timetable.keys())
@@ -442,10 +451,31 @@ if "selected_day" not in st.session_state:
 
 today_name = datetime.now().strftime("%A")
 
-cols = st.columns(len(days))
+render("""
+<style>
+div.stVerticalBlock[class*="st-key-day_selector"] {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+    overflow-x: auto;
+}
 
-for i, day in enumerate(days):
-    with cols[i]:
+div.stVerticalBlock[class*="st-key-day_selector"] > div[data-testid="stElementContainer"] {
+    flex: 1 1 0px !important;
+    width: auto !important;
+    min-width: 0 !important;
+}
+
+div.stVerticalBlock[class*="st-key-day_selector"] .stButton > button {
+    padding: 10px 4px;
+    font-size: 13px;
+}
+</style>
+""")
+
+with st.container(key="day_selector"):
+    for day in days:
         is_selected = day == st.session_state.selected_day
         label = day[:3].upper()
         if day == today_name:
@@ -462,7 +492,6 @@ for i, day in enumerate(days):
 
 selected_day = st.session_state.selected_day
 lectures = timetable[selected_day]
-
 
 # ============================================================
 # SELECTED DAY TITLE + SCHEDULE (also in a fragment so the
