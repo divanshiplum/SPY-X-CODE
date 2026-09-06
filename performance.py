@@ -13,6 +13,14 @@ st.set_page_config(
     layout="wide"
 )
 
+
+# ============================================================
+# LOGIN GUARD
+# ============================================================
+
+if not st.session_state.get("logged_in", False):
+    st.switch_page("login.py")
+
 # Leave room at the bottom so the fixed nav bar never covers content
 st.markdown(
     "<style>.block-container { padding-bottom: 110px; }</style>",
