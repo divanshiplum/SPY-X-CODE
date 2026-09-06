@@ -4,6 +4,16 @@ import matplotlib.pyplot as plt
 
 from nav_bar import render_bottom_nav
 
+
+def render(content: str):
+    """Strips leading whitespace from every line before handing it
+    to st.markdown — Markdown treats 4+ spaces of indentation as a
+    code block, which would otherwise show raw HTML as literal text."""
+    lines = content.strip("\n").split("\n")
+    flat = "\n".join(line.strip() for line in lines)
+    st.markdown(flat, unsafe_allow_html=True)
+
+
 # -----------------------------
 # PAGE CONFIGURATION
 # -----------------------------
@@ -12,7 +22,6 @@ st.set_page_config(
     page_icon="🎓",
     layout="wide"
 )
-
 
 # ============================================================
 # LOGIN GUARD
@@ -131,45 +140,67 @@ st.pyplot(fig)
 
 # -----------------------------
 # SUBJECT PERFORMANCE
+#
+# This used to be two independent Streamlit columns/containers —
+# one looping over subjects, one looping over grades — relying on
+# each row rendering at exactly the same height in both to stay
+# aligned. Small rendering differences (e.g. the two ### headers)
+# threw that off, shifting the grades one row out of sync with
+# their subjects. Rendering it as ONE html grid instead means
+# each row's subject and grade are literally the same row in the
+# same element, so there's no way for them to drift apart.
 # -----------------------------
 st.divider()
 
 st.subheader("📚 Subject Performance")
 
+row_html = "".join(
+    f"""
+    <div class="perf-row">
+        <div class="perf-subject">
+            {subject} <span class="perf-type">({subject_type})</span>
+        </div>
+        <div class="perf-grade">{grade}</div>
+    </div>
+    """
+    for subject, subject_type, grade in zip(df["Subject"], df["Type"], df["Grade"])
+)
 
-# Create two columns
-col1, col2 = st.columns(2)
+render(f"""
+<style>
+.perf-header {{
+    display: flex;
+    font-weight: 800;
+    font-size: 22px;
+    margin-bottom: 14px;
+}}
+.perf-header .perf-subject-h {{ flex: 3; }}
+.perf-header .perf-grade-h {{ flex: 1; }}
 
+.perf-row {{
+    display: flex;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}}
+.perf-subject {{
+    flex: 3;
+    font-weight: 700;
+}}
+.perf-type {{ font-weight: 400; opacity: 0.85; }}
+.perf-grade {{
+    flex: 1;
+    font-weight: 700;
+}}
+</style>
 
-# -----------------------------
-# LEFT SIDE - SUBJECT NAMES
-# -----------------------------
-with col1:
+<div class="perf-header">
+    <div class="perf-subject-h">📖 Subject Name</div>
+    <div class="perf-grade-h">🏆 Grade</div>
+</div>
 
-    st.markdown("### 📖 Subject Name")
-
-    for subject, subject_type in zip(
-        df["Subject"],
-        df["Type"]
-    ):
-
-        st.write(
-            f"**{subject}** ({subject_type})"
-        )
-
-
-# -----------------------------
-# RIGHT SIDE - GRADES
-# -----------------------------
-with col2:
-
-    st.markdown("### 🏆 Grade")
-
-    for grade in df["Grade"]:
-
-        st.write(
-            f"**{grade}**"
-        )
+{row_html}
+""")
 
 
 # -----------------------------
