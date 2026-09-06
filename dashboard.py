@@ -683,40 +683,6 @@ div[data-testid="stButton"].view-attendance-btn > button,
     padding: 30px 0;
 }
 
-/* BOTTOM NAVIGATION */
-
-.bottom-nav {
-    position: fixed;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: min(720px, 100%);
-    height: 76px;
-    background: #171717;
-    border-top: 1px solid #292929;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    z-index: 999999;
-}
-
-.nav-item {
-    color: #eeeeee;
-    text-align: center;
-    font-size: 26px;
-    min-width: 65px;
-    line-height: 1;
-}
-
-.nav-text { display: block; font-size: 12px; margin-top: 5px; }
-
-.nav-active {
-    background: #454545;
-    border-radius: 35px;
-    padding: 10px 25px;
-    font-weight: 700;
-}
-
 /* MOBILE */
 
 @media (max-width: 600px) {
