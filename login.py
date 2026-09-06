@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import os
 
 # -----------------------------
@@ -67,19 +66,33 @@ if not os.path.exists(FILE):
 
 # -----------------------------
 # SESSION STATE
+#
+# "auth_view" only toggles between the Login form and the
+# Register form on this page. Once login succeeds, we redirect
+# straight to dashboard.py with st.switch_page() rather than
+# tracking "dashboard" as a state here.
 # -----------------------------
-if "page" not in st.session_state:
-    st.session_state.page = "login"
+if "auth_view" not in st.session_state:
+    st.session_state.auth_view = "login"
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
+if "roll_no" not in st.session_state:
+    st.session_state.roll_no = None
+
+
+# If somebody is already logged in and lands back on this page
+# (e.g. via browser back button), send them straight through.
+if st.session_state.logged_in:
+    st.switch_page("dashboard.py")
+
 
 # =========================================================
-# LOGIN PAGE
+# LOGIN VIEW
 # =========================================================
 
-if st.session_state.page == "login":
+if st.session_state.auth_view == "login":
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -121,10 +134,10 @@ if st.session_state.page == "login":
         if not user.empty:
 
             st.session_state.logged_in = True
-            st.session_state.page = "dashboard"
+            st.session_state.roll_no = roll_no
 
             st.success("Login Successful! 🎉")
-            st.rerun()
+            st.switch_page("dashboard.py")
 
         else:
 
@@ -144,15 +157,15 @@ if st.session_state.page == "login":
 
     if st.button("REGISTER HERE"):
 
-        st.session_state.page = "register"
+        st.session_state.auth_view = "register"
         st.rerun()
 
 
 # =========================================================
-# REGISTRATION PAGE
+# REGISTRATION VIEW
 # =========================================================
 
-elif st.session_state.page == "register":
+elif st.session_state.auth_view == "register":
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -242,7 +255,6 @@ elif st.session_state.page == "register":
                     "Now go back to Login and enter your Roll No and Password."
                 )
 
-
     st.write("")
 
     # -----------------------------
@@ -251,76 +263,5 @@ elif st.session_state.page == "register":
 
     if st.button("← BACK TO LOGIN"):
 
-        st.session_state.page = "login"
-        st.rerun()
-
-
-# =========================================================
-# DASHBOARD
-# =========================================================
-
-elif st.session_state.page == "dashboard":
-
-    st.markdown(
-        '<div class="title">🎓 STUDENT DASHBOARD</div>',
-        unsafe_allow_html=True
-    )
-
-    st.success("Welcome to Student Management System! 🎉")
-
-    st.write("### Student Overview")
-
-    col1, col2, col3 = st.columns(3)
-
-    col1.metric("Students", "50")
-    col2.metric("Attendance", "85%")
-    col3.metric("Subjects", "6")
-
-    # -----------------------------
-    # PERFORMANCE CHART
-    # -----------------------------
-
-    st.write("### Performance")
-
-    data = pd.DataFrame({
-        "Subject": [
-            "Python",
-            "C",
-            "Data Structures",
-            "DBMS",
-            "Maths"
-        ],
-        "Marks": [
-            78,
-            85,
-            72,
-            88,
-            80
-        ]
-    })
-
-    fig, ax = plt.subplots()
-
-    ax.bar(
-        data["Subject"],
-        data["Marks"]
-    )
-
-    ax.set_xlabel("Subjects")
-    ax.set_ylabel("Marks")
-    ax.set_title("Student Performance")
-
-    plt.xticks(rotation=20)
-
-    st.pyplot(fig)
-
-    # -----------------------------
-    # LOGOUT
-    # -----------------------------
-
-    if st.button("LOGOUT"):
-
-        st.session_state.logged_in = False
-        st.session_state.page = "login"
-
+        st.session_state.auth_view = "login"
         st.rerun()
