@@ -22,6 +22,13 @@ st.set_page_config(
 
 
 # ============================================================
+# LOGIN GUARD
+# ============================================================
+
+if not st.session_state.get("logged_in", False):
+    st.switch_page("login.py")
+
+# ============================================================
 # HTML RENDER HELPER
 # (Strips leading whitespace from every line before handing it
 # to st.markdown, so Markdown never mistakes indented HTML for a
