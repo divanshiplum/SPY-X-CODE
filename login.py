@@ -13,6 +13,13 @@ st.set_page_config(
 
 # -----------------------------
 # CSS
+#
+# The whole form lives inside Streamlit's own .block-container.
+# Capping its max-width and giving it auto margins keeps it a
+# fixed, comfortable size AND perfectly centered on any window
+# size — on a small window it just shrinks to fit (max-width is
+# a ceiling, not a fixed width), so this is responsive on its
+# own without needing st.columns to fake centering.
 # -----------------------------
 st.markdown("""
 <style>
@@ -21,11 +28,18 @@ st.markdown("""
     background: linear-gradient(135deg, #0b0b0b, #202020);
 }
 
+.block-container {
+    max-width: clamp(360px, 55vw, 650px);
+    margin: 0 auto;
+    padding-top: 60px;
+}
+
 .title {
     text-align: center;
     color: #d4af37;
-    font-size: 30px;
+    font-size: 26px;
     font-weight: bold;
+    line-height: 1.3;
 }
 
 .subtitle {
@@ -35,8 +49,26 @@ st.markdown("""
     margin-bottom: 25px;
 }
 
+/* The direct parent Streamlit gives a button is set to
+   width: fit-content (it shrink-wraps tightly around the
+   button itself), so centering .stButton inside it has no
+   room to work with. We force that specific wrapper — the
+   stElementContainer that directly holds a .stButton — to
+   take the full available width instead, THEN center the
+   button within that now-full-width space. */
+div[data-testid="stElementContainer"]:has(> div.stButton) {
+    width: 100% !important;
+}
+
+.stButton {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
 .stButton > button {
-    width: 100%;
+    width: auto;
+    min-width: 200px;
     background-color: #d4af37;
     color: black;
     border-radius: 10px;
