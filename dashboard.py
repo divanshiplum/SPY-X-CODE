@@ -6,6 +6,7 @@ from datetime import datetime
 import os
 import math
 import base64
+from nav_bar import render_bottom_nav
 
 
 # ============================================================
@@ -1086,14 +1087,4 @@ else:
 # BOTTOM NAVIGATION
 # ============================================================
 
-render("""
-<div class="bottom-nav">
-    <div class="nav-item">◎</div>
-    <div class="nav-item nav-active">
-        🏠
-        <span class="nav-text">Home</span>
-    </div>
-    <div class="nav-item">📅</div>
-    <div class="nav-item">📊</div>
-</div>
-""")
+render_bottom_nav("dashboard")
