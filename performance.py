@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from nav_bar import render_bottom_nav
+
 # -----------------------------
 # PAGE CONFIGURATION
 # -----------------------------
@@ -9,6 +11,12 @@ st.set_page_config(
     page_title="Student Performance",
     page_icon="🎓",
     layout="wide"
+)
+
+# Leave room at the bottom so the fixed nav bar never covers content
+st.markdown(
+    "<style>.block-container { padding-bottom: 110px; }</style>",
+    unsafe_allow_html=True
 )
 
 
@@ -176,3 +184,10 @@ st.dataframe(
     use_container_width=True,
     hide_index=True
 )
+
+
+# -----------------------------
+# BOTTOM NAVIGATION (shared component — see nav_bar.py)
+# -----------------------------
+
+render_bottom_nav("performance")
