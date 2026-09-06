@@ -2,11 +2,19 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from nav_bar import render_bottom_nav
+
 # Page settings
 st.set_page_config(
     page_title="Student Performance",
     page_icon="📊",
     layout="centered"
+)
+
+# Leave room at the bottom so the fixed nav bar never covers content
+st.markdown(
+    "<style>.block-container { padding-bottom: 110px; }</style>",
+    unsafe_allow_html=True
 )
 
 # Title
@@ -230,3 +238,10 @@ with col3:
         "Lowest Marks",
         df["Marks"].min()
     )
+
+
+# -------------------------
+# BOTTOM NAVIGATION (shared component — see nav_bar.py)
+# -------------------------
+
+render_bottom_nav("marks")
