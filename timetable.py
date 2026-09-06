@@ -1,5 +1,7 @@
 import streamlit as st
 from datetime import datetime
+from nav_bar import render_bottom_nav
+
 
 
 # ============================================================
@@ -484,3 +486,5 @@ def show_day(day_name, day_lectures):
 
 
 show_day(selected_day, lectures)
+
+render_bottom_nav("timetable")
