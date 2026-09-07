@@ -6,7 +6,7 @@ import os
 # PAGE SETTINGS
 # -----------------------------
 st.set_page_config(
-    page_title="Student Management System",
+    page_title="HC NEXUS",
     page_icon="🎓",
     layout="centered"
 )
@@ -129,7 +129,7 @@ if st.session_state.auth_view == "login":
     st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown(
-        '<div class="title">🎓 STUDENT MANAGEMENT SYSTEM</div>',
+        '<div class="title">🎓 HC NEXUS</div>',
         unsafe_allow_html=True
     )
 
@@ -202,7 +202,7 @@ elif st.session_state.auth_view == "register":
     st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown(
-        '<div class="title">🎓 STUDENT MANAGEMENT SYSTEM</div>',
+        '<div class="title">🎓 HC NEXUS</div>',
         unsafe_allow_html=True
     )
 
