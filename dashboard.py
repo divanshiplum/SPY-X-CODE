@@ -744,8 +744,6 @@ else:
 # TOP HEADER
 # ============================================================
 
-section_html = f'<div class="student-section">{SECTION}</div>' if SECTION else ""
-
 render(f"""
 <div class="top-header">
     <div class="profile-area">
@@ -753,7 +751,6 @@ render(f"""
         <div class="profile-text">
             <div class="greeting">{greeting}</div>
             <div class="student-name">{STUDENT_NAME}</div>
-            {section_html}
         </div>
     </div>
     <div class="top-actions">
