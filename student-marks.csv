@@ -1,10 +1,9 @@
 Subject,Type,Marks
 Computer Architecture,Theory,82
-Computer Hardware Lab,Practical,88
-Cyber Security,Theory,78
-Cyber Security Lab,Practical,84
+Computer Architecture (Lab),Practical,88
+Cybersecurity Fundamentals,Theory,78
+Cybersecurity Fundamentals (Lab),Practical,84
 Information System,Theory,80
 Data Structure,Theory,76
-Data Structure Lab,Practical,90
+Data Structure (Lab),Practical,90
 Operating System,Theory,85
-Operating System Lab,Practical,92
