@@ -22,13 +22,6 @@ st.set_page_config(
 
 
 # ============================================================
-# LOGIN GUARD
-# ============================================================
-
-if not st.session_state.get("logged_in", False):
-    st.switch_page("login.py")
-
-# ============================================================
 # HTML RENDER HELPER
 # (Strips leading whitespace from every line before handing it
 # to st.markdown, so Markdown never mistakes indented HTML for a
@@ -49,8 +42,6 @@ STUDENT_NAME = "Divanshi"
 COURSE = "Bachelor's in Computer Application"
 SEMESTER = 3
 CGPA = 7.45
-
-SECTION = ""  # optional line under the name, leave blank to hide
 
 STUDENT_IMAGE = "student.jpg"
 ATTENDANCE_CSV = "attendance_records.csv"
