@@ -27,67 +27,107 @@ st.markdown(
 # Title
 st.title("📊 Student Performance Analysis")
 
-st.write("Enter subjects and their marks.")
+st.write("Enter each subject and its marks — one row per subject.")
 
 
 # -------------------------
-# INPUT SECTION
+# DEFAULT DATA
 # -------------------------
 
-# Two columns
-col1, col2 = st.columns(2)
-
-# Left side - Subjects
-with col1:
-    st.subheader("Subjects")
-
-    subjects_input = st.text_area(
-        "Enter Subjects (one per line)",
-        value="""Computer Architecture
-Cybersecurity
-Information System
-Data Structure
-Operating System""",
-        height=180
-    )
-
-
-# Right side - Marks
-with col2:
-    st.subheader("Marks")
-
-    marks_input = st.text_area(
-        "Enter Marks (one per line)",
-        value="""85
-72
-90
-65
-78""",
-        height=180
-    )
-
-
-# -------------------------
-# CONVERT SUBJECTS TO LIST
-# -------------------------
-
-subjects = [
-    x.strip()
-    for x in subjects_input.split("\n")
-    if x.strip()
+DEFAULT_SUBJECTS = [
+    "Computer Architecture",
+    "Cybersecurity",
+    "Information System",
+    "Data Structure",
+    "Operating System",
 ]
 
+DEFAULT_MARKS = [85, 72, 90, 65, 78]
+
 
 # -------------------------
-# CONVERT MARKS TO LIST
+# TABLE-STYLE INPUT SECTION
+#
+# Each subject gets its own row, with a subject field and a marks
+# field side by side — plain st.text_input fields (same kind used
+# for a first/last name form), just laid out one row per subject
+# instead of one big multi-line box.
+#
+# Each row is its own st.container(key=...) forced into a flex row
+# via CSS (same technique used for the nav bar and day selector),
+# rather than st.columns, so this stays a proper table layout even
+# on a narrow screen instead of the subject/marks fields stacking
+# on top of each other.
+# -------------------------
+
+st.markdown("""
+<style>
+div.stVerticalBlock[class*="st-key-marks_row_"] {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+    align-items: flex-end !important;
+}
+
+div.stVerticalBlock[class*="st-key-marks_row_"] > div:nth-child(1) {
+    flex: 3 1 0px !important;
+    min-width: 0 !important;
+}
+
+div.stVerticalBlock[class*="st-key-marks_row_"] > div:nth-child(2) {
+    flex: 1 1 0px !important;
+    min-width: 0 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+subjects = []
+marks_raw = []
+
+for i in range(len(DEFAULT_SUBJECTS)):
+
+    with st.container(key=f"marks_row_{i}"):
+
+        subject_val = st.text_input(
+            "Subject",
+            value=DEFAULT_SUBJECTS[i],
+            key=f"subject_{i}",
+            label_visibility="visible" if i == 0 else "collapsed",
+        )
+
+        marks_val = st.text_input(
+            "Marks",
+            value=str(DEFAULT_MARKS[i]),
+            key=f"marks_{i}",
+            label_visibility="visible" if i == 0 else "collapsed",
+        )
+
+    subjects.append(subject_val)
+    marks_raw.append(marks_val)
+
+
+# -------------------------
+# CLEAN UP SUBJECTS
+# (skip any row left completely blank)
+# -------------------------
+
+rows = [
+    (s.strip(), m.strip())
+    for s, m in zip(subjects, marks_raw)
+    if s.strip()
+]
+
+subjects = [s for s, m in rows]
+marks_text = [m for s, m in rows]
+
+
+# -------------------------
+# CONVERT MARKS TO NUMBERS
 # -------------------------
 
 try:
-    marks = [
-        int(x.strip())
-        for x in marks_input.split("\n")
-        if x.strip()
-    ]
+    marks = [int(m) for m in marks_text]
 
 except ValueError:
     st.error("⚠️ Please enter marks only in numbers.")
