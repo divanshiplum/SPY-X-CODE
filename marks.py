@@ -6,7 +6,7 @@ from nav_bar import render_bottom_nav
 
 # Page settings
 st.set_page_config(
-    page_title="Student Performance",
+    page_title="Student Marks",
     page_icon="📊",
     layout="centered"
 )
@@ -18,10 +18,7 @@ st.markdown(
 )
 
 # Title
-st.title("📊 Student Performance Analysis")
-
-st.write("Enter each subject and its marks — one row per subject.")
-
+st.title("📊 Student Marks Analysis")
 
 # -------------------------
 # DEFAULT DATA
