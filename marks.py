@@ -200,7 +200,7 @@ st.dataframe(
 # PERFORMANCE ANALYSIS
 # -------------------------
 
-st.subheader("📈 Performance Analysis")
+st.subheader("📈 Marks Analysis")
 
 # Create chart
 fig, ax = plt.subplots(figsize=(10, 5))
