@@ -215,7 +215,7 @@ ax.plot(
 
 # Chart title
 ax.set_title(
-    "Student Performance Analysis"
+    "Student Marks Analysis"
 )
 
 # Labels
