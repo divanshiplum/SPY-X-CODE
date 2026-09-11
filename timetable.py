@@ -34,7 +34,6 @@ def render(content: str):
 #
 # type   -> "Lecture" or "Practical" (drives the card color + pill)
 # room   -> shown as a location pill
-# group  -> shown as a group pill (e.g. "GP-All", "GP-B")
 # ============================================================
 
 timetable = {
