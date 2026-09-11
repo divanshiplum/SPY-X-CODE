@@ -41,9 +41,9 @@ timetable = {
 
     "Monday": [
         {"start": "09:00", "end": "09:40", "subject": "Computer Architecture",
-         "teacher": "Manpreet Kaur", "type": "Lecture", "room": "R-115", "group": "GP-All"},
+         "teacher": "Manpreet Kaur Dhaliwal", "type": "Lecture", "room": "R-115", "group": "GP-All"},
         {"start": "09:40", "end": "10:20", "subject": "Cybersecurity Fundamentals",
-         "teacher": "Manpreet Kaur", "type": "Lecture", "room": "R-006", "group": "GP-All"},
+         "teacher": "Manpreet Kaur Dhaliwal", "type": "Lecture", "room": "R-006", "group": "GP-All"},
         {"start": "10:20", "end": "11:00", "subject": "Information System",
          "teacher": "Neha Sharma", "type": "Lecture", "room": "R-115", "group": "GP-All"},
         {"start": "11:00", "end": "11:40", "subject": "Data Structure",
@@ -54,9 +54,9 @@ timetable = {
 
     "Tuesday": [
         {"start": "09:00", "end": "09:40", "subject": "Computer Architecture",
-         "teacher": "Manpreet Kaur", "type": "Lecture", "room": "R-115", "group": "GP-All"},
+         "teacher": "Manpreet Kaur Dhaliwal", "type": "Lecture", "room": "R-115", "group": "GP-All"},
         {"start": "09:40", "end": "10:20", "subject": "Cybersecurity Fundamentals",
-         "teacher": "Manpreet Kaur", "type": "Lecture", "room": "R-006", "group": "GP-All"},
+         "teacher": "Manpreet Kaur Dhaliwal", "type": "Lecture", "room": "R-006", "group": "GP-All"},
         {"start": "10:20", "end": "11:00", "subject": "Information System",
          "teacher": "Neha Sharma", "type": "Lecture", "room": "R-115", "group": "GP-All"},
         {"start": "11:00", "end": "11:40", "subject": "Data Structure",
@@ -67,9 +67,9 @@ timetable = {
 
     "Wednesday": [
         {"start": "09:00", "end": "09:40", "subject": "Computer Architecture",
-         "teacher": "Manpreet Kaur", "type": "Lecture", "room": "R-115", "group": "GP-All"},
+         "teacher": "Manpreet Kaur Dhaliwal", "type": "Lecture", "room": "R-115", "group": "GP-All"},
         {"start": "09:40", "end": "10:20", "subject": "Cybersecurity Fundamentals",
-         "teacher": "Manpreet Kaur", "type": "Lecture", "room": "R-006", "group": "GP-All"},
+         "teacher": "Manpreet Kaur Dhaliwal", "type": "Lecture", "room": "R-006", "group": "GP-All"},
         {"start": "10:20", "end": "11:00", "subject": "Information System",
          "teacher": "Neha Sharma", "type": "Lecture", "room": "R-115", "group": "GP-All"},
         {"start": "11:00", "end": "11:40", "subject": "Data Structure",
@@ -95,7 +95,7 @@ timetable = {
         {"start": "09:00", "end": "09:40", "subject": "Computer Architecture",
          "teacher": "Manpreet Kaur Dhaliwal", "type": "Lecture", "room": "R-115", "group": "GP-All"},
         {"start": "09:40", "end": "10:20", "subject": "Cybersecurity Fundamentals",
-         "teacher": "Manpreet Kaur", "type": "Practical", "room": "R-LA3", "group": "GP-B"},
+         "teacher": "Manpreet Kaur Dhaliwal", "type": "Practical", "room": "R-LA3", "group": "GP-B"},
         {"start": "10:20", "end": "11:00", "subject": "Information System",
          "teacher": "Neha Sethi", "type": "Lecture", "room": "R-115", "group": "GP-All"},
         {"start": "11:00", "end": "11:40", "subject": "Data Structure",
@@ -106,9 +106,9 @@ timetable = {
 
     "Saturday": [
         {"start": "09:00", "end": "09:40", "subject": "Computer Architecture",
-         "teacher": "Manpreet Kaur", "type": "Lecture", "room": "R-115", "group": "GP-All"},
+         "teacher": "Manpreet Kaur Dhaliwal", "type": "Lecture", "room": "R-115", "group": "GP-All"},
         {"start": "09:40", "end": "10:20", "subject": "Cybersecurity Fundamentals",
-         "teacher": "Manpreet Kaur", "type": "Practical", "room": "R-LA3", "group": "GP-B"},
+         "teacher": "Manpreet Kaur Dhaliwal", "type": "Practical", "room": "R-LA3", "group": "GP-B"},
         {"start": "10:20", "end": "11:00", "subject": "Information System",
          "teacher": "Neha Sethi", "type": "Lecture", "room": "R-115", "group": "GP-All"},
         {"start": "11:00", "end": "11:40", "subject": "Data Structure",
