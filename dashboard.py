@@ -274,16 +274,16 @@ footer { visibility: hidden; }
     line-height: 1;
 }
 
-/* COURSE CARD */
+/* COURSE CARD — TOP HALF (decorative HTML: name, CGPA, divider) */
 
-.course-card {
+.course-card-top {
     width: 100%;
     box-sizing: border-box;
     background: #1d1d1d;
-    border-radius: 27px;
-    padding: 25px 20px 15px 20px;
-    margin-bottom: 24px;
     border: 1px solid #252525;
+    border-bottom: none;
+    border-radius: 27px 27px 0 0;
+    padding: 25px 20px 15px 20px;
 }
 
 .course-row {
@@ -322,38 +322,66 @@ footer { visibility: hidden; }
     margin: 20px 0 0 0;
 }
 
-/* QUICK MENU: 3 columns x 2 rows, compact sizing */
-
-.quick-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    row-gap: 14px;
-    padding-top: 14px;
+/* COURSE CARD — BOTTOM HALF (real st.button quick-menu, two rows).
+   No st.columns here — same reason as everywhere else in this
+   app: it stacks vertically on a narrow screen. Each row is its
+   own keyed container forced into a flex row via CSS, matching
+   the same technique already proven to work for the bottom nav
+   bar and the timetable day selector. This replaces the old
+   decorative (non-clickable) HTML grid + a fragile absolute-
+   positioned invisible button, which is what wasn't actually
+   clickable before. */
+/* Wraps the top HTML section + both button rows together so
+   Streamlit's default gap between sibling elements doesn't show
+   through as a visible seam between them — this makes the whole
+   thing read as one continuous card again, not two stacked ones. */
+div.stVerticalBlock[class*="st-key-course_card_full"] {
+    gap: 0 !important;
 }
 
-.quick-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+div.stVerticalBlock[class*="st-key-quick_row_1"],
+div.stVerticalBlock[class*="st-key-quick_row_2"] {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
+    background: #1d1d1d;
+    border-left: 1px solid #252525;
+    border-right: 1px solid #252525;
+    padding: 8px 16px;
 }
 
-.icon-wrap {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5px;
+div.stVerticalBlock[class*="st-key-quick_row_2"] {
+    border-bottom: 1px solid #252525;
+    border-radius: 0 0 27px 27px;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
 }
 
-.quick-icon { font-size: 21px; line-height: 1; }
+div.stVerticalBlock[class*="st-key-quick_row_1"] > div,
+div.stVerticalBlock[class*="st-key-quick_row_2"] > div {
+    flex: 1 1 0px !important;
+    min-width: 0 !important;
+}
 
-.quick-title {
+div.stVerticalBlock[class*="st-key-quick_row_1"] .stButton > button,
+div.stVerticalBlock[class*="st-key-quick_row_2"] .stButton > button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     color: #eeeeee;
-    font-size: 12px;
+    white-space: pre-line;
+    line-height: 1.6;
+    font-size: 13px;
     font-weight: 600;
+    padding: 8px 2px;
+    width: 100%;
+}
+
+div.stVerticalBlock[class*="st-key-quick_row_1"] .stButton > button:hover,
+div.stVerticalBlock[class*="st-key-quick_row_2"] .stButton > button:hover {
+    background: rgba(255,255,255,0.05) !important;
+    border-radius: 10px;
 }
 
 /* SUBJECT HEADER */
@@ -699,13 +727,22 @@ div[data-testid="stButton"].view-attendance-btn > button,
     .top-actions { gap: 9px; }
     .top-icon { font-size: 24px; }
 
-    .course-card { padding: 22px 17px 12px 17px; border-radius: 24px; }
+    .course-card-top { padding: 22px 17px 12px 17px; border-radius: 24px 24px 0 0; }
     .course-name { font-size: 18px; }
     .cgpa-title { font-size: 13px; }
     .cgpa-value { font-size: 34px; }
 
-    .quick-icon { font-size: 19px; }
-    .quick-title { font-size: 10px; }
+    div.stVerticalBlock[class*="st-key-quick_row_1"],
+    div.stVerticalBlock[class*="st-key-quick_row_2"] {
+        padding: 6px 13px;
+    }
+    div.stVerticalBlock[class*="st-key-quick_row_2"] {
+        border-radius: 0 0 24px 24px;
+    }
+    div.stVerticalBlock[class*="st-key-quick_row_1"] .stButton > button,
+    div.stVerticalBlock[class*="st-key-quick_row_2"] .stButton > button {
+        font-size: 11px;
+    }
 
     .subjects-title { font-size: 24px; }
     .filter { font-size: 14px; }
@@ -763,12 +800,29 @@ render(f"""
 
 
 # ============================================================
-# COURSE CARD (only shown on the subject list, not the detail view)
+# COURSE CARD
+#
+# Top half is decorative HTML (name, CGPA, divider). Bottom half
+# is the quick-menu, now built from real st.button widgets in two
+# keyed flex-row containers instead of decorative <div>s, so
+# "Date Sheet" (and every other tile) is a genuinely clickable
+# button rather than something we tried to overlay a hidden
+# button on top of.
 # ============================================================
 
-def render_course_card():
+QUICK_ITEMS = [
+    ("✉️", "Messages", None),
+    ("📅", "Date Sheet", "datesheet.py"),
+    ("🧑‍🏫", "Leaves", None),
+    ("🔊", "Notices", None),
+    ("💲", "Fees", None),
+    ("🎫", "ID Card", None),
+]
+
+
+def render_course_card_top():
     render(f"""
-    <div class="course-card">
+    <div class="course-card-top">
         <div class="course-row">
             <div class="course-left">
                 <div class="course-name">
@@ -782,34 +836,19 @@ def render_course_card():
             </div>
         </div>
         <div class="divider"></div>
-        <div class="quick-grid">
-            <div class="quick-item">
-                <div class="icon-wrap"><div class="quick-icon">✉️</div></div>
-                <div class="quick-title">Messages</div>
-            </div>
-            <div class="quick-item">
-                <div class="icon-wrap"><div class="quick-icon">📅</div></div>
-                <div class="quick-title">Date Sheet</div>
-            </div>
-            <div class="quick-item">
-                <div class="icon-wrap"><div class="quick-icon">🧑‍🏫</div></div>
-                <div class="quick-title">Leaves</div>
-            </div>
-            <div class="quick-item">
-                <div class="icon-wrap"><div class="quick-icon">🔊</div></div>
-                <div class="quick-title">Notices</div>
-            </div>
-            <div class="quick-item">
-                <div class="icon-wrap"><div class="quick-icon">💲</div></div>
-                <div class="quick-title">Fees</div>
-            </div>
-            <div class="quick-item">
-                <div class="icon-wrap"><div class="quick-icon">🎫</div></div>
-                <div class="quick-title">ID Card</div>
-            </div>
-        </div>
     </div>
     """)
+
+
+def render_quick_menu():
+    rows = [QUICK_ITEMS[0:3], QUICK_ITEMS[3:6]]
+
+    for row_index, row_items in enumerate(rows, start=1):
+        with st.container(key=f"quick_row_{row_index}"):
+            for icon, label, target_page in row_items:
+                if st.button(f"{icon}\n{label}", key=f"quick_{label}"):
+                    if target_page:
+                        st.switch_page(target_page)
 
 
 # ============================================================
@@ -918,8 +957,10 @@ def subject_card_html(row, standalone=False):
 
 def render_subject_list():
 
-    render_course_card()
-
+    with st.container(key="course_card_full"):
+        render_course_card_top()
+        render_quick_menu()
+        
     render(f"""
     <div class="subjects-header">
         <div class="subjects-title">Your Subjects</div>
