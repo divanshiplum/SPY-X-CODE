@@ -791,7 +791,6 @@ render(f"""
         </div>
     </div>
     <div class="top-actions">
-        <div class="top-icon">＋</div>
         <div class="top-icon">⚙</div>
         <div class="top-icon">☰</div>
     </div>
