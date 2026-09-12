@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 from pathlib import Path
 
 # ============================================================
@@ -10,8 +9,94 @@ from pathlib import Path
 st.set_page_config(
     page_title="Important Message",
     page_icon="📢",
-    layout="wide"
+    layout="centered",
+    initial_sidebar_state="collapsed"
 )
+
+# ============================================================
+# HTML RENDER HELPER
+# ============================================================
+
+def render(content: str):
+    lines = content.strip("\n").split("\n")
+    flat = "\n".join(line.strip() for line in lines)
+    st.markdown(flat, unsafe_allow_html=True)
+
+
+# ============================================================
+# CSS — dark header bar (back / title / refresh) on a plain
+# white body, matching the reference screenshot. Same header
+# pattern already used on datesheet.py.
+# ============================================================
+
+render("""
+<style>
+
+.stApp {
+    background: #ffffff;
+    color: #111111;
+}
+
+.block-container {
+    max-width: 720px;
+    padding: 0;
+}
+
+header { visibility: hidden; height: 0; }
+footer { visibility: hidden; }
+#MainMenu { visibility: hidden; }
+
+.msg-header-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    flex: 1;
+    text-align: center;
+}
+
+div.stVerticalBlock[class*="st-key-msg_header_row"] {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    background: #000000;
+    padding: 12px 16px;
+    gap: 8px;
+}
+
+div.stVerticalBlock[class*="st-key-msg_header_row"] > div:nth-child(2) {
+    flex: 1;
+}
+
+div[class*="st-key-msg_back"] .stButton > button,
+div[class*="st-key-msg_refresh"] .stButton > button {
+    background: #1c1c1c;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+    padding: 0;
+}
+
+div[class*="st-key-msg_back"] .stButton > button:hover,
+div[class*="st-key-msg_refresh"] .stButton > button:hover {
+    background: #333333;
+}
+
+.msg-body {
+    padding: 20px 16px;
+}
+
+.msg-body p {
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+}
+
+</style>
+""")
+
 
 # ============================================================
 # FILE PATHS
@@ -19,20 +104,39 @@ st.set_page_config(
 
 BASE_DIR = Path(__file__).resolve().parent
 
-attendance_file = BASE_DIR / "attendance_record.csv"
+attendance_file = BASE_DIR / "attendance_records.csv"
+attendance_messages_file = BASE_DIR / "attendance_messages.csv"
 messages_file = BASE_DIR / "messages.csv"
 
 
 # ============================================================
+# HEADER (back arrow, title, refresh)
+# ============================================================
+
+with st.container(key="msg_header_row"):
+
+    if st.button("‹", key="msg_back"):
+        st.switch_page("dashboard.py")
+
+    render('<div class="msg-header-title">Important Message</div>')
+
+    if st.button("⟳", key="msg_refresh"):
+        st.rerun()
+
+
+# ============================================================
 # CHECK ATTENDANCE FILE
+# (used further down for House Test Eligibility)
 # ============================================================
 
 if not attendance_file.exists():
 
+    render('<div class="msg-body">')
     st.error(
-        "attendance_record.csv file nahi mili. "
+        "attendance_records.csv file not found. "
         "Please make sure it is present in the project folder."
     )
+    render('</div>')
 
     st.stop()
 
@@ -61,73 +165,46 @@ attendance_df["date"] = pd.to_datetime(
 
 
 # ============================================================
-# CREATE MESSAGES FROM ATTENDANCE RECORD
+# READ ATTENDANCE MESSAGES FROM attendance_messages.csv
+#
+# These messages are pre-generated from attendance_records.csv
+# (one row per Absent class) rather than recomputed here on every
+# run — see generate_attendance_messages.py if you need to
+# regenerate this file after attendance_records.csv changes.
 # ============================================================
-
-absent_df = attendance_df[
-    attendance_df["status"]
-    .astype(str)
-    .str.strip()
-    .str.lower()
-    == "absent"
-].copy()
-
 
 attendance_messages = []
 
+if attendance_messages_file.exists():
 
-for _, row in absent_df.sort_values(
-    "date",
-    ascending=False
-).iterrows():
+    attendance_messages_df = pd.read_csv(attendance_messages_file)
 
-    course = str(row["code"]).strip()
-
-    date = row["date"]
-
-    instructor = str(
-        row.get("instructor", "")
-    ).strip()
-
-
-    # Format date
-    if pd.isna(date):
-
-        date_text = "Unknown date"
-
-    else:
-
-        date_text = date.strftime(
-            "%d %B %Y"
-        )
-
-
-    # Create attendance message
-    message = (
-        f"Attendance is marked **Absent** "
-        f"for **{course}** "
-        f"on **{date_text}**."
+    attendance_messages_df.columns = (
+        attendance_messages_df.columns.str.strip()
     )
 
+    attendance_messages_df["date"] = pd.to_datetime(
+        attendance_messages_df["date"],
+        errors="coerce"
+    )
 
-    # Add instructor if available
-    if instructor and instructor.lower() != "nan":
+    attendance_messages_df = attendance_messages_df.sort_values(
+        "date",
+        ascending=False
+    )
 
-        message += (
-            f" Instructor: **{instructor}**."
-        )
+    for _, row in attendance_messages_df.iterrows():
 
+        attendance_messages.append({
 
-    attendance_messages.append({
+            "type": str(row.get("type", "Attendance")),
 
-        "type": "Attendance",
+            "date": row["date"],
 
-        "date": date,
+            "title": str(row.get("title", "Attendance Notice")),
 
-        "title": "Attendance Notice",
-
-        "message": message
-    })
+            "message": str(row.get("message", ""))
+        })
 
 
 # ============================================================
@@ -188,25 +265,84 @@ all_messages = (
 
 
 # ============================================================
-# PAGE TITLE
+# HOUSE TEST ELIGIBILITY
+#
+# Computed directly from attendance_records.csv — the same 75%
+# threshold used on the dashboard's attendance cards ("Attend N
+# more to recover" / "Safe to miss N classes"). No table, no
+# chart — just a plain eligible/not-eligible line per subject,
+# matching the flat message-list style of the rest of this page.
 # ============================================================
 
-st.title("Important Message")
+ELIGIBILITY_THRESHOLD = 75
 
+# Friendly subject names for the raw course codes in
+# attendance_records.csv — falls back to the raw code for any
+# code not listed here.
+CODE_TO_SUBJECT = {
+    "23CSR-449": "Data Structure",
+    "SPO-113": "Computer Architecture",
+    "23BDA-401": "Information System",
+    "23BDA-402": "Cybersecurity Fundamentals",
+    "23BDA-403": "Operating System",
+}
 
-st.write(
-    "View important notices, attendance alerts "
-    "and other messages."
+eligibility_counts = (
+    attendance_df
+    .groupby("code")["status"]
+    .value_counts()
+    .unstack(fill_value=0)
 )
 
+if "Present" not in eligibility_counts.columns:
+    eligibility_counts["Present"] = 0
+
+if "Absent" not in eligibility_counts.columns:
+    eligibility_counts["Absent"] = 0
+
+eligibility_counts["Total"] = (
+    eligibility_counts["Present"] + eligibility_counts["Absent"]
+)
+
+eligibility_rows = []
+
+for code, row in eligibility_counts.iterrows():
+
+    total = int(row["Total"])
+    present = int(row["Present"])
+
+    if total == 0:
+        continue
+
+    percentage = round(present / total * 100)
+    is_eligible = percentage >= ELIGIBILITY_THRESHOLD
+    subject_name = CODE_TO_SUBJECT.get(code, code)
+
+    if is_eligible:
+        message = (
+            f"You are **eligible** for the House Test in "
+            f"**{subject_name}** — attendance is **{percentage}%** "
+            f"({present}/{total})."
+        )
+    else:
+        message = (
+            f"You are **NOT eligible** for the House Test in "
+            f"**{subject_name}** — attendance is only **{percentage}%** "
+            f"({present}/{total}), below the required "
+            f"{ELIGIBILITY_THRESHOLD}%."
+        )
+
+    eligibility_rows.append({
+        "title": "House Test Eligibility",
+        "message": message,
+    })
+
 
 # ============================================================
-# DISPLAY MESSAGES AS A LIST
-# Screenshot-like format
+# PAGE BODY
 # ============================================================
 
-st.subheader("📢 Messages")
-
+render('<div class="msg-body">')
 
 if len(all_messages) > 0:
 
@@ -229,14 +365,9 @@ else:
 # PENDING DOCUMENT MESSAGE
 # ============================================================
 
-st.markdown("---")
-
-st.subheader("📄 Pending Documents")
-
-
 st.markdown(
     """
-• **1. Pending Documents:** The status of
+- **1. Pending Documents:** The status of
 Pending documents is as given below, you
 are required to submit the same in
 **Block-B1 (Room No. 208 - General category)**
@@ -255,122 +386,25 @@ st.markdown(
     "**Document Remarks:** NO DOCUMENTS PENDING"
 )
 
-
-st.markdown("• [Leave Message]")
-
-st.markdown("• [Other Message]")
-
-
 # ============================================================
-# ATTENDANCE SUMMARY
+# HOUSE TEST ELIGIBILITY
 # ============================================================
 
-st.markdown("---")
+for item in eligibility_rows:
 
-st.subheader("📊 Attendance Summary")
-
-
-summary = (
-    attendance_df
-    .groupby("code")["status"]
-    .value_counts()
-    .unstack(fill_value=0)
-)
-
-
-# Make sure Present and Absent columns exist
-
-if "Present" not in summary.columns:
-
-    summary["Present"] = 0
-
-
-if "Absent" not in summary.columns:
-
-    summary["Absent"] = 0
-
-
-# Total classes
-
-summary["Total"] = (
-    summary["Present"]
-    + summary["Absent"]
-)
-
-
-# Attendance percentage
-
-summary["Attendance %"] = (
-    summary["Present"]
-    / summary["Total"]
-    * 100
-).round(2)
-
-
-# Display dataframe
-
-st.dataframe(
-    summary,
-    use_container_width=True
-)
-
-
-# ============================================================
-# MATPLOTLIB CHART
-# ============================================================
-
-st.subheader("📈 Attendance Overview")
-
-
-if not summary.empty:
-
-    fig, ax = plt.subplots()
-
-
-    ax.bar(
-        summary.index,
-        summary["Attendance %"]
+    st.markdown(
+        f"• **{item['title']}:** "
+        f"{item['message']}"
     )
-
-
-    ax.set_title(
-        "Subject-wise Attendance Percentage"
-    )
-
-    ax.set_xlabel(
-        "Subject / Course Code"
-    )
-
-    ax.set_ylabel(
-        "Attendance (%)"
-    )
-
-
-    ax.set_ylim(
-        0,
-        100
-    )
-
-
-    plt.xticks(
-        rotation=45,
-        ha="right"
-    )
-
-
-    plt.tight_layout()
-
-
-    st.pyplot(fig)
 
 
 # ============================================================
 # FOOTER
 # ============================================================
 
-st.markdown("---")
-
 st.caption(
     "📢 Please check this page regularly "
     "for important updates."
 )
+
+render('</div>')

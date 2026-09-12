@@ -810,7 +810,7 @@ render(f"""
 # ============================================================
 
 QUICK_ITEMS = [
-    ("✉️", "Messages", None),
+    ("✉️", "Messages", "messages.py"),
     ("📅", "Date Sheet", "datesheet.py"),
     ("🧑‍🏫", "Leaves", None),
     ("🔊", "Notices", None),
