@@ -98,7 +98,7 @@ def render_bottom_nav(active: str):
             st.switch_page("dashboard.py")
 
         if st.button(
-            "📅",
+            "📆",
             key="nav_timetable",
             use_container_width=True,
             type="primary" if active == "timetable" else "secondary",
