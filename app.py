@@ -19,8 +19,7 @@ pg = st.navigation(
         st.Page("timetable.py", title="TimeTable"),
         st.Page("performance.py", title="Performance"),
         st.Page("datesheet.py", title="Date Sheet"),
-
-        # NEW: Messages page
+        st.Page("notices.py", title="Notices"),
         st.Page("messages.py", title="Messages"),
     ],
     position="hidden",
