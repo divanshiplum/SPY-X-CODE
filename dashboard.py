@@ -815,7 +815,7 @@ QUICK_ITEMS = [
     ("🧑‍🏫", "Leaves", None),
     ("🔊", "Notices", "notices.py"),
     ("💲", "Fees", None),
-    ("🎫", "ID Card", None),
+    ("🎫", "ID Card", "id-card.py"),
 ]
 
 
