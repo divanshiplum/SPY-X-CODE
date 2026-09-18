@@ -42,8 +42,8 @@ def render(content: str):
 
 BASE_DIR = Path(__file__).resolve().parent
 
-FEES_CSV = BASE_DIR / "fees.csv"
-LOGO_PATH = BASE_DIR / "assets" / "logo.jfif"        # path as given
+FEES_CSV = BASE_DIR.parent / "data" / "fees.csv"
+LOGO_PATH = BASE_DIR.parent / "assets" / "logo.jfif"        # path as given
 
 
 # ============================================================
@@ -744,8 +744,8 @@ def render_receipt_detail(receipt_no: str):
     with st.container(key="fees_header_row"):
 
         if st.button("‹", key="fees_detail_back"):
-            st.session_state.selected_receipt = None
-            st.rerun()
+         st.session_state.selected_receipt = None
+         st.rerun()
 
         render(f"""
         <div class="fees-detail-title-wrap">
@@ -833,7 +833,7 @@ def render_fees_list():
     with st.container(key="fees_header_row"):
 
         if st.button("‹ Home", key="fees_home_back"):
-            st.switch_page("dashboard.py")
+            st.switch_page("pages/dashboard.py")
 
         render('<div class="fees-header-title">Fee Statements</div>')
 

@@ -3,26 +3,28 @@ import streamlit as st
 # ============================================================
 # APP ROUTER
 #
-# login.py is the default page — it's shown first when you run
-# `streamlit run app.py`.
-#
-# position="hidden" turns off Streamlit's own sidebar page list,
-# since dashboard.py / marks.py / timetable.py / performance.py
-# render their own navigation.
+# All page modules now live under pages/, including nav_bar.py
+# and login.py — so every st.Page() call below needs the
+# "pages/" prefix. nav_bar.py is a shared helper, not a page
+# itself, so it's intentionally NOT listed here even though it
+# physically sits in the pages/ folder — st.navigation() takes
+# full manual control of what's registered, so Streamlit's own
+# automatic "every .py in pages/ is a page" discovery never
+# kicks in.
 # ============================================================
 
 pg = st.navigation(
     [
-        st.Page("login.py", title="Login", default=True),
-        st.Page("dashboard.py", title="Home"),
-        st.Page("marks.py", title="Marks"),
-        st.Page("timetable.py", title="TimeTable"),
-        st.Page("performance.py", title="Performance"),
-        st.Page("datesheet.py", title="Date Sheet"),
-        st.Page("notices.py", title="Notices"),
-        st.Page("messages.py", title="Messages"),
-        st.Page("id-card.py", title="ID Card"),
-        st.Page("fees.py", title="Fees")
+        st.Page("pages/login.py", title="Login", default=True),
+        st.Page("pages/dashboard.py", title="Home"),
+        st.Page("pages/marks.py", title="Marks"),
+        st.Page("pages/timetable.py", title="TimeTable"),
+        st.Page("pages/performance.py", title="Performance"),
+        st.Page("pages/datesheet.py", title="Date Sheet"),
+        st.Page("pages/notices.py", title="Notices"),
+        st.Page("pages/messages.py", title="Messages"),
+        st.Page("pages/id-card.py", title="ID Card"),
+        st.Page("pages/fees.py", title="Fees"),
     ],
     position="hidden",
 )

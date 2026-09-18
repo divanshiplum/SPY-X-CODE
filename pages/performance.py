@@ -34,7 +34,7 @@ st.markdown(
 # -----------------------------
 # LOAD CSV FILE
 # -----------------------------
-df = pd.read_csv("student-marks.csv")
+df = pd.read_csv("data/student-marks.csv")
 
 
 # -----------------------------

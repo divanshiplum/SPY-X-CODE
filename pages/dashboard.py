@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent))
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -44,7 +48,7 @@ SEMESTER = 3
 CGPA = 7.45
 
 STUDENT_IMAGE = "student.jpg"
-ATTENDANCE_CSV = "attendance_records.csv"
+ATTENDANCE_CSV = "data/attendance_records.csv"
 
 
 # ============================================================
@@ -810,12 +814,12 @@ render(f"""
 # ============================================================
 
 QUICK_ITEMS = [
-    ("✉️", "Messages", "messages.py"),
-    ("📅", "Date Sheet", "datesheet.py"),
+    ("✉️", "Messages", "pages/messages.py"),
+    ("📅", "Date Sheet", "pages/datesheet.py"),
     ("🧑‍🏫", "Leaves", None),
-    ("🔊", "Notices", "notices.py"),
-    ("💲", "Fees", "fees.py"),
-    ("🎫", "ID Card", "id-card.py"),
+    ("🔊", "Notices", "pages/notices.py"),
+    ("💲", "Fees", "pages/fees.py"),
+    ("🎫", "ID Card", "pages/id-card.py"),
 ]
 
 

@@ -87,7 +87,7 @@ div[data-testid="stElementContainer"]:has(> div.stButton) {
 # -----------------------------
 # CSV FILE
 # -----------------------------
-FILE = "students.csv"
+FILE = "data/students.csv"
 
 if not os.path.exists(FILE):
     df = pd.DataFrame(
@@ -117,7 +117,7 @@ if "roll_no" not in st.session_state:
 # If somebody is already logged in and lands back on this page
 # (e.g. via browser back button), send them straight through.
 if st.session_state.logged_in:
-    st.switch_page("dashboard.py")
+    st.switch_page("pages/dashboard.py")
 
 
 # =========================================================
@@ -169,7 +169,7 @@ if st.session_state.auth_view == "login":
             st.session_state.roll_no = roll_no
 
             st.success("Login Successful! 🎉")
-            st.switch_page("dashboard.py")
+            st.switch_page("pages/dashboard.py")
 
         else:
 

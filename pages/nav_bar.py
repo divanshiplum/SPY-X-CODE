@@ -87,7 +87,7 @@ def render_bottom_nav(active: str):
             use_container_width=True,
             type="primary" if active == "marks" else "secondary",
         ):
-            st.switch_page("marks.py")
+            st.switch_page("pages/marks.py")
 
         if st.button(
             "🏠",
@@ -95,7 +95,7 @@ def render_bottom_nav(active: str):
             use_container_width=True,
             type="primary" if active == "dashboard" else "secondary",
         ):
-            st.switch_page("dashboard.py")
+            st.switch_page("pages/dashboard.py")
 
         if st.button(
             "📆",
@@ -103,7 +103,7 @@ def render_bottom_nav(active: str):
             use_container_width=True,
             type="primary" if active == "timetable" else "secondary",
         ):
-            st.switch_page("timetable.py")
+            st.switch_page("pages/timetable.py")
 
         if st.button(
             "📊",
@@ -111,4 +111,4 @@ def render_bottom_nav(active: str):
             use_container_width=True,
             type="primary" if active == "performance" else "secondary",
         ):
-            st.switch_page("performance.py")
+            st.switch_page("pages/performance.py")

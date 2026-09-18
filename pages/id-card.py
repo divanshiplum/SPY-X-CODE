@@ -30,7 +30,7 @@ def render(content: str):
 # ============================================================
 
 BASE_DIR = Path(__file__).resolve().parent
-ID_CARD_IMAGE_PATH = BASE_DIR / "images" / "id-card.jpeg"
+ID_CARD_IMAGE_PATH = BASE_DIR.parent/ "images" / "id-card.jpeg"
 
 
 # ============================================================
@@ -306,7 +306,7 @@ div[class*="st-key-idcard_actions_row"] .stButton > button:hover {
 with st.container(key="idcard_header_row"):
 
     if st.button("‹", key="idcard_back"):
-        st.switch_page("dashboard.py")
+        st.switch_page("pages/dashboard.py")
 
     render("""
     <div class="idcard-title-group">

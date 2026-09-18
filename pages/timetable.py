@@ -1,8 +1,10 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent))
+
 import streamlit as st
 from datetime import datetime
 from nav_bar import render_bottom_nav
-
-
 
 # ============================================================
 # PAGE SETTINGS

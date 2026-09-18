@@ -104,9 +104,9 @@ div[class*="st-key-msg_refresh"] .stButton > button:hover {
 
 BASE_DIR = Path(__file__).resolve().parent
 
-attendance_file = BASE_DIR / "attendance_records.csv"
-attendance_messages_file = BASE_DIR / "attendance_messages.csv"
-messages_file = BASE_DIR / "messages.csv"
+attendance_file = BASE_DIR.parent / "data" / "attendance_records.csv"
+attendance_messages_file = BASE_DIR.parent / "data" / "attendance_message.csv"
+messages_file = BASE_DIR.parent / "data" / "messages.csv"
 
 
 # ============================================================
@@ -116,7 +116,7 @@ messages_file = BASE_DIR / "messages.csv"
 with st.container(key="msg_header_row"):
 
     if st.button("‹", key="msg_back"):
-        st.switch_page("dashboard.py")
+        st.switch_page("pages/dashboard.py")
 
     render('<div class="msg-header-title">Important Message</div>')
 
