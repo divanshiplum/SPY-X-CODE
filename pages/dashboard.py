@@ -5,37 +5,40 @@ sys.path.append(str(Path(__file__).resolve().parent))
 import streamlit as st
 import pandas as pd
 import numpy as np
-from PyPDF2 import PdfReader
 from datetime import datetime
 import os
 import math
 import base64
-from nav_bar import render_bottom_nav
+
+from nav_sidebar import render_sidebar
 
 
 # ============================================================
 # PAGE CONFIG
+# layout="wide" is needed now — the sidebar mockup is a desktop
+# layout, not the narrow mobile-centered layout every other page
+# in this app has used so far.
 # ============================================================
 
 st.set_page_config(
     page_title="Student Portal",
     page_icon="🎓",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-
-# ============================================================
-# HTML RENDER HELPER
-# (Strips leading whitespace from every line before handing it
-# to st.markdown, so Markdown never mistakes indented HTML for a
-# code block.)
-# ============================================================
 
 def render(content: str):
     lines = content.strip("\n").split("\n")
     flat = "\n".join(line.strip() for line in lines)
     st.markdown(flat, unsafe_allow_html=True)
+
+
+# ============================================================
+# SIDEBAR (also injects the shared theme CSS)
+# ============================================================
+
+render_sidebar("dashboard")
 
 
 # ============================================================
@@ -56,72 +59,26 @@ ATTENDANCE_CSV = "data/attendance_records.csv"
 # ============================================================
 
 subjects = pd.DataFrame({
-
     "subject": [
         "Data Structure",
         "Computer Architecture",
         "Information System",
         "Cybersecurity Fundamentals",
-        "Operating System"
+        "Operating System",
     ],
-
-    "code": [
-        "23CSR-449",
-        "SPO-113",
-        "23BDA-401",
-        "23BDA-402",
-        "23BDA-403"
-    ],
-
-    "credits": [
-        "3 Credits",
-        "4 Credits",
-        "4 Credits",
-        "4 Credits",
-        "3 Credits"
-    ],
-
-    "attended": [
-        0,
-        3,
-        18,
-        15,
-        20
-    ],
-
-    "total": [
-        0,
-        6,
-        24,
-        20,
-        25
-    ]
+    "code": ["23CSR-449", "SPO-113", "23BDA-401", "23BDA-402", "23BDA-403"],
+    "credits": ["3 Credits", "4 Credits", "4 Credits", "4 Credits", "3 Credits"],
+    "attended": [0, 3, 18, 15, 20],
+    "total": [0, 6, 24, 20, 25],
 })
-
-
-# ============================================================
-# NUMPY ATTENDANCE CALCULATION
-# ============================================================
 
 attended = np.array(subjects["attended"])
 total = np.array(subjects["total"])
-
-attendance_percentage = np.divide(
-    attended * 100,
-    total,
+subjects["attendance"] = np.divide(
+    attended * 100, total,
     out=np.zeros_like(attended, dtype=float),
-    where=total != 0
+    where=total != 0,
 )
-
-subjects["attendance"] = attendance_percentage
-
-
-# ============================================================
-# LOAD ATTENDANCE RECORD LOG (separate CSV file)
-#
-# Expected columns: code,date,day,start_time,end_time,instructor,status
-# "status" is either "Present" or "Absent". One row per class held.
-# ============================================================
 
 if os.path.exists(ATTENDANCE_CSV):
     attendance_log = pd.read_csv(ATTENDANCE_CSV, parse_dates=["date"])
@@ -132,11 +89,253 @@ else:
 
 
 # ============================================================
-# TIME BASED GREETING
+# CSS — light theme, matching the HC NEXUS mockup
+# ============================================================
+
+render("""
+<style>
+
+/* ---------- Greeting card ---------- */
+
+.hc-greeting-card {
+    background: linear-gradient(135deg, var(--hc-purple-soft) 0%, var(--hc-blue-soft) 100%);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.hc-greeting-left { display: flex; align-items: center; gap: 14px; }
+
+.hc-greeting-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--hc-purple-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.hc-greeting-text-sub { color: var(--hc-text-soft); font-size: 13px; }
+.hc-greeting-text-name { color: var(--hc-text); font-size: 18px; font-weight: 800; }
+
+.hc-greeting-icons { display: flex; gap: 16px; color: var(--hc-text-soft); font-size: 17px; }
+
+/* ---------- Course card ---------- */
+
+.hc-course-top {
+    padding: 22px 22px 18px 22px;
+}
+
+/* A soft pastel gradient tint for the course card itself, so it
+   isn't the same flat white as every other card on the page. */
+.hc-course-card-bg {
+    background: linear-gradient(135deg, var(--hc-purple-soft) 0%, var(--hc-blue-soft) 100%);
+}
+
+.hc-course-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.hc-course-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--hc-text);
+    line-height: 1.4;
+}
+
+.hc-cgpa-box { text-align: right; }
+.hc-cgpa-label { color: var(--hc-text-soft); font-size: 12px; margin-bottom: 2px; }
+.hc-cgpa-value { color: var(--hc-text); font-size: 24px; font-weight: 800; }
+
+.hc-divider { height: 1px; background: var(--hc-border); margin: 18px 0 0 0; }
+
+div.stVerticalBlock[class*="st-key-hc_quick_row_1"],
+div.stVerticalBlock[class*="st-key-hc_quick_row_2"] {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+    padding: 14px 22px;
+}
+
+div.stVerticalBlock[class*="st-key-hc_quick_row_2"] {
+    padding-bottom: 22px;
+}
+
+div.stVerticalBlock[class*="st-key-hc_quick_row_1"] > div,
+div.stVerticalBlock[class*="st-key-hc_quick_row_2"] > div {
+    flex: 1 1 0px !important;
+    min-width: 0 !important;
+}
+
+div[class*="st-key-hc_quick_"] .stButton > button {
+    width: 100%;
+    background: var(--hc-bg);
+    border: none;
+    border-radius: var(--hc-radius-md);
+    color: var(--hc-text);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 14px 10px;
+    text-align: left;
+    white-space: pre-line;
+    line-height: 1.5;
+    transition: background-color 0.15s ease;
+}
+
+/* Each quick-menu tile gets its own pastel resting color and a
+   slightly deeper (but still pastel) hover shade, matching the
+   theme's palette rather than one flat gray for every tile. */
+div.stVerticalBlock[class*="st-key-hc_quick_row_1"] > div:nth-child(1) .stButton > button { background: var(--hc-blue-soft); }
+div.stVerticalBlock[class*="st-key-hc_quick_row_1"] > div:nth-child(1) .stButton > button:hover { background: var(--hc-blue-hover); }
+
+div.stVerticalBlock[class*="st-key-hc_quick_row_1"] > div:nth-child(2) .stButton > button { background: var(--hc-orange-soft); }
+div.stVerticalBlock[class*="st-key-hc_quick_row_1"] > div:nth-child(2) .stButton > button:hover { background: var(--hc-orange-hover); }
+
+div.stVerticalBlock[class*="st-key-hc_quick_row_1"] > div:nth-child(3) .stButton > button { background: var(--hc-green-soft); }
+div.stVerticalBlock[class*="st-key-hc_quick_row_1"] > div:nth-child(3) .stButton > button:hover { background: var(--hc-green-hover); }
+
+div.stVerticalBlock[class*="st-key-hc_quick_row_2"] > div:nth-child(1) .stButton > button { background: var(--hc-purple-soft); }
+div.stVerticalBlock[class*="st-key-hc_quick_row_2"] > div:nth-child(1) .stButton > button:hover { background: var(--hc-purple-hover); }
+
+div.stVerticalBlock[class*="st-key-hc_quick_row_2"] > div:nth-child(2) .stButton > button { background: var(--hc-yellow-soft); }
+div.stVerticalBlock[class*="st-key-hc_quick_row_2"] > div:nth-child(2) .stButton > button:hover { background: var(--hc-yellow-hover); }
+
+div.stVerticalBlock[class*="st-key-hc_quick_row_2"] > div:nth-child(3) .stButton > button { background: var(--hc-teal-soft); }
+div.stVerticalBlock[class*="st-key-hc_quick_row_2"] > div:nth-child(3) .stButton > button:hover { background: var(--hc-teal-hover); }
+
+/* ---------- Subjects header ---------- */
+
+.hc-subjects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 26px 2px 4px 2px;
+}
+
+.hc-subjects-title { font-size: 20px; font-weight: 800; color: var(--hc-text); }
+.hc-subjects-count { color: var(--hc-text-soft); font-size: 13px; margin: 2px 2px 16px 2px; }
+.hc-filter { color: var(--hc-text-soft); font-size: 13px; }
+
+/* ---------- Subject card ---------- */
+
+.hc-subject-card {
+    position: relative;
+    background: var(--hc-surface);
+    border-radius: var(--hc-radius-lg);
+    box-shadow: var(--hc-shadow);
+    border: 1px solid var(--hc-border);
+    border-left: 5px solid transparent;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.hc-subject-card.red { border-left-color: var(--hc-red); }
+.hc-subject-card.purple { border-left-color: var(--hc-purple); }
+.hc-subject-card.green { border-left-color: var(--hc-green); }
+
+.hc-subject-left { display: flex; align-items: flex-start; gap: 14px; }
+
+.hc-subject-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.hc-subject-card.red .hc-subject-icon { background: var(--hc-red-soft); }
+.hc-subject-card.purple .hc-subject-icon { background: var(--hc-purple-soft); }
+.hc-subject-card.green .hc-subject-icon { background: var(--hc-green-soft); }
+
+.hc-subject-name { font-size: 16px; font-weight: 700; color: var(--hc-text); }
+.hc-subject-code { color: var(--hc-text-soft); font-size: 13px; margin-top: 4px; }
+
+.hc-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 12px;
+}
+
+.hc-status-pill.bad { background: var(--hc-red-soft); color: var(--hc-red); }
+.hc-status-pill.good { background: var(--hc-green-soft); color: var(--hc-green); }
+
+.hc-ring-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+
+.hc-ring {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.hc-ring::before {
+    content: "";
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    background: var(--hc-surface);
+    border-radius: 50%;
+}
+
+.hc-ring-value {
+    position: relative;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--hc-text);
+}
+
+.hc-ring-fraction { color: var(--hc-text-soft); font-size: 12px; min-width: 32px; }
+
+.hc-subject-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hc-subject-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+@media (max-width: 900px) {
+    .block-container { padding-left: 24px !important; }
+}
+
+</style>
+""")
+
+
+# ============================================================
+# GREETING CARD
 # ============================================================
 
 hour = datetime.now().hour
-
 if 5 <= hour < 12:
     greeting = "Good Morning"
 elif 12 <= hour < 17:
@@ -146,657 +345,17 @@ elif 17 <= hour < 21:
 else:
     greeting = "Good Night"
 
-
-# ============================================================
-# SESSION STATE
-# ============================================================
-
-if "selected_subject" not in st.session_state:
-    st.session_state.selected_subject = None
-
-if "detail_tab" not in st.session_state:
-    st.session_state.detail_tab = "Timeline"
-
-
-# ============================================================
-# CUSTOM CSS
-# ============================================================
-
-render("""
-<style>
-
-html, body, [class*="css"] {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.stApp {
-    background: #121212;
-    color: #ffffff;
-}
-
-.block-container {
-    max-width: 720px;
-    padding-top: 18px;
-    padding-bottom: 105px;
-}
-
-header { visibility: hidden; height: 0; }
-footer { visibility: hidden; }
-#MainMenu { visibility: hidden; }
-
-/* Reskin every Streamlit button to fit the dark theme */
-.stButton > button {
-    background: #1d1d1d;
-    color: #eeeeee;
-    border: 1px solid #2c2c2c;
-    border-radius: 14px;
-    font-weight: 600;
-    padding: 8px 14px;
-}
-.stButton > button:hover {
-    border-color: #4a4a4a;
-    color: #ffffff;
-}
-.stButton > button:focus:not(:active) {
-    color: #ffffff;
-    border-color: #4a4a4a;
-}
-
-/* TOP HEADER */
-
-.top-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 22px;
-}
-
-.profile-area {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-width: 0;
-}
-
-.profile-image {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #2d2d2d;
-    flex-shrink: 0;
-}
-
-.profile-placeholder {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: #292929;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 35px;
-    flex-shrink: 0;
-}
-
-.profile-text { min-width: 0; }
-
-.greeting {
-    color: #999999;
-    font-size: 16px;
-    margin-bottom: 3px;
-}
-
-.student-name {
-    color: #ffffff;
-    font-size: 29px;
-    font-weight: 700;
-    line-height: 1.15;
-}
-
-.student-section {
-    color: #888888;
-    font-size: 14px;
-    margin-top: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 220px;
-}
-
-.top-actions {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-shrink: 0;
-}
-
-.top-icon {
-    color: #eeeeee;
-    font-size: 27px;
-    line-height: 1;
-}
-
-/* COURSE CARD — TOP HALF (decorative HTML: name, CGPA, divider) */
-
-.course-card-top {
-    width: 100%;
-    box-sizing: border-box;
-    background: #1d1d1d;
-    border: 1px solid #252525;
-    border-bottom: none;
-    border-radius: 27px 27px 0 0;
-    padding: 25px 20px 15px 20px;
-}
-
-.course-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
-}
-
-.course-left { flex: 1; min-width: 0; }
-
-.course-name {
-    color: #ffffff;
-    font-size: 21px;
-    font-weight: 600;
-    line-height: 1.35;
-}
-
-.cgpa-box { text-align: right; min-width: 80px; }
-
-.cgpa-title {
-    color: #999999;
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.cgpa-value {
-    color: #ffffff;
-    font-size: 40px;
-    font-weight: 400;
-}
-
-.divider {
-    height: 1px;
-    background: #303030;
-    margin: 20px 0 0 0;
-}
-
-/* COURSE CARD — BOTTOM HALF (real st.button quick-menu, two rows).
-   No st.columns here — same reason as everywhere else in this
-   app: it stacks vertically on a narrow screen. Each row is its
-   own keyed container forced into a flex row via CSS, matching
-   the same technique already proven to work for the bottom nav
-   bar and the timetable day selector. This replaces the old
-   decorative (non-clickable) HTML grid + a fragile absolute-
-   positioned invisible button, which is what wasn't actually
-   clickable before. */
-/* Wraps the top HTML section + both button rows together so
-   Streamlit's default gap between sibling elements doesn't show
-   through as a visible seam between them — this makes the whole
-   thing read as one continuous card again, not two stacked ones. */
-div.stVerticalBlock[class*="st-key-course_card_full"] {
-    gap: 0 !important;
-}
-
-div.stVerticalBlock[class*="st-key-quick_row_1"],
-div.stVerticalBlock[class*="st-key-quick_row_2"] {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    gap: 4px !important;
-    background: #1d1d1d;
-    border-left: 1px solid #252525;
-    border-right: 1px solid #252525;
-    padding: 8px 16px;
-}
-
-div.stVerticalBlock[class*="st-key-quick_row_2"] {
-    border-bottom: 1px solid #252525;
-    border-radius: 0 0 27px 27px;
-    padding-bottom: 18px;
-    margin-bottom: 24px;
-}
-
-div.stVerticalBlock[class*="st-key-quick_row_1"] > div,
-div.stVerticalBlock[class*="st-key-quick_row_2"] > div {
-    flex: 1 1 0px !important;
-    min-width: 0 !important;
-}
-
-div.stVerticalBlock[class*="st-key-quick_row_1"] .stButton > button,
-div.stVerticalBlock[class*="st-key-quick_row_2"] .stButton > button {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    color: #eeeeee;
-    white-space: pre-line;
-    line-height: 1.6;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 8px 2px;
-    width: 100%;
-}
-
-div.stVerticalBlock[class*="st-key-quick_row_1"] .stButton > button:hover,
-div.stVerticalBlock[class*="st-key-quick_row_2"] .stButton > button:hover {
-    background: rgba(255,255,255,0.05) !important;
-    border-radius: 10px;
-}
-
-/* SUBJECT HEADER */
-
-.subjects-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 25px 5px 3px 5px;
-}
-
-.subjects-title {
-    color: #ffffff;
-    font-size: 27px;
-    font-weight: 700;
-}
-
-.filter { color: #999999; font-size: 16px; }
-
-.subject-count {
-    color: #777777;
-    font-size: 17px;
-    margin: 3px 5px 16px 5px;
-}
-
-/* SUBJECT CARD */
-
-.subject-card {
-    position: relative;
-    width: 100%;
-    min-height: 172px;
-    box-sizing: border-box;
-    background: #1b1b1b;
-    border: 1px solid #2c2c2c;
-    border-radius: 24px 24px 0 0;
-    padding: 25px 46px 22px 25px;
-    overflow: hidden;
-}
-
-.subject-card-standalone {
-    border-radius: 24px;
-    margin-bottom: 16px;
-}
-
-.subject-card-red { border-left: 6px solid #ff3b3b; }
-.subject-card-green { border-left: 6px solid #29d65c; }
-
-.subject-name {
-    color: #ffffff;
-    font-size: 21px;
-    font-weight: 700;
-    line-height: 1.25;
-    padding-right: 110px;
-}
-
-.subject-code {
-    color: #999999;
-    font-size: 15px;
-    margin-top: 12px;
-    padding-right: 105px;
-}
-
-.recover {
-    display: inline-block;
-    background: #4c2523;
-    border: 1px solid #71302c;
-    color: #ff5252;
-    border-radius: 22px;
-    padding: 8px 13px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-top: 15px;
-}
-
-.good-attendance {
-    display: inline-block;
-    background: #183d25;
-    border: 1px solid #216b38;
-    color: #3ee873;
-    border-radius: 22px;
-    padding: 8px 13px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-top: 15px;
-}
-
-.card-menu {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    color: #777777;
-    font-size: 19px;
-    letter-spacing: 1px;
-}
-
-.card-chevron {
-    position: absolute;
-    top: 50%;
-    right: 8px;
-    transform: translateY(-50%);
-    color: #5a5a5a;
-    font-size: 22px;
-    font-weight: 700;
-}
-
-/* Button that opens the attendance detail view — visually
-   attached to the bottom of the subject card above it */
-div[data-testid="stButton"].view-attendance-btn > button,
-.view-attendance-btn > button {
-    width: 100%;
-    border-radius: 0 0 24px 24px !important;
-    border-top: none !important;
-    background: #191919 !important;
-    color: #9fa0a3 !important;
-    font-size: 13px !important;
-    text-align: left !important;
-    margin-top: -1px;
-    margin-bottom: 16px !important;
-}
-
-/* ATTENDANCE CIRCLE */
-
-.attendance-wrapper {
-    position: absolute;
-    right: 40px;
-    top: 28px;
-    width: 90px;
-    text-align: center;
-}
-
-.attendance-circle {
-    width: 86px;
-    height: 86px;
-    margin: 0 auto;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.attendance-circle::before {
-    content: "";
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    background: #1b1b1b;
-    border-radius: 50%;
-}
-
-.arc-marker {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-}
-
-.arc-marker::after {
-    content: "";
-    position: absolute;
-    top: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 0 0 2px #1b1b1b;
-}
-
-.attendance-number {
-    position: relative;
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-}
-
-.tick {
-    color: #6a6a6a;
-    font-size: 13px;
-    font-weight: 400;
-}
-
-.attendance-fraction {
-    color: #999999;
-    font-size: 14px;
-    margin-top: 7px;
-}
-
-.attendance-dots {
-    position: absolute;
-    right: -14px;
-    top: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.attendance-dot {
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-}
-
-.dot-red { background: #ff3b3b; }
-.dot-pink { background: #ff4f87; }
-.dot-green { background: #32d65b; }
-
-/* DETAIL VIEW: TABS */
-
-.tab-row {
-    display: flex;
-    gap: 6px;
-    background: #1b1b1b;
-    border: 1px solid #2c2c2c;
-    border-radius: 18px;
-    padding: 6px;
-    margin: 14px 0 18px 0;
-}
-
-/* DETAIL VIEW: LEGEND */
-
-.legend-row {
-    display: flex;
-    gap: 22px;
-    justify-content: center;
-    margin: 4px 0 20px 0;
-    color: #cccccc;
-    font-size: 14px;
-}
-
-.legend-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 7px;
-}
-
-/* DETAIL VIEW: TIMELINE */
-
-.timeline-row {
-    display: flex;
-    align-items: stretch;
-    gap: 12px;
-    position: relative;
-}
-
-.timeline-marker {
-    width: 16px;
-    flex-shrink: 0;
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-
-.timeline-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-top: 24px;
-    position: relative;
-    z-index: 2;
-    flex-shrink: 0;
-}
-
-.timeline-connector {
-    position: absolute;
-    top: 36px;
-    bottom: -14px;
-    width: 2px;
-}
-
-.timeline-card {
-    flex: 1;
-    background: #1b1b1b;
-    border: 1px solid #2c2c2c;
-    border-left: 4px solid transparent;
-    border-radius: 18px;
-    padding: 14px 16px;
-    margin-bottom: 14px;
-}
-
-.timeline-date {
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.timeline-meta {
-    color: #999999;
-    font-size: 13px;
-    margin-top: 6px;
-}
-
-.status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    border-radius: 20px;
-    padding: 5px 11px;
-    font-size: 12px;
-    font-weight: 700;
-    margin-top: 10px;
-}
-
-.pill-present {
-    background: #183d25;
-    border: 1px solid #216b38;
-    color: #3ee873;
-}
-
-.pill-absent {
-    background: #4c2523;
-    border: 1px solid #71302c;
-    color: #ff5252;
-}
-
-.no-records {
-    color: #888888;
-    font-size: 14px;
-    text-align: center;
-    padding: 30px 0;
-}
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-    .block-container {
-        padding-left: 13px;
-        padding-right: 13px;
-        padding-top: 14px;
-        padding-bottom: 100px;
-    }
-
-    .profile-image, .profile-placeholder { width: 65px; height: 65px; }
-    .greeting { font-size: 14px; }
-    .student-name { font-size: 25px; }
-    .student-section { font-size: 13px; max-width: 170px; }
-    .top-actions { gap: 9px; }
-    .top-icon { font-size: 24px; }
-
-    .course-card-top { padding: 22px 17px 12px 17px; border-radius: 24px 24px 0 0; }
-    .course-name { font-size: 18px; }
-    .cgpa-title { font-size: 13px; }
-    .cgpa-value { font-size: 34px; }
-
-    div.stVerticalBlock[class*="st-key-quick_row_1"],
-    div.stVerticalBlock[class*="st-key-quick_row_2"] {
-        padding: 6px 13px;
-    }
-    div.stVerticalBlock[class*="st-key-quick_row_2"] {
-        border-radius: 0 0 24px 24px;
-    }
-    div.stVerticalBlock[class*="st-key-quick_row_1"] .stButton > button,
-    div.stVerticalBlock[class*="st-key-quick_row_2"] .stButton > button {
-        font-size: 11px;
-    }
-
-    .subjects-title { font-size: 24px; }
-    .filter { font-size: 14px; }
-
-    .subject-card { min-height: 165px; padding: 23px 40px 20px 20px; }
-    .subject-name { font-size: 18px; padding-right: 95px; }
-    .subject-code { font-size: 13px; padding-right: 92px; }
-
-    .attendance-wrapper { right: 32px; top: 28px; width: 80px; }
-    .attendance-circle { width: 76px; height: 76px; }
-    .attendance-circle::before { width: 62px; height: 62px; }
-    .attendance-dots { right: -12px; }
-    .attendance-dot { width: 9px; height: 9px; }
-    .card-chevron { right: 4px; font-size: 20px; }
-    .card-menu { top: 16px; right: 14px; font-size: 17px; }
-
-}
-
-</style>
-""")
-
-
-# ============================================================
-# PROFILE IMAGE
-# ============================================================
-
-if os.path.exists(STUDENT_IMAGE):
-    with open(STUDENT_IMAGE, "rb") as image_file:
-        encoded = base64.b64encode(image_file.read()).decode()
-    image_html = f'<img src="data:image/jpeg;base64,{encoded}" class="profile-image">'
-else:
-    image_html = '<div class="profile-placeholder">👤</div>'
-
-
-# ============================================================
-# TOP HEADER
-# ============================================================
-
 render(f"""
-<div class="top-header">
-    <div class="profile-area">
-        {image_html}
-        <div class="profile-text">
-            <div class="greeting">{greeting}</div>
-            <div class="student-name">{STUDENT_NAME}</div>
+<div class="hc-card hc-greeting-card">
+    <div class="hc-greeting-left">
+        <div class="hc-greeting-avatar">🧑‍🎓</div>
+        <div>
+            <div class="hc-greeting-text-sub">{greeting},</div>
+            <div class="hc-greeting-text-name">{STUDENT_NAME}</div>
         </div>
     </div>
-    <div class="top-actions">
-        <div class="top-icon">⚙</div>
-        <div class="top-icon">☰</div>
+    <div class="hc-greeting-icons">
+        <span>+</span>
     </div>
 </div>
 """)
@@ -804,13 +363,6 @@ render(f"""
 
 # ============================================================
 # COURSE CARD
-#
-# Top half is decorative HTML (name, CGPA, divider). Bottom half
-# is the quick-menu, now built from real st.button widgets in two
-# keyed flex-row containers instead of decorative <div>s, so
-# "Date Sheet" (and every other tile) is a genuinely clickable
-# button rather than something we tried to overlay a hidden
-# button on top of.
 # ============================================================
 
 QUICK_ITEMS = [
@@ -822,274 +374,121 @@ QUICK_ITEMS = [
     ("🎫", "ID Card", "pages/id-card.py"),
 ]
 
+with st.container(key="hc_course_card"):
 
-def render_course_card_top():
     render(f"""
-    <div class="course-card-top">
-        <div class="course-row">
-            <div class="course-left">
-                <div class="course-name">
-                    📖 &nbsp; {COURSE}<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp; (Sem-{SEMESTER})
+    <div class="hc-card hc-course-card-bg">
+        <div class="hc-course-top">
+            <div class="hc-course-row">
+                <div class="hc-course-name">
+                    📖 &nbsp; {COURSE}<br>(Sem-{SEMESTER})
+                </div>
+                <div class="hc-cgpa-box">
+                    <div class="hc-cgpa-label">CGPA</div>
+                    <div class="hc-cgpa-value">{CGPA}</div>
                 </div>
             </div>
-            <div class="cgpa-box">
-                <div class="cgpa-title">CGPA</div>
-                <div class="cgpa-value">{CGPA}</div>
-            </div>
+            <div class="hc-divider"></div>
         </div>
-        <div class="divider"></div>
     </div>
     """)
 
-
-def render_quick_menu():
     rows = [QUICK_ITEMS[0:3], QUICK_ITEMS[3:6]]
-
     for row_index, row_items in enumerate(rows, start=1):
-        with st.container(key=f"quick_row_{row_index}"):
+        with st.container(key=f"hc_quick_row_{row_index}"):
             for icon, label, target_page in row_items:
-                if st.button(f"{icon}\n{label}", key=f"quick_{label}"):
+                if st.button(f"{icon}\n{label}", key=f"hc_quick_{label}"):
                     if target_page:
                         st.switch_page(target_page)
 
 
 # ============================================================
-# ATTENDANCE HELPERS
+# SUBJECT LIST
 # ============================================================
 
-def get_attendance_color(value):
-    if value < 75:
-        return "#ff4b4b"
-    elif value < 85:
-        return "#ffc107"
-    else:
-        return "#32d65b"
+render(f"""
+<div class="hc-subjects-header">
+    <div class="hc-subjects-title">Your Subjects</div>
+    <div class="hc-filter">☰ &nbsp; Filter</div>
+</div>
+<div class="hc-subjects-count">{len(subjects)} subjects</div>
+""")
 
 
 def classes_to_recover(attended_count, total_count):
-    if total_count == 0:
+    if total_count == 0 or attended_count / total_count >= 0.75:
         return 0
-    if attended_count / total_count >= 0.75:
-        return 0
-    required = math.ceil((0.75 * total_count - attended_count) / 0.25)
-    return max(0, required)
+    return max(0, math.ceil((0.75 * total_count - attended_count) / 0.25))
 
 
 def safe_to_miss(attended_count, total_count):
-    if total_count == 0:
+    if total_count == 0 or attended_count / total_count < 0.75:
         return 0
-    current_percentage = attended_count / total_count
-    if current_percentage < 0.75:
-        return 0
-    safe = math.floor(attended_count / 0.75 - total_count)
-    return max(0, safe)
+    return max(0, math.floor(attended_count / 0.75 - total_count))
 
 
-def subject_card_html(row, standalone=False):
-    """Builds the HTML for one subject's card (circle, badge, etc.)."""
+SUBJECT_ICONS = {
+    "Data Structure": "✉️",
+    "Computer Architecture": "📈",
+    "Information System": "💡",
+    "Cybersecurity Fundamentals": "🛡️",
+    "Operating System": "🖥️",
+}
+
+for _, row in subjects.iterrows():
 
     percentage = int(row["attendance"])
-    color = get_attendance_color(percentage)
-    degree = percentage * 3.6
-
-    if percentage == 0:
-        circle_background = "background: conic-gradient(#353535 0deg, #353535 360deg);"
-    else:
-        circle_background = (
-            f"background: conic-gradient({color} 0deg {degree}deg, "
-            f"#353535 {degree}deg 360deg);"
-        )
 
     if percentage < 75:
-        card_class = "subject-card subject-card-red"
-        required_classes = classes_to_recover(int(row["attended"]), int(row["total"]))
-        status = f'<div class="recover">❌ &nbsp; Attend {required_classes} to recover</div>'
-        dots = """
-        <div class="attendance-dots">
-            <span class="attendance-dot dot-red"></span>
-            <span class="attendance-dot dot-pink"></span>
-            <span class="attendance-dot dot-pink"></span>
-            <span class="attendance-dot dot-green"></span>
-            <span class="attendance-dot dot-green"></span>
-        </div>
-        """
+        border_class = "red"
+        pill_class = "bad"
+        needed = classes_to_recover(int(row["attended"]), int(row["total"]))
+        pill_text = f"❌ Attend {needed} to recover"
+        ring_color = "var(--hc-red)"
+        dot_colors = ["var(--hc-red)", "var(--hc-red)", "var(--hc-orange)", "var(--hc-green)", "var(--hc-green)"]
+    elif percentage < 90:
+        border_class = "purple"
+        pill_class = "good"
+        safe = safe_to_miss(int(row["attended"]), int(row["total"]))
+        pill_text = f"✓ Safe to miss {safe} classes"
+        ring_color = "var(--hc-purple)"
+        dot_colors = ["var(--hc-red)", "var(--hc-orange)", "var(--hc-purple)", "var(--hc-green)", "var(--hc-green)"]
     else:
-        card_class = "subject-card subject-card-green"
-        safe_classes = safe_to_miss(int(row["attended"]), int(row["total"]))
-        status = f'<div class="good-attendance">✓ &nbsp; Safe to miss {safe_classes} classes</div>'
-        dots = """
-        <div class="attendance-dots">
-            <span class="attendance-dot dot-pink"></span>
-            <span class="attendance-dot dot-pink"></span>
-            <span class="attendance-dot dot-green"></span>
-            <span class="attendance-dot dot-green"></span>
-            <span class="attendance-dot dot-green"></span>
-        </div>
-        """
+        border_class = "green"
+        pill_class = "good"
+        safe = safe_to_miss(int(row["attended"]), int(row["total"]))
+        pill_text = f"✓ Safe to miss {safe} classes"
+        ring_color = "var(--hc-green)"
+        dot_colors = ["var(--hc-orange)", "var(--hc-green)", "var(--hc-green)", "var(--hc-green)", "var(--hc-green)"]
 
-    if standalone:
-        card_class += " subject-card-standalone"
-        corner_extras = f'<div class="card-menu">⋮</div>'
-    else:
-        corner_extras = f'<div class="card-menu">⋮</div>'
+    degree = percentage * 3.6
+    ring_bg = (
+        f"background: conic-gradient({ring_color} 0deg {degree}deg, #ececf5 {degree}deg 360deg);"
+        if percentage > 0 else "background: #ececf5;"
+    )
 
-    return f"""
-    <div class="{card_class}">
-        {corner_extras}
-        <div class="subject-name">{row["subject"]}</div>
-        <div class="subject-code">{row["code"]} • {row["credits"]}</div>
-        {status}
-        <div class="attendance-wrapper">
-            <div class="attendance-circle" style="{circle_background}">
-                <div class="arc-marker" style="transform: rotate({degree}deg);"></div>
-                <div class="attendance-number">
-                    <span class="tick">–</span>{percentage}
-                </div>
-            </div>
-            <div class="attendance-fraction">{row["attended"]}/{row["total"]}</div>
-            {dots}
-        </div>
-    </div>
-    """
+    dots_html = "".join(
+        f'<span class="hc-subject-dot" style="background:{c};"></span>' for c in dot_colors
+    )
 
-
-# ============================================================
-# SUBJECT LIST VIEW
-# ============================================================
-
-def render_subject_list():
-
-    with st.container(key="course_card_full"):
-        render_course_card_top()
-        render_quick_menu()
-        
-    render(f"""
-    <div class="subjects-header">
-        <div class="subjects-title">Your Subjects</div>
-        <div class="filter">☷ &nbsp; Filter</div>
-    </div>
-    <div class="subject-count">{len(subjects)} subjects</div>
-    """)
-
-    for _, row in subjects.iterrows():
-        render(subject_card_html(row, standalone=False))
-
-        clicked = st.button(
-            "View attendance record  ›",
-            key=f"view_{row['code']}",
-            use_container_width=True,
-        )
-
-        if clicked:
-            st.session_state.selected_subject = row["code"]
-            st.session_state.detail_tab = "Timeline"
-            st.rerun()
-
-
-# ============================================================
-# ATTENDANCE DETAIL VIEW
-# ============================================================
-
-def render_attendance_detail(subject_code):
-
-    row = subjects[subjects["code"] == subject_code].iloc[0]
-
-    if st.button("‹ Back to Subjects", key="back_btn"):
-        st.session_state.selected_subject = None
-        st.rerun()
-
-    render(subject_card_html(row, standalone=True))
-
-    tabs = ["Prediction", "Timeline", "Course Plan"]
-    tab_icons = {"Prediction": "📊", "Timeline": "🕐", "Course Plan": "📄"}
-
-    cols = st.columns(len(tabs))
-    for col, tab_name in zip(cols, tabs):
-        with col:
-            if st.button(
-                f"{tab_icons[tab_name]} {tab_name}",
-                key=f"tab_{tab_name}",
-                use_container_width=True,
-            ):
-                st.session_state.detail_tab = tab_name
-                st.rerun()
-
-    active_tab = st.session_state.detail_tab
-
-    if active_tab != "Timeline":
-        render(f'<div class="no-records">{active_tab} view is coming soon.</div>')
-        return
-
-    records = attendance_log[attendance_log["code"] == subject_code].copy()
-
-    if records.empty:
-        render('<div class="no-records">No classes have been recorded for this subject yet.</div>')
-        return
-
-    records = records.sort_values("date", ascending=False).reset_index(drop=True)
-
-    present_count = int((records["status"] == "Present").sum())
-    absent_count = int((records["status"] == "Absent").sum())
+    icon = SUBJECT_ICONS.get(row["subject"], "📘")
 
     render(f"""
-    <div class="legend-row">
-        <span><span class="legend-dot" style="background:#32d65b;"></span>Present ({present_count})</span>
-        <span><span class="legend-dot" style="background:#ff3b3b;"></span>Absent ({absent_count})</span>
-    </div>
-    """)
-
-    rows_html = ""
-    total_rows = len(records)
-
-    for i, rec in records.iterrows():
-        is_present = rec["status"] == "Present"
-        dot_color = "#32d65b" if is_present else "#ff3b3b"
-        pill_class = "pill-present" if is_present else "pill-absent"
-        pill_icon = "✓" if is_present else "✕"
-        card_border = "#216b38" if is_present else "#71302c"
-
-        date_str = rec["date"].strftime("%A, %d %b %Y")
-        instructor = str(rec["instructor"])
-        if len(instructor) > 22:
-            instructor = instructor[:20] + "…"
-        room = str(rec["room"]) if "room" in rec and pd.notna(rec.get("room")) else ""
-        room_part = f"{room} &nbsp;•&nbsp; " if room else ""
-
-        connector_html = ""
-        if i < total_rows - 1:
-            connector_html = f'<div class="timeline-connector" style="background:{dot_color};"></div>'
-
-        rows_html += f"""
-        <div class="timeline-row">
-            <div class="timeline-marker">
-                <span class="timeline-dot" style="background:{dot_color};"></span>
-                {connector_html}
-            </div>
-            <div class="timeline-card" style="border-left-color:{card_border};">
-                <div class="timeline-date">{date_str}</div>
-                <div class="timeline-meta">🕐 &nbsp;{rec['start_time']} - {rec['end_time']} &nbsp;•&nbsp; {room_part}{instructor}</div>
-                <div class="status-pill {pill_class}">{pill_icon} &nbsp;{rec['status']}</div>
+    <div class="hc-subject-card {border_class}">
+        <div class="hc-subject-left">
+            <div class="hc-subject-icon">{icon}</div>
+            <div>
+                <div class="hc-subject-name">{row['subject']}</div>
+                <div class="hc-subject-code">{row['code']} &bull; {row['credits']}</div>
+                <div class="hc-status-pill {pill_class}">{pill_text}</div>
             </div>
         </div>
-        """
-
-    render(rows_html)
-
-
-# ============================================================
-# MAIN PAGE ROUTING
-# ============================================================
-
-if st.session_state.selected_subject is None:
-    render_subject_list()
-else:
-    render_attendance_detail(st.session_state.selected_subject)
-
-
-
-# ============================================================
-# BOTTOM NAVIGATION
-# ============================================================
-
-render_bottom_nav("dashboard")
+        <div class="hc-ring-wrap">
+            <div class="hc-ring" style="{ring_bg}">
+                <div class="hc-ring-value">{percentage}</div>
+            </div>
+            <div class="hc-ring-fraction">{row['attended']}/{row['total']}</div>
+            <div class="hc-subject-dots">{dots_html}</div>
+        </div>
+    </div>
+    """)

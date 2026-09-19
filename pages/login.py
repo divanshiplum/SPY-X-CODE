@@ -1,61 +1,108 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent))
+
 import streamlit as st
 import pandas as pd
 import os
 
-# -----------------------------
-# PAGE SETTINGS
-# -----------------------------
+from theme import THEME_CSS
+
+
 st.set_page_config(
     page_title="HC NEXUS",
     page_icon="🎓",
-    layout="centered"
+    layout="centered",
 )
 
-# -----------------------------
-# CSS
-#
-# The whole form lives inside Streamlit's own .block-container.
-# Capping its max-width and giving it auto margins keeps it a
-# fixed, comfortable size AND perfectly centered on any window
-# size — on a small window it just shrinks to fit (max-width is
-# a ceiling, not a fixed width), so this is responsive on its
-# own without needing st.columns to fake centering.
-# -----------------------------
-st.markdown("""
+
+def render(content: str):
+    lines = content.strip("\n").split("\n")
+    flat = "\n".join(line.strip() for line in lines)
+    st.markdown(flat, unsafe_allow_html=True)
+
+
+st.markdown(THEME_CSS, unsafe_allow_html=True)
+
+
+# ============================================================
+# CSS — pastel blobs behind a centered white login card,
+# matching the reference. The blobs and the books/pencil-cup
+# illustration are CSS/emoji approximations of hand-drawn
+# artwork, not a pixel copy of it.
+# ============================================================
+
+render("""
 <style>
 
 .stApp {
-    background: linear-gradient(135deg, #0b0b0b, #202020);
+    background: #f6f4fc;
+    overflow: hidden;
 }
+
+.hc-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(2px);
+    z-index: 0;
+    opacity: 0.55;
+}
+
+.hc-blob-1 { top: -120px; left: -120px; width: 340px; height: 340px; background: #d8cef8; }
+.hc-blob-2 { top: 40px; right: -100px; width: 260px; height: 260px; background: #cfe6fb; }
+.hc-blob-3 { bottom: -140px; left: 10%; width: 300px; height: 300px; background: #fbdce6; }
+.hc-blob-4 { bottom: -80px; right: -80px; width: 280px; height: 280px; background: #cfe6fb; }
 
 .block-container {
-    max-width: clamp(360px, 55vw, 650px);
-    margin: 0 auto;
+    max-width: 900px;
     padding-top: 60px;
+    position: relative;
+    z-index: 1;
 }
 
-.title {
+div.stVerticalBlock[class*="st-key-hc_login_card"] {
+    max-width: 380px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: var(--hc-radius-lg);
+    box-shadow: 0 10px 40px rgba(120, 100, 200, 0.12);
+    padding: 34px 34px 26px 34px;
+    position: relative;
+    z-index: 2;
+}
+
+.hc-login-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--hc-text);
+    margin-bottom: 4px;
+}
+
+.hc-login-tag {
     text-align: center;
-    color: #d4af37;
-    font-size: 26px;
-    font-weight: bold;
-    line-height: 1.3;
+    color: var(--hc-purple-text);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    margin-bottom: 22px;
 }
 
-.subtitle {
-    text-align: center;
-    color: white;
-    font-size: 18px;
-    margin-bottom: 25px;
+div[data-testid="stTextInput"] input {
+    background: var(--hc-bg) !important;
+    border: 1px solid var(--hc-border) !important;
+    border-radius: var(--hc-radius-md) !important;
+    color: var(--hc-text) !important;
+    padding: 10px 14px !important;
 }
 
-/* The direct parent Streamlit gives a button is set to
-   width: fit-content (it shrink-wraps tightly around the
-   button itself), so centering .stButton inside it has no
-   room to work with. We force that specific wrapper — the
-   stElementContainer that directly holds a .stButton — to
-   take the full available width instead, THEN center the
-   button within that now-full-width space. */
+div[data-testid="stTextInput"] label {
+    display: none;
+}
+
 div[data-testid="stElementContainer"]:has(> div.stButton) {
     width: 100% !important;
 }
@@ -67,43 +114,70 @@ div[data-testid="stElementContainer"]:has(> div.stButton) {
 }
 
 .stButton > button {
-    width: auto;
-    min-width: 200px;
-    background-color: #d4af37;
-    color: black;
-    border-radius: 10px;
-    font-weight: bold;
-    height: 45px;
+    width: 100%;
+    background: var(--hc-purple);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--hc-radius-md);
+    font-weight: 700;
+    padding: 12px 0;
+    margin-top: 6px;
 }
 
 .stButton > button:hover {
-    background-color: #f0c94d;
+    background: var(--hc-purple-text);
+}
+
+.hc-login-footer {
+    text-align: center;
+    color: var(--hc-text-soft);
+    font-size: 13px;
+    margin: 14px 0 10px 0;
+}
+
+div[class*="st-key-login_register_btn"] .stButton > button {
+    background: transparent;
+    color: var(--hc-purple-text);
+    border: 1px solid var(--hc-purple);
+}
+
+div[class*="st-key-login_register_btn"] .stButton > button:hover {
+    background: var(--hc-purple-soft);
+}
+
+.hc-illustration {
+    position: fixed;
+    bottom: 40px;
+    right: 60px;
+    font-size: 70px;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+@media (max-width: 700px) {
+    .hc-illustration { display: none; }
 }
 
 </style>
-""", unsafe_allow_html=True)
+
+<div class="hc-blob hc-blob-1"></div>
+<div class="hc-blob hc-blob-2"></div>
+<div class="hc-blob hc-blob-3"></div>
+<div class="hc-blob hc-blob-4"></div>
+<div class="hc-illustration">📚</div>
+""")
 
 
-# -----------------------------
-# CSV FILE
-# -----------------------------
+# ============================================================
+# DATA
+# ============================================================
+
 FILE = "data/students.csv"
 
 if not os.path.exists(FILE):
-    df = pd.DataFrame(
-        columns=["Roll No", "Password"]
-    )
-    df.to_csv(FILE, index=False)
+    pd.DataFrame(columns=["Roll No", "Password"]).to_csv(FILE, index=False)
 
 
-# -----------------------------
-# SESSION STATE
-#
-# "auth_view" only toggles between the Login form and the
-# Register form on this page. Once login succeeds, we redirect
-# straight to dashboard.py with st.switch_page() rather than
-# tracking "dashboard" as a state here.
-# -----------------------------
 if "auth_view" not in st.session_state:
     st.session_state.auth_view = "login"
 
@@ -113,187 +187,76 @@ if "logged_in" not in st.session_state:
 if "roll_no" not in st.session_state:
     st.session_state.roll_no = None
 
-
-# If somebody is already logged in and lands back on this page
-# (e.g. via browser back button), send them straight through.
 if st.session_state.logged_in:
     st.switch_page("pages/dashboard.py")
 
 
-# =========================================================
+# ============================================================
 # LOGIN VIEW
-# =========================================================
+# ============================================================
 
 if st.session_state.auth_view == "login":
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    with st.container(key="hc_login_card"):
 
-    st.markdown(
-        '<div class="title">🎓 HC NEXUS</div>',
-        unsafe_allow_html=True
-    )
+        render('<div class="hc-login-logo">🎓 HC NEXUS</div>')
+        render('<div class="hc-login-tag">LOGIN</div>')
 
-    st.markdown(
-        '<div class="subtitle">LOGIN</div>',
-        unsafe_allow_html=True
-    )
+        roll_no = st.text_input("Roll No", placeholder="Enter your Roll Number")
+        password = st.text_input("Password", type="password", placeholder="Enter your Password")
 
-    # Roll Number
-    roll_no = st.text_input(
-        "Roll No",
-        placeholder="Enter your Roll Number"
-    )
+        if st.button("LOGIN", key="login_btn"):
 
-    # Password
-    password = st.text_input(
-        "Password",
-        type="password",
-        placeholder="Enter your Password"
-    )
+            students = pd.read_csv(FILE)
+            user = students[
+                (students["Roll No"].astype(str) == roll_no)
+                & (students["Password"].astype(str) == password)
+            ]
 
-    st.write("")
+            if not user.empty:
+                st.session_state.logged_in = True
+                st.session_state.roll_no = roll_no
+                st.switch_page("pages/dashboard.py")
+            else:
+                st.error("Account not found or incorrect Roll No/Password.")
 
-    # LOGIN BUTTON
-    if st.button("LOGIN"):
+        render('<div class="hc-login-footer">Don\'t have an account?</div>')
 
-        students = pd.read_csv(FILE)
-
-        user = students[
-            (students["Roll No"].astype(str) == roll_no) &
-            (students["Password"].astype(str) == password)
-        ]
-
-        if not user.empty:
-
-            st.session_state.logged_in = True
-            st.session_state.roll_no = roll_no
-
-            st.success("Login Successful! 🎉")
-            st.switch_page("pages/dashboard.py")
-
-        else:
-
-            st.error(
-                "Account not found or incorrect Roll No/Password."
-            )
-
-    st.write("")
-
-    # REGISTER OPTION
-    st.markdown(
-        "<p style='text-align:center;color:white;'>"
-        "Don't have an account?"
-        "</p>",
-        unsafe_allow_html=True
-    )
-
-    if st.button("REGISTER HERE"):
-
-        st.session_state.auth_view = "register"
-        st.rerun()
+        if st.button("REGISTER HERE", key="login_register_btn"):
+            st.session_state.auth_view = "register"
+            st.rerun()
 
 
-# =========================================================
+# ============================================================
 # REGISTRATION VIEW
-# =========================================================
+# ============================================================
 
 elif st.session_state.auth_view == "register":
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    with st.container(key="hc_login_card"):
 
-    st.markdown(
-        '<div class="title">🎓 HC NEXUS</div>',
-        unsafe_allow_html=True
-    )
+        render('<div class="hc-login-logo">🎓 HC NEXUS</div>')
+        render('<div class="hc-login-tag">CREATE NEW ACCOUNT</div>')
 
-    st.markdown(
-        '<div class="subtitle">CREATE NEW ACCOUNT</div>',
-        unsafe_allow_html=True
-    )
+        roll_no = st.text_input("Roll No", placeholder="Enter your Roll Number")
+        password = st.text_input("Password", type="password", placeholder="Create your Password")
+        confirm_password = st.text_input("Confirm", type="password", placeholder="Re-enter your Password")
 
-    # -----------------------------
-    # REGISTRATION FIELDS
-    # -----------------------------
+        if st.button("CREATE ACCOUNT", key="register_btn"):
 
-    roll_no = st.text_input(
-        "Roll No",
-        placeholder="Enter your Roll Number"
-    )
-
-    password = st.text_input(
-        "Create Password",
-        type="password",
-        placeholder="Create your Password"
-    )
-
-    confirm_password = st.text_input(
-        "Confirm Password",
-        type="password",
-        placeholder="Re-enter your Password"
-    )
-
-    st.write("")
-
-    # -----------------------------
-    # CREATE ACCOUNT
-    # -----------------------------
-
-    if st.button("CREATE ACCOUNT"):
-
-        if not roll_no or not password or not confirm_password:
-
-            st.warning(
-                "Please fill all the fields."
-            )
-
-        elif password != confirm_password:
-
-            st.error(
-                "Passwords do not match."
-            )
-
-        else:
-
-            students = pd.read_csv(FILE)
-
-            # Check Roll No
-            if roll_no in students["Roll No"].astype(str).values:
-
-                st.error(
-                    "This Roll No is already registered."
-                )
-
+            if not roll_no or not password or not confirm_password:
+                st.warning("Please fill all the fields.")
+            elif password != confirm_password:
+                st.error("Passwords do not match.")
             else:
+                students = pd.read_csv(FILE)
+                if roll_no in students["Roll No"].astype(str).values:
+                    st.error("This Roll No is already registered.")
+                else:
+                    new_student = pd.DataFrame({"Roll No": [roll_no], "Password": [password]})
+                    new_student.to_csv(FILE, mode="a", header=False, index=False)
+                    st.success("Account created successfully! 🎉 Go back to Login.")
 
-                # Create new account
-                new_student = pd.DataFrame({
-                    "Roll No": [roll_no],
-                    "Password": [password]
-                })
-
-                # Save account in CSV
-                new_student.to_csv(
-                    FILE,
-                    mode="a",
-                    header=False,
-                    index=False
-                )
-
-                st.success(
-                    "Account created successfully! 🎉"
-                )
-
-                st.info(
-                    "Now go back to Login and enter your Roll No and Password."
-                )
-
-    st.write("")
-
-    # -----------------------------
-    # BACK TO LOGIN
-    # -----------------------------
-
-    if st.button("← BACK TO LOGIN"):
-
-        st.session_state.auth_view = "login"
-        st.rerun()
+        if st.button("← BACK TO LOGIN", key="back_to_login_btn"):
+            st.session_state.auth_view = "login"
+            st.rerun()
