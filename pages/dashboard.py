@@ -816,7 +816,7 @@ render(f"""
 QUICK_ITEMS = [
     ("✉️", "Messages", "pages/messages.py"),
     ("📅", "Date Sheet", "pages/datesheet.py"),
-    ("🧑‍🏫", "Leaves", None),
+    ("🧑‍🏫", "Leaves", "pages/leaves.py"),
     ("🔊", "Notices", "pages/notices.py"),
     ("💲", "Fees", "pages/fees.py"),
     ("🎫", "ID Card", "pages/id-card.py"),
