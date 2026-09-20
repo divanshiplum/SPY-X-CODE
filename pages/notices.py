@@ -40,8 +40,8 @@ def render(content: str):
 
 BASE_DIR = Path(__file__).resolve().parent
 
-ZONAL_PDF_PATH = BASE_DIR / "notices" / "ITEMS FOR COMPETITION OF ZONAL YOUTH FESTIVAL.pdf"
-TEEJ_IMAGE_PATH = BASE_DIR / "notices" / "WhatsApp Image 2026-09-14 at 1.31.23 PM.jpeg"
+ZONAL_PDF_PATH = BASE_DIR.parent / "notices" / "ITEMS FOR COMPETITION OF ZONAL YOUTH FESTIVAL.pdf"
+TEEJ_IMAGE_PATH = BASE_DIR.parent / "notices" / "WhatsApp Image 2026-09-14 at 1.31.23 PM.jpeg"
 
 ZONAL_PDF_EXCERPT = (
     "The official item list for the Zonal Youth Festival 2026 is "
@@ -362,7 +362,7 @@ div[class*="st-key-attach_"] .stDownloadButton > button:hover {
 with st.container(key="notice_header_row"):
 
     if st.button("‹", key="notice_back"):
-        st.switch_page("dashboard.py")
+        st.switch_page("pages/dashboard.py")
 
     render('<div class="notice-header-title">Announcements</div>')
 

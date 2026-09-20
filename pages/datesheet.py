@@ -197,7 +197,7 @@ with st.container(key="ds_top_bar"):
     with st.container(key="ds_header_row"):
 
         if st.button("‹", key="ds_back"):
-            st.switch_page("dashboard.py")
+            st.switch_page("pages/dashboard.py")
 
         render('<div class="ds-header-title">Date Sheet</div>')
 
