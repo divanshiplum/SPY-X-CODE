@@ -26,6 +26,7 @@ pg = st.navigation(
         st.Page("pages/id-card.py", title="ID Card"),
         st.Page("pages/fees.py", title="Fees"),
         st.Page("pages/leaves.py", title="Leaves"),
+        st.Page("pages/settings.py", title="Settings")
     ],
     position="hidden",
 )

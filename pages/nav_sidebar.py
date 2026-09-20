@@ -40,11 +40,11 @@ def render_sidebar(active: str):
         padding-top: 24px;
     }
 
-    /* Profile + Logout are pinned to the sidebar's own bottom edge
-       via absolute positioning against the sidebar's fixed
-       positioning context — more reliable here than a flex-grow
-       spacer, which wasn't actually filling the remaining height
-       in this nested container structure. */
+    /* Settings is pinned to the sidebar's own bottom edge via
+       absolute positioning against the sidebar's fixed positioning
+       context — more reliable here than a flex-grow spacer, which
+       wasn't actually filling the remaining height in this nested
+       container structure. */
     div.stVerticalBlock[class*="st-key-hc_sidebar"] {
         position: fixed !important;
         top: 0;
@@ -104,10 +104,6 @@ def render_sidebar(active: str):
         color: var(--hc-purple-text) !important;
     }
 
-    div[class*="st-key-hc_logout"] .stButton > button {
-        color: var(--hc-text-faint) !important;
-    }
-
     @media (max-width: 900px) {
         div.stVerticalBlock[class*="st-key-hc_sidebar"] { display: none !important; }
         .block-container { padding-left: 24px !important; }
@@ -134,9 +130,5 @@ def render_sidebar(active: str):
 
         with st.container(key="hc_bottom_section"):
 
-            if st.button("👤  Profile", key="hc_nav_profile", type="primary" if active == "profile" else "secondary"):
-                pass  # no profile page exists yet
-
-            if st.button("⎋  Logout", key="hc_logout"):
-                st.session_state.logged_in = False
-                st.switch_page("pages/login.py")
+            if st.button("⚙️  Settings", key="hc_nav_settings", type="primary" if active == "settings" else "secondary"):
+                st.switch_page("pages/settings.py")
