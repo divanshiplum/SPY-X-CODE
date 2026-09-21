@@ -13,11 +13,7 @@ st.set_page_config(
 # SESSION STATE
 # --------------------------------------------------
 toggle_defaults = {
-    "dark_theme": True,
-    "hide_cgpa": False,
-    "marks_privacy": False,
-    "hide_mess": False,
-    "simple_timetable": False,
+    "dark_theme": False,
     "force_result": False,
     "force_course": False,
     "biometric_lock": False,
@@ -29,15 +25,60 @@ for key, value in toggle_defaults.items():
 
 
 # --------------------------------------------------
-# CSS
+# HC NEXUS PASTEL THEME CSS
 # --------------------------------------------------
 st.markdown("""
 <style>
 
-.stApp {
-    background-color: #000000;
-    color: white;
+:root {
+    --hc-bg: #f4f2fb;
+    --hc-surface: #ffffff;
+    --hc-border: #ececf5;
+    --hc-shadow: 0 2px 14px rgba(80, 70, 160, 0.06);
+
+    --hc-purple: #7c6ff0;
+    --hc-purple-soft: #eeecfd;
+    --hc-purple-text: #6a5cd6;
+    --hc-purple-hover: #ddd8fb;
+
+    --hc-text: #1f2130;
+    --hc-text-soft: #8b8a9a;
+    --hc-text-faint: #b3b2c0;
+
+    --hc-red: #ff5b6e;
+    --hc-red-soft: #ffe7ea;
+    --hc-green: #2ec793;
+    --hc-green-soft: #e2f9f0;
+    --hc-green-hover: #c8f3e3;
+    --hc-blue: #4f8ef7;
+    --hc-blue-soft: #e6f0fe;
+    --hc-blue-hover: #d0e4fd;
+    --hc-orange: #ff9f43;
+    --hc-orange-soft: #fff1e2;
+    --hc-orange-hover: #ffe0c2;
+    --hc-yellow: #f6c445;
+    --hc-yellow-soft: #fef6e0;
+    --hc-yellow-hover: #fbe9b8;
+    --hc-teal: #2bb3a3;
+    --hc-teal-soft: #e2f7f4;
+    --hc-teal-hover: #c8efe9;
+
+    --hc-radius-lg: 20px;
+    --hc-radius-md: 14px;
+    --hc-radius-sm: 10px;
 }
+
+.stApp {
+    background: var(--hc-bg);
+}
+
+html, body, [class*="css"] {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+header { visibility: hidden; height: 0; }
+footer { visibility: hidden; }
+#MainMenu { visibility: hidden; }
 
 /* Main container */
 .block-container {
@@ -45,40 +86,49 @@ st.markdown("""
     padding-top: 20px;
 }
 
-/* Header */
-.header {
-    background-color: #181818;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 25px;
-    border-bottom: 1px solid #333;
-    margin-bottom: 15px;
+/* Header styling with columns */
+.stColumns > div:first-child {
+    background-color: var(--hc-purple-soft);
+    border-radius: var(--hc-radius-md);
+    border: 1px solid var(--hc-border);
 }
 
 .header-title {
     font-size: 36px;
-    font-weight: 500;
+    font-weight: 600;
+    color: var(--hc-text);
+    flex: 1;
+    text-align: center;
 }
 
 .header-icon {
     font-size: 38px;
+    cursor: pointer;
+    color: var(--hc-text);
+}
+
+.header-icon:hover {
+    opacity: 0.7;
+    transition: 0.2s;
 }
 
 /* Section title */
 .section-title {
-    color: #9b9b9b;
+    color: var(--hc-text-soft);
     font-size: 22px;
     margin: 28px 0 10px 20px;
+    font-weight: 600;
 }
 
 /* Settings box */
 .settings-box {
-    background-color: #1d1d1f;
-    border-radius: 25px;
-    padding: 5px 25px;
+    background-color: var(--hc-surface);
+    border-radius: var(--hc-radius-lg);
+    padding: 0;
     margin-bottom: 20px;
+    box-shadow: var(--hc-shadow);
+    border: 1px solid var(--hc-border);
+    overflow: hidden;
 }
 
 /* Setting row */
@@ -86,72 +136,132 @@ st.markdown("""
     min-height: 75px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #303030;
+    justify-content: space-between;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--hc-border);
 }
 
 .setting-row:last-child {
     border-bottom: none;
 }
 
+.setting-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex: 1;
+}
+
 .icon-box {
     width: 55px;
     height: 55px;
-    background-color: #29292b;
-    border-radius: 18px;
+    background-color: var(--hc-purple-soft);
+    border-radius: var(--hc-radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 27px;
-    margin-right: 18px;
+    flex-shrink: 0;
 }
 
 .setting-name {
-    font-size: 23px;
-    color: #f5f5f5;
-    flex: 1;
+    font-size: 19px;
+    color: var(--hc-text);
+    font-weight: 500;
+}
+
+.setting-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 60px;
 }
 
 .description {
-    color: #9b9b9b;
+    color: var(--hc-text-soft);
     font-size: 19px;
     margin: 5px 0 25px 20px;
 }
 
 /* Streamlit buttons */
 div.stButton > button {
-    border-radius: 18px;
-    border: none;
-    background-color: #29292b;
-    color: white;
-    font-size: 20px;
+    border-radius: var(--hc-radius-md);
+    border: 1px solid var(--hc-border);
+    background-color: var(--hc-surface);
+    color: var(--hc-text);
+    font-size: 18px;
     padding: 12px 20px;
     width: 100%;
     transition: 0.2s;
 }
 
 div.stButton > button:hover {
-    background-color: #353537;
-    border: none;
+    background-color: var(--hc-purple-soft);
+    border: 1px solid var(--hc-border);
 }
 
-/* Toggle area */
-.toggle-label {
-    color: #aaa;
-    font-size: 18px;
+/* Back button styling */
+[data-testid="baseButton-secondary"] {
+    background-color: var(--hc-purple-soft) !important;
+    color: var(--hc-text) !important;
+    border: 1px solid var(--hc-border) !important;
+    border-radius: var(--hc-radius-md) !important;
+    font-size: 24px !important;
+    padding: 12px 16px !important;
 }
 
-/* Danger buttons */
-.danger button {
-    color: #ff3b30 !important;
+[data-testid="baseButton-secondary"]:hover {
+    background-color: var(--hc-purple-hover) !important;
 }
 
-/* Success message */
-.success-box {
-    background-color: #183b25;
-    color: #5cff8d;
-    padding: 12px 18px;
-    border-radius: 12px;
-    margin-top: 10px;
+/* Toggle styling - DARK THEME */
+.stToggle {
+    margin: 0 !important;
+}
+
+/* Make toggle MUCH darker and visible */
+[data-testid="baseButton-secondary"] > svg {
+    fill: #5a4a8f !important;
+}
+
+/* Toggle track (background) - make it very dark */
+div[role="switch"] {
+    background-color: #4a3f6b !important;
+    border: 1px solid #3a2f5b !important;
+}
+
+/* Toggle thumb when OFF - darker color */
+div[role="switch"]::before {
+    background-color: #3a2f5b !important;
+}
+
+/* Toggle when ON - purple */
+div[role="switch"][aria-checked="true"] {
+    background-color: #6a5cd6 !important;
+    border: 1px solid #5a4cd6 !important;
+}
+
+/* Toggle thumb when ON */
+div[role="switch"][aria-checked="true"]::before {
+    background-color: #ffffff !important;
+}
+
+/* Extra dark styling for all toggle elements */
+.stToggle [role="switch"],
+[data-baseweb="toggle"] {
+    background-color: #4a3f6b !important !important;
+}
+
+.stToggle [role="switch"][aria-checked="true"],
+[data-baseweb="toggle"][aria-checked="true"] {
+    background-color: #6a5cd6 !important !important;
+}
+
+/* Ensure max contrast and visibility */
+.streamlit-expanderContent .stToggle [role="switch"],
+.stToggle > * [role="switch"] {
+    background-color: #3d3257 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
 }
 
 </style>
@@ -159,83 +269,58 @@ div.stButton > button:hover {
 
 
 # --------------------------------------------------
-# HEADER
+# HEADER WITH BACK NAVIGATION
 # --------------------------------------------------
-st.markdown("""
-<div class="header">
-    <div class="header-icon">◀</div>
-    <div class="header-title">🦉 Settings</div>
-    <div class="header-icon">⚙️</div>
-</div>
-""", unsafe_allow_html=True)
+col1, col2, col3 = st.columns([0.8, 10, 0.8])
+
+with col1:
+    if st.button("‹", key="back_button", help="Go back to Dashboard"):
+        st.switch_page("pages/dashboard.py")
+
+with col2:
+    st.markdown("""
+    <div style="text-align: center; padding: 10px 0;">
+        <div style="font-size: 36px; font-weight: 600; color: var(--hc-text);">Settings</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <div style="text-align: center; font-size: 36px;">⚙️</div>
+    """, unsafe_allow_html=True)
 
 
 # --------------------------------------------------
-# TOGGLE FUNCTION
+# TOGGLE FUNCTION WITH PROPER LAYOUT
 # --------------------------------------------------
 def setting_toggle(icon, title, key):
-
-    col1, col2 = st.columns([4.8, 1.2])
-
+    col1, col2 = st.columns([5, 1])
+    
     with col1:
-        st.markdown(
-            f"""
-            <div class="setting-row">
-                <div class="icon-box">{icon}</div>
-                <div class="setting-name">{title}</div>
+        st.markdown(f"""
+            <div style="display: flex; align-items: center; gap: 18px; padding: 15px 0;">
+                <div style="width: 55px; height: 55px; background-color: var(--hc-purple-soft); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 27px; flex-shrink: 0;">
+                    {icon}
+                </div>
+                <div style="font-size: 19px; color: var(--hc-text); font-weight: 500;">
+                    {title}
+                </div>
             </div>
-            """,
-            unsafe_allow_html=True
-        )
-
+        """, unsafe_allow_html=True)
+    
     with col2:
-        st.toggle(
-            "",
-            key=key,
-            label_visibility="collapsed"
-        )
+        st.toggle("", key=key, label_visibility="collapsed")
 
 
 # --------------------------------------------------
 # APPEARANCE
 # --------------------------------------------------
-st.markdown(
-    '<div class="section-title">Appearance</div>',
-    unsafe_allow_html=True
-)
+st.markdown('<div class="section-title">Appearance</div>', unsafe_allow_html=True)
 
 st.markdown('<div class="settings-box">', unsafe_allow_html=True)
 
 setting_toggle("🌙", "Dark Theme", "dark_theme")
-setting_toggle("🙈", "Hide CGPA", "hide_cgpa")
-setting_toggle("🔒", "Marks & Result Privacy", "marks_privacy")
-setting_toggle("📚", "Hide Mess Menu", "hide_mess")
-
 st.markdown('</div>', unsafe_allow_html=True)
-
-
-# --------------------------------------------------
-# MEAL DESCRIPTION
-# --------------------------------------------------
-st.markdown(
-    '<div class="description">Only show next meal session on home screen</div>',
-    unsafe_allow_html=True
-)
-
-
-# --------------------------------------------------
-# TIMETABLE
-# --------------------------------------------------
-st.markdown('<div class="settings-box">', unsafe_allow_html=True)
-
-setting_toggle("🗓️", "Simple Timetable", "simple_timetable")
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-st.markdown(
-    '<div class="description">Use a simple list view instead of calendar view</div>',
-    unsafe_allow_html=True
-)
 
 
 # --------------------------------------------------
@@ -255,98 +340,6 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 
 # --------------------------------------------------
-# SUBJECT MANAGEMENT
-# --------------------------------------------------
-st.markdown(
-    '<div class="section-title">Subject Management</div>',
-    unsafe_allow_html=True
-)
-
-st.markdown('<div class="settings-box">', unsafe_allow_html=True)
-
-# Attendance Goals
-col1, col2 = st.columns([4.5, 1.5])
-
-with col1:
-    st.markdown(
-        """
-        <div class="setting-row">
-            <div class="icon-box">%</div>
-            <div class="setting-name">Attendance<br>Goals</div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-with col2:
-    if st.button("Per-subject %  ›", key="attendance_goals"):
-        st.session_state["attendance_clicked"] = True
-
-# Manage Subjects
-col1, col2 = st.columns([4.5, 1.5])
-
-with col1:
-    st.markdown(
-        """
-        <div class="setting-row">
-            <div class="icon-box">☷</div>
-            <div class="setting-name">Manage<br>Subjects</div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-with col2:
-    if st.button("Show/Hide  ›", key="manage_subjects"):
-        st.session_state["subjects_clicked"] = True
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-
-# --------------------------------------------------
-# ATTENDANCE GOALS PAGE/ACTION
-# --------------------------------------------------
-if st.session_state.get("attendance_clicked", False):
-
-    st.subheader("🎯 Attendance Goals")
-
-    attendance_goal = st.slider(
-        "Set Attendance Goal",
-        min_value=50,
-        max_value=100,
-        value=75,
-        step=1
-    )
-
-    st.success(
-        f"Attendance goal set to {attendance_goal}%"
-    )
-
-
-# --------------------------------------------------
-# MANAGE SUBJECTS ACTION
-# --------------------------------------------------
-if st.session_state.get("subjects_clicked", False):
-
-    st.subheader("📚 Manage Subjects")
-
-    subjects = [
-        "Computer Architecture",
-        "Cybersecurity",
-        "Information System",
-        "Data Structure",
-        "Operating System"
-    ]
-
-    for subject in subjects:
-        st.checkbox(
-            subject,
-            value=True,
-            key=f"subject_{subject}"
-        )
-
-
-# --------------------------------------------------
 # SECURITY
 # --------------------------------------------------
 st.markdown(
@@ -360,20 +353,19 @@ st.markdown('<div class="settings-box">', unsafe_allow_html=True)
 setting_toggle("🔒", "Biometric Lock", "biometric_lock")
 
 # Logout
-col1, col2 = st.columns([4.8, 1.2])
+col1, col2 = st.columns([5, 1])
 
 with col1:
-    st.markdown(
-        """
-        <div class="setting-row">
-            <div class="icon-box">↪</div>
-            <div class="setting-name" style="color:#ff453a;">
-                Logout - Clear app data
+    st.markdown("""
+        <div style="display: flex; align-items: center; gap: 18px; padding: 15px 0;">
+            <div style="width: 55px; height: 55px; background-color: var(--hc-red-soft); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 27px; flex-shrink: 0;">
+                ↪
+            </div>
+            <div style="font-size: 19px; color: var(--hc-red); font-weight: 500;">
+                Logout
             </div>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+    """, unsafe_allow_html=True)
 
 with col2:
     if st.button("›", key="logout_button"):
@@ -381,38 +373,22 @@ with col2:
 
 
 # Delete Account
-col1, col2 = st.columns([4.8, 1.2])
+col1, col2 = st.columns([5, 1])
 
 with col1:
-    st.markdown(
-        """
-        <div class="setting-row">
-            <div class="icon-box">🗑️</div>
-            <div class="setting-name" style="color:#ff453a;">
+    st.markdown("""
+        <div style="display: flex; align-items: center; gap: 18px; padding: 15px 0;">
+            <div style="width: 55px; height: 55px; background-color: var(--hc-red-soft); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 27px; flex-shrink: 0;">
+                🗑️
+            </div>
+            <div style="font-size: 19px; color: var(--hc-red); font-weight: 500;">
                 Delete Account
             </div>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+    """, unsafe_allow_html=True)
 
 with col2:
     if st.button("›", key="delete_button"):
         st.error("Delete Account option selected.")
 
 st.markdown('</div>', unsafe_allow_html=True)
-
-
-# --------------------------------------------------
-# CURRENT SETTINGS
-# --------------------------------------------------
-with st.expander("⚙️ Current Settings"):
-
-    st.write("Dark Theme:", st.session_state.dark_theme)
-    st.write("Hide CGPA:", st.session_state.hide_cgpa)
-    st.write("Marks & Result Privacy:", st.session_state.marks_privacy)
-    st.write("Hide Mess Menu:", st.session_state.hide_mess)
-    st.write("Simple Timetable:", st.session_state.simple_timetable)
-    st.write("Force Result Refresh:", st.session_state.force_result)
-    st.write("Force Course Plan Refresh:", st.session_state.force_course)
-    st.write("Biometric Lock:", st.session_state.biometric_lock)
