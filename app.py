@@ -1,6 +1,26 @@
 import streamlit as st
 
 # ============================================================
+# GLOBAL SESSION STATE INITIALIZATION
+# (सिर्फ एक जगह - यहीं करो, कहीं और नहीं)
+# ============================================================
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if "roll_no" not in st.session_state:
+    st.session_state.roll_no = None
+
+if "auth_view" not in st.session_state:
+    st.session_state.auth_view = "login"
+
+if "logout_confirmed" not in st.session_state:
+    st.session_state.logout_confirmed = False
+
+if "show_attendance" not in st.session_state:
+    st.session_state.show_attendance = False
+    st.session_state.attendance_subject_code = None
+
+# ============================================================
 # APP ROUTER
 #
 # All page modules now live under pages/, including nav_bar.py

@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-sys.path.append(str(Path(__file__).resolve().parent))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 import streamlit as st
 import pandas as pd
@@ -8,28 +8,23 @@ import os
 
 from theme import THEME_CSS
 
-
 st.set_page_config(
     page_title="HC NEXUS",
     page_icon="🎓",
     layout="centered",
 )
 
-
 def render(content: str):
     lines = content.strip("\n").split("\n")
     flat = "\n".join(line.strip() for line in lines)
     st.markdown(flat, unsafe_allow_html=True)
 
-
 st.markdown(THEME_CSS, unsafe_allow_html=True)
 
-
+if st.session_state.logged_in:
+    st.switch_page("pages/dashboard.py")
 # ============================================================
-# CSS — pastel blobs behind a centered white login card,
-# matching the reference. The blobs and the books/pencil-cup
-# illustration are CSS/emoji approximations of hand-drawn
-# artwork, not a pixel copy of it.
+# CSS — pastel blobs behind a centered white login card
 # ============================================================
 
 render("""
@@ -167,7 +162,6 @@ div[class*="st-key-login_register_btn"] .stButton > button:hover {
 <div class="hc-illustration">📚</div>
 """)
 
-
 # ============================================================
 # DATA
 # ============================================================
@@ -176,20 +170,6 @@ FILE = "data/students.csv"
 
 if not os.path.exists(FILE):
     pd.DataFrame(columns=["Roll No", "Password"]).to_csv(FILE, index=False)
-
-
-if "auth_view" not in st.session_state:
-    st.session_state.auth_view = "login"
-
-if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
-
-if "roll_no" not in st.session_state:
-    st.session_state.roll_no = None
-
-if st.session_state.logged_in:
-    st.switch_page("pages/dashboard.py")
-
 
 # ============================================================
 # LOGIN VIEW
@@ -214,9 +194,11 @@ if st.session_state.auth_view == "login":
             ]
 
             if not user.empty:
+                # ✅ Set session state
                 st.session_state.logged_in = True
                 st.session_state.roll_no = roll_no
-                st.switch_page("pages/dashboard.py")
+                st.session_state.auth_view = "login"
+                st.rerun()
             else:
                 st.error("Account not found or incorrect Roll No/Password.")
 
@@ -225,7 +207,6 @@ if st.session_state.auth_view == "login":
         if st.button("REGISTER HERE", key="login_register_btn"):
             st.session_state.auth_view = "register"
             st.rerun()
-
 
 # ============================================================
 # REGISTRATION VIEW

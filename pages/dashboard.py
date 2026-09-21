@@ -12,6 +12,11 @@ import base64
 
 from nav_sidebar import render_sidebar
 
+# ============================================================
+# AUTH CHECK (सिर्फ check करो, initialize नहीं)
+# ============================================================
+if not st.session_state.logged_in:
+    st.switch_page("pages/login.py")
 
 # ============================================================
 # PAGE CONFIG
