@@ -11,7 +11,7 @@ THEME_CSS = """
 <style>
 
 :root {
-    --hc-bg: #f4f2fb;
+    --hc-bg: #ede9f7;
     --hc-surface: #ffffff;
     --hc-border: #ececf5;
     --hc-shadow: 0 2px 14px rgba(80, 70, 160, 0.06);

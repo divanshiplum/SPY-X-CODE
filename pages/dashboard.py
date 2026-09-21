@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-sys.path.append(str(Path(__file__).resolve().parent))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 import streamlit as st
 import pandas as pd
@@ -15,9 +15,6 @@ from nav_sidebar import render_sidebar
 
 # ============================================================
 # PAGE CONFIG
-# layout="wide" is needed now — the sidebar mockup is a desktop
-# layout, not the narrow mobile-centered layout every other page
-# in this app has used so far.
 # ============================================================
 
 st.set_page_config(
@@ -55,7 +52,7 @@ ATTENDANCE_CSV = "data/attendance_records.csv"
 
 
 # ============================================================
-# SUBJECT DATA (unchanged)
+# SUBJECT DATA
 # ============================================================
 
 subjects = pd.DataFrame({
@@ -86,6 +83,15 @@ else:
     attendance_log = pd.DataFrame(
         columns=["code", "date", "day", "start_time", "end_time", "room", "instructor", "status"]
     )
+
+# Subject info
+SUBJECT_INFO = {
+    "23CSR-449": {"name": "Data Structure", "icon": "✉️"},
+    "SPO-113": {"name": "Computer Architecture", "icon": "📈"},
+    "23BDA-401": {"name": "Information System", "icon": "💡"},
+    "23BDA-402": {"name": "Cybersecurity Fundamentals", "icon": "🛡️"},
+    "23BDA-403": {"name": "Operating System", "icon": "🖥️"},
+}
 
 
 # ============================================================
@@ -131,8 +137,6 @@ render("""
     padding: 22px 22px 18px 22px;
 }
 
-/* A soft pastel gradient tint for the course card itself, so it
-   isn't the same flat white as every other card on the page. */
 .hc-course-card-bg {
     background: linear-gradient(135deg, var(--hc-purple-soft) 0%, var(--hc-blue-soft) 100%);
 }
@@ -191,9 +195,6 @@ div[class*="st-key-hc_quick_"] .stButton > button {
     transition: background-color 0.15s ease;
 }
 
-/* Each quick-menu tile gets its own pastel resting color and a
-   slightly deeper (but still pastel) hover shade, matching the
-   theme's palette rather than one flat gray for every tile. */
 div.stVerticalBlock[class*="st-key-hc_quick_row_1"] > div:nth-child(1) .stButton > button { background: var(--hc-blue-soft); }
 div.stVerticalBlock[class*="st-key-hc_quick_row_1"] > div:nth-child(1) .stButton > button:hover { background: var(--hc-blue-hover); }
 
@@ -225,17 +226,22 @@ div.stVerticalBlock[class*="st-key-hc_quick_row_2"] > div:nth-child(3) .stButton
 .hc-subjects-count { color: var(--hc-text-soft); font-size: 13px; margin: 2px 2px 16px 2px; }
 .hc-filter { color: var(--hc-text-soft); font-size: 13px; }
 
-/* ---------- Subject card ---------- */
+/* ---------- Subject card container (NO MARGIN!) ---------- */
 
-.hc-subject-card {
-    position: relative;
+.hc-subject-card-container {
+    margin-bottom: 14px;
     background: var(--hc-surface);
     border-radius: var(--hc-radius-lg);
     box-shadow: var(--hc-shadow);
     border: 1px solid var(--hc-border);
+    overflow: hidden;
+}
+
+.hc-subject-card {
+    position: relative;
+    background: var(--hc-surface);
     border-left: 5px solid transparent;
     padding: 18px 22px;
-    margin-bottom: 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -323,6 +329,208 @@ div.stVerticalBlock[class*="st-key-hc_quick_row_2"] > div:nth-child(3) .stButton
     border-radius: 50%;
 }
 
+/* ---------- View Attendance Button (ATTACHED TO BOTTOM) ---------- */
+
+div[class*="st-key-attendance_"] {
+    margin: 0 !important;
+}
+
+div[class*="st-key-attendance_"] .stButton {
+    width: 100%;
+    margin: 0 !important;
+}
+
+div[class*="st-key-attendance_"] .stButton > button {
+    width: 100% !important;
+    background: var(--hc-purple-soft) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    color: var(--hc-purple) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    padding: 12px 22px !important;
+    text-align: center !important;
+    transition: all 0.2s ease !important;
+    border-top: 1px solid var(--hc-border) !important;
+    margin: 0 !important;
+    height: auto !important;
+}
+
+div[class*="st-key-attendance_"] .stButton > button:hover {
+    background: var(--hc-purple-hover) !important;
+    color: var(--hc-purple-text) !important;
+}
+
+div[class*="st-key-attendance_"] .stButton > button:active {
+    opacity: 0.9 !important;
+}
+
+/* ---------- ATTENDANCE VIEW STYLES ---------- */
+
+.attendance-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--hc-border);
+}
+
+.attendance-header-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--hc-text);
+}
+
+.attendance-icon {
+    font-size: 28px;
+}
+
+.attendance-stat-card {
+    background: var(--hc-surface);
+    border-radius: var(--hc-radius-lg);
+    padding: 16px;
+    box-shadow: var(--hc-shadow);
+    border: 1px solid var(--hc-border);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 140px;
+}
+
+.stat-label {
+    color: var(--hc-text-soft);
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--hc-text);
+    margin-bottom: 4px;
+}
+
+.stat-percentage {
+    font-size: 12px;
+    color: var(--hc-text-soft);
+}
+
+.timeline-container {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 16px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--hc-green) 0%, var(--hc-red) 100%);
+}
+
+.timeline-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -28px;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid var(--hc-surface);
+    z-index: 2;
+}
+
+.timeline-dot.present {
+    background-color: var(--hc-green);
+}
+
+.timeline-dot.absent {
+    background-color: var(--hc-red);
+}
+
+.timeline-content {
+    flex: 1;
+    background: var(--hc-surface);
+    border-radius: var(--hc-radius-lg);
+    padding: 16px;
+    box-shadow: var(--hc-shadow);
+    border: 1px solid var(--hc-border);
+    border-left: 4px solid transparent;
+}
+
+.timeline-content.present {
+    border-left-color: var(--hc-green);
+}
+
+.timeline-content.absent {
+    border-left-color: var(--hc-red);
+}
+
+.timeline-date {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--hc-text);
+    margin-bottom: 6px;
+}
+
+.timeline-time {
+    font-size: 13px;
+    color: var(--hc-text-soft);
+    margin-bottom: 8px;
+}
+
+.timeline-instructor {
+    font-size: 13px;
+    color: var(--hc-text-soft);
+    margin-bottom: 8px;
+}
+
+.timeline-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.timeline-status.present {
+    background: var(--hc-green-soft);
+    color: var(--hc-green);
+}
+
+.timeline-status.absent {
+    background: var(--hc-red-soft);
+    color: var(--hc-red);
+}
+
+/* ---------- BACK BUTTON ---------- */
+
+div[class*="st-key-back_btn_"] .stButton > button {
+    background: var(--hc-purple-soft) !important;
+    border: 1px solid var(--hc-border) !important;
+    border-radius: var(--hc-radius-md) !important;
+    color: var(--hc-purple) !important;
+    font-weight: 600 !important;
+    padding: 10px 20px !important;
+    transition: all 0.2s ease !important;
+}
+
+div[class*="st-key-back_btn_"] .stButton > button:hover {
+    background: var(--hc-purple-hover) !important;
+    border-color: var(--hc-purple) !important;
+}
+
 @media (max-width: 900px) {
     .block-container { padding-left: 24px !important; }
 }
@@ -332,163 +540,297 @@ div.stVerticalBlock[class*="st-key-hc_quick_row_2"] > div:nth-child(3) .stButton
 
 
 # ============================================================
-# GREETING CARD
+# INITIALIZE SESSION STATE
 # ============================================================
 
-hour = datetime.now().hour
-if 5 <= hour < 12:
-    greeting = "Good Morning"
-elif 12 <= hour < 17:
-    greeting = "Good Afternoon"
-elif 17 <= hour < 21:
-    greeting = "Good Evening"
-else:
-    greeting = "Good Night"
+if "show_attendance" not in st.session_state:
+    st.session_state.show_attendance = False
+    st.session_state.attendance_subject_code = None
 
-render(f"""
-<div class="hc-card hc-greeting-card">
-    <div class="hc-greeting-left">
-        <div class="hc-greeting-avatar">🧑‍🎓</div>
+
+# ============================================================
+# ATTENDANCE VIEW
+# ============================================================
+
+if st.session_state.show_attendance and st.session_state.attendance_subject_code:
+    
+    subject_code = st.session_state.attendance_subject_code
+    subject_name = SUBJECT_INFO[subject_code]["name"]
+    subject_icon = SUBJECT_INFO[subject_code]["icon"]
+    
+    # Back button
+    if st.button("← Back", key="back_btn_attendance"):
+        st.session_state.show_attendance = False
+        st.rerun()
+    
+    # Header
+    render(f"""
+    <div class="attendance-header">
+        <div class="attendance-icon">{subject_icon}</div>
         <div>
-            <div class="hc-greeting-text-sub">{greeting},</div>
-            <div class="hc-greeting-text-name">{STUDENT_NAME}</div>
-        </div>
-    </div>
-    <div class="hc-greeting-icons">
-        <span>+</span>
-    </div>
-</div>
-""")
-
-
-# ============================================================
-# COURSE CARD
-# ============================================================
-
-QUICK_ITEMS = [
-    ("✉️", "Messages", "pages/messages.py"),
-    ("📅", "Date Sheet", "pages/datesheet.py"),
-    ("🧑‍🏫", "Leaves", "pages/leaves.py"),
-    ("🔊", "Notices", "pages/notices.py"),
-    ("💲", "Fees", "pages/fees.py"),
-    ("🎫", "ID Card", "pages/id-card.py"),
-]
-
-with st.container(key="hc_course_card"):
-
-    render(f"""
-    <div class="hc-card hc-course-card-bg">
-        <div class="hc-course-top">
-            <div class="hc-course-row">
-                <div class="hc-course-name">
-                    📖 &nbsp; {COURSE}<br>(Sem-{SEMESTER})
-                </div>
-                <div class="hc-cgpa-box">
-                    <div class="hc-cgpa-label">CGPA</div>
-                    <div class="hc-cgpa-value">{CGPA}</div>
-                </div>
-            </div>
-            <div class="hc-divider"></div>
+            <div class="attendance-header-title">{subject_name}</div>
+            <div style="color: var(--hc-text-soft); font-size: 13px; margin-top: 2px;">{subject_code}</div>
         </div>
     </div>
     """)
-
-    rows = [QUICK_ITEMS[0:3], QUICK_ITEMS[3:6]]
-    for row_index, row_items in enumerate(rows, start=1):
-        with st.container(key=f"hc_quick_row_{row_index}"):
-            for icon, label, target_page in row_items:
-                if st.button(f"{icon}\n{label}", key=f"hc_quick_{label}"):
-                    if target_page:
-                        st.switch_page(target_page)
-
-
-# ============================================================
-# SUBJECT LIST
-# ============================================================
-
-render(f"""
-<div class="hc-subjects-header">
-    <div class="hc-subjects-title">Your Subjects</div>
-    <div class="hc-filter">☰ &nbsp; Filter</div>
-</div>
-<div class="hc-subjects-count">{len(subjects)} subjects</div>
-""")
-
-
-def classes_to_recover(attended_count, total_count):
-    if total_count == 0 or attended_count / total_count >= 0.75:
-        return 0
-    return max(0, math.ceil((0.75 * total_count - attended_count) / 0.25))
-
-
-def safe_to_miss(attended_count, total_count):
-    if total_count == 0 or attended_count / total_count < 0.75:
-        return 0
-    return max(0, math.floor(attended_count / 0.75 - total_count))
-
-
-SUBJECT_ICONS = {
-    "Data Structure": "✉️",
-    "Computer Architecture": "📈",
-    "Information System": "💡",
-    "Cybersecurity Fundamentals": "🛡️",
-    "Operating System": "🖥️",
-}
-
-for _, row in subjects.iterrows():
-
-    percentage = int(row["attendance"])
-
-    if percentage < 75:
-        border_class = "red"
-        pill_class = "bad"
-        needed = classes_to_recover(int(row["attended"]), int(row["total"]))
-        pill_text = f"❌ Attend {needed} to recover"
-        ring_color = "var(--hc-red)"
-        dot_colors = ["var(--hc-red)", "var(--hc-red)", "var(--hc-orange)", "var(--hc-green)", "var(--hc-green)"]
-    elif percentage < 90:
-        border_class = "purple"
-        pill_class = "good"
-        safe = safe_to_miss(int(row["attended"]), int(row["total"]))
-        pill_text = f"✓ Safe to miss {safe} classes"
-        ring_color = "var(--hc-purple)"
-        dot_colors = ["var(--hc-red)", "var(--hc-orange)", "var(--hc-purple)", "var(--hc-green)", "var(--hc-green)"]
+    
+    # Filter attendance by subject
+    subject_attendance = attendance_log[attendance_log["code"] == subject_code].copy()
+    
+    if len(subject_attendance) > 0:
+        # Sort by date descending
+        subject_attendance = subject_attendance.sort_values("date", ascending=False)
+        
+        # Stats
+        total_classes = len(subject_attendance)
+        present_count = len(subject_attendance[subject_attendance["status"] == "Present"])
+        absent_count = len(subject_attendance[subject_attendance["status"] == "Absent"])
+        present_percentage = (present_count / total_classes * 100) if total_classes > 0 else 0
+        
+        # Display stats
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            render(f"""
+            <div class="attendance-stat-card">
+                <div class="stat-label">Total Classes</div>
+                <div class="stat-value">{total_classes}</div>
+            </div>
+            """)
+        
+        with col2:
+            render(f"""
+            <div class="attendance-stat-card" style="background: linear-gradient(135deg, var(--hc-green-soft) 0%, var(--hc-surface) 100%);">
+                <div class="stat-label">Present</div>
+                <div class="stat-value">{present_count}</div>
+                <div class="stat-percentage">{present_percentage:.1f}%</div>
+            </div>
+            """)
+        
+        with col3:
+            render(f"""
+            <div class="attendance-stat-card" style="background: linear-gradient(135deg, var(--hc-red-soft) 0%, var(--hc-surface) 100%);">
+                <div class="stat-label">Absent</div>
+                <div class="stat-value">{absent_count}</div>
+                <div class="stat-percentage">{(absent_count/total_classes*100):.1f}%</div>
+            </div>
+            """)
+        
+        st.markdown("---")
+        
+        # Timeline
+        st.subheader("📅 Attendance Timeline")
+        
+        timeline_html = '<div class="timeline-container"><div class="timeline-line"></div>'
+        
+        for _, row in subject_attendance.iterrows():
+            status = row["status"]
+            date_str = pd.to_datetime(row["date"]).strftime("%A, %d %b %Y")
+            time_str = f"{row['start_time']} - {row['end_time']}"
+            instructor = row["instructor"] if pd.notna(row["instructor"]) else "N/A"
+            
+            status_class = "present" if status == "Present" else "absent"
+            status_icon = "✓" if status == "Present" else "✕"
+            status_text = "Present" if status == "Present" else "Absent"
+            
+            timeline_html += f"""
+            <div class="timeline-item">
+                <div class="timeline-dot {status_class}"></div>
+                <div class="timeline-content {status_class}">
+                    <div class="timeline-date">{date_str}</div>
+                    <div class="timeline-time">⏱️ {time_str}</div>
+                    <div class="timeline-instructor">👨‍🏫 {instructor}</div>
+                    <div class="timeline-status {status_class}">{status_icon} {status_text}</div>
+                </div>
+            </div>
+            """
+        
+        timeline_html += '</div>'
+        render(timeline_html)
+    
     else:
-        border_class = "green"
-        pill_class = "good"
-        safe = safe_to_miss(int(row["attended"]), int(row["total"]))
-        pill_text = f"✓ Safe to miss {safe} classes"
-        ring_color = "var(--hc-green)"
-        dot_colors = ["var(--hc-orange)", "var(--hc-green)", "var(--hc-green)", "var(--hc-green)", "var(--hc-green)"]
+        st.info(f"No attendance records found for {subject_name}")
 
-    degree = percentage * 3.6
-    ring_bg = (
-        f"background: conic-gradient({ring_color} 0deg {degree}deg, #ececf5 {degree}deg 360deg);"
-        if percentage > 0 else "background: #ececf5;"
-    )
 
-    dots_html = "".join(
-        f'<span class="hc-subject-dot" style="background:{c};"></span>' for c in dot_colors
-    )
+# ============================================================
+# DASHBOARD VIEW
+# ============================================================
 
-    icon = SUBJECT_ICONS.get(row["subject"], "📘")
+else:
+    
+    # ============================================================
+    # GREETING CARD
+    # ============================================================
+
+    hour = datetime.now().hour
+    if 5 <= hour < 12:
+        greeting = "Good Morning"
+    elif 12 <= hour < 17:
+        greeting = "Good Afternoon"
+    elif 17 <= hour < 21:
+        greeting = "Good Evening"
+    else:
+        greeting = "Good Night"
 
     render(f"""
-    <div class="hc-subject-card {border_class}">
-        <div class="hc-subject-left">
-            <div class="hc-subject-icon">{icon}</div>
+    <div class="hc-card hc-greeting-card">
+        <div class="hc-greeting-left">
+            <div class="hc-greeting-avatar">🧑‍🎓</div>
             <div>
-                <div class="hc-subject-name">{row['subject']}</div>
-                <div class="hc-subject-code">{row['code']} &bull; {row['credits']}</div>
-                <div class="hc-status-pill {pill_class}">{pill_text}</div>
+                <div class="hc-greeting-text-sub">{greeting},</div>
+                <div class="hc-greeting-text-name">{STUDENT_NAME}</div>
             </div>
         </div>
-        <div class="hc-ring-wrap">
-            <div class="hc-ring" style="{ring_bg}">
-                <div class="hc-ring-value">{percentage}</div>
-            </div>
-            <div class="hc-ring-fraction">{row['attended']}/{row['total']}</div>
-            <div class="hc-subject-dots">{dots_html}</div>
+        <div class="hc-greeting-icons">
+            <span>+</span>
         </div>
     </div>
     """)
+
+
+    # ============================================================
+    # COURSE CARD
+    # ============================================================
+
+    QUICK_ITEMS = [
+        ("✉️", "Messages", "pages/messages.py"),
+        ("📅", "Date Sheet", "pages/datesheet.py"),
+        ("🧑‍🏫", "Leaves", "pages/leaves.py"),
+        ("🔊", "Notices", "pages/notices.py"),
+        ("💲", "Fees", "pages/fees.py"),
+        ("🎫", "ID Card", "pages/id-card.py"),
+    ]
+
+    with st.container(key="hc_course_card"):
+
+        render(f"""
+        <div class="hc-card hc-course-card-bg">
+            <div class="hc-course-top">
+                <div class="hc-course-row">
+                    <div class="hc-course-name">
+                        📖 &nbsp; {COURSE}<br>(Sem-{SEMESTER})
+                    </div>
+                    <div class="hc-cgpa-box">
+                        <div class="hc-cgpa-label">CGPA</div>
+                        <div class="hc-cgpa-value">{CGPA}</div>
+                    </div>
+                </div>
+                <div class="hc-divider"></div>
+            </div>
+        </div>
+        """)
+
+        rows = [QUICK_ITEMS[0:3], QUICK_ITEMS[3:6]]
+        for row_index, row_items in enumerate(rows, start=1):
+            with st.container(key=f"hc_quick_row_{row_index}"):
+                for icon, label, target_page in row_items:
+                    if st.button(f"{icon}\n{label}", key=f"hc_quick_{label}"):
+                        if target_page:
+                            st.switch_page(target_page)
+
+
+    # ============================================================
+    # SUBJECT LIST
+    # ============================================================
+
+    render(f"""
+    <div class="hc-subjects-header">
+        <div class="hc-subjects-title">Your Subjects</div>
+        <div class="hc-filter">☰ &nbsp; Filter</div>
+    </div>
+    <div class="hc-subjects-count">{len(subjects)} subjects</div>
+    """)
+
+
+    def classes_to_recover(attended_count, total_count):
+        if total_count == 0 or attended_count / total_count >= 0.75:
+            return 0
+        return max(0, math.ceil((0.75 * total_count - attended_count) / 0.25))
+
+
+    def safe_to_miss(attended_count, total_count):
+        if total_count == 0 or attended_count / total_count < 0.75:
+            return 0
+        return max(0, math.floor(attended_count / 0.75 - total_count))
+
+
+    SUBJECT_ICONS = {
+        "Data Structure": "✉️",
+        "Computer Architecture": "📈",
+        "Information System": "💡",
+        "Cybersecurity Fundamentals": "🛡️",
+        "Operating System": "🖥️",
+    }
+
+    for _, row in subjects.iterrows():
+
+        percentage = int(row["attendance"])
+
+        if percentage < 75:
+            border_class = "red"
+            pill_class = "bad"
+            needed = classes_to_recover(int(row["attended"]), int(row["total"]))
+            pill_text = f"❌ Attend {needed} to recover"
+            ring_color = "var(--hc-red)"
+            dot_colors = ["var(--hc-red)", "var(--hc-red)", "var(--hc-orange)", "var(--hc-green)", "var(--hc-green)"]
+        elif percentage < 90:
+            border_class = "purple"
+            pill_class = "good"
+            safe = safe_to_miss(int(row["attended"]), int(row["total"]))
+            pill_text = f"✓ Safe to miss {safe} classes"
+            ring_color = "var(--hc-purple)"
+            dot_colors = ["var(--hc-red)", "var(--hc-orange)", "var(--hc-purple)", "var(--hc-green)", "var(--hc-green)"]
+        else:
+            border_class = "green"
+            pill_class = "good"
+            safe = safe_to_miss(int(row["attended"]), int(row["total"]))
+            pill_text = f"✓ Safe to miss {safe} classes"
+            ring_color = "var(--hc-green)"
+            dot_colors = ["var(--hc-orange)", "var(--hc-green)", "var(--hc-green)", "var(--hc-green)", "var(--hc-green)"]
+
+        degree = percentage * 3.6
+        ring_bg = (
+            f"background: conic-gradient({ring_color} 0deg {degree}deg, #ececf5 {degree}deg 360deg);"
+            if percentage > 0 else "background: #ececf5;"
+        )
+
+        dots_html = "".join(
+            f'<span class="hc-subject-dot" style="background:{c};"></span>' for c in dot_colors
+        )
+
+        icon = SUBJECT_ICONS.get(row["subject"], "📘")
+        subject_code = row["code"]
+
+        # Render card container with button inside
+        render(f"""
+        <div class="hc-subject-card-container">
+            <div class="hc-subject-card {border_class}">
+                <div class="hc-subject-left">
+                    <div class="hc-subject-icon">{icon}</div>
+                    <div>
+                        <div class="hc-subject-name">{row['subject']}</div>
+                        <div class="hc-subject-code">{row['code']} &bull; {row['credits']}</div>
+                        <div class="hc-status-pill {pill_class}">{pill_text}</div>
+                    </div>
+                </div>
+                <div class="hc-ring-wrap">
+                    <div class="hc-ring" style="{ring_bg}">
+                        <div class="hc-ring-value">{percentage}</div>
+                    </div>
+                    <div class="hc-ring-fraction">{row['attended']}/{row['total']}</div>
+                    <div class="hc-subject-dots">{dots_html}</div>
+                </div>
+            </div>
+        """)
+        
+        # Button directly in the container
+        if st.button(
+            "View Attendance Timeline",
+            key=f"attendance_{subject_code}",
+            use_container_width=True
+        ):
+            st.session_state.show_attendance = True
+            st.session_state.attendance_subject_code = subject_code
+            st.rerun()
+        
+        render("""</div>""")
