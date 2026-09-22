@@ -12,6 +12,8 @@ import base64
 
 from nav_sidebar import render_sidebar
 
+from theme import get_theme_css
+
 # ============================================================
 # AUTH CHECK (सिर्फ check करो, initialize नहीं)
 # ============================================================
@@ -28,6 +30,9 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+
+# GLOBAL THEME
+st.html(get_theme_css())
 
 
 def render(content: str):

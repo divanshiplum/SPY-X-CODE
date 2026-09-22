@@ -6,6 +6,7 @@ import streamlit as st
 from datetime import datetime
 
 from nav_sidebar import render_sidebar
+from theme import get_theme_css
 
 
 st.set_page_config(
@@ -14,6 +15,8 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+
+st.html(get_theme_css())
 
 
 def render(content: str):

@@ -3,7 +3,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent))
 
 import streamlit as st
-from pages.theme import THEME_CSS
+from theme import THEME_CSS
 
 
 NAV_ITEMS = [

@@ -1,6 +1,7 @@
 import streamlit as st
 from pathlib import Path
 from PyPDF2 import PdfReader
+from theme import get_theme_css
 
 
 # ============================================================
@@ -13,6 +14,8 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="collapsed"
 )
+
+st.html(get_theme_css())
 
 # ============================================================
 # HTML RENDER HELPER

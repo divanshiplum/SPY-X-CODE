@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-
+from theme import get_theme_css
 
 # ============================================================
 # PAGE CONFIG
@@ -12,6 +12,9 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="collapsed"
 )
+
+# GLOBAL THEME
+st.html(get_theme_css())
 
 # ============================================================
 # HTML RENDER HELPER

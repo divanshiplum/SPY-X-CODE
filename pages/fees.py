@@ -13,6 +13,7 @@ from reportlab.platypus import (
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_RIGHT
+from theme import get_theme_css
 
 
 # ============================================================
@@ -25,6 +26,8 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="collapsed"
 )
+
+st.html(get_theme_css())
 
 # ============================================================
 # HTML RENDER HELPER

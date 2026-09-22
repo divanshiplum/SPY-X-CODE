@@ -10,6 +10,7 @@ from reportlab.lib.units import mm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from theme import get_theme_css
 
 
 # ============================================================
@@ -23,6 +24,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+st.html(get_theme_css())
 
 # ============================================================
 # HTML RENDER HELPER

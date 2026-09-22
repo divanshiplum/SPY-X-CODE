@@ -1,7 +1,7 @@
 import streamlit as st
 import base64
 from pathlib import Path
-
+from theme import get_theme_css
 
 # ============================================================
 # PAGE CONFIG
@@ -13,6 +13,8 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="collapsed"
 )
+
+st.html(get_theme_css())
 
 # ============================================================
 # HTML RENDER HELPER

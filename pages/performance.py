@@ -7,6 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from nav_sidebar import render_sidebar
+from theme import get_theme_css
 
 
 def render(content: str):
@@ -20,6 +21,8 @@ st.set_page_config(
     page_icon="🎓",
     layout="wide",
 )
+
+st.html(get_theme_css())
 
 render_sidebar("performance")
 

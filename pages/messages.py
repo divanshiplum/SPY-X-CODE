@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from pathlib import Path
+from theme import get_theme_css
 
 # ============================================================
 # PAGE SETTINGS
@@ -12,6 +13,8 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="collapsed"
 )
+
+st.html(get_theme_css())
 
 # ============================================================
 # HTML RENDER HELPER
