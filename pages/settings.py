@@ -3,6 +3,7 @@ from pathlib import Path
 
 import streamlit as st
 
+
 # ============================================================
 # PROJECT PATH
 # ============================================================
@@ -40,12 +41,13 @@ defaults = {
 }
 
 for key, value in defaults.items():
+
     if key not in st.session_state:
         st.session_state[key] = value
 
 
 # ============================================================
-# APPLY THEME
+# APPLY GLOBAL THEME
 # ============================================================
 
 st.html(get_theme_css())
@@ -59,12 +61,16 @@ render_sidebar("settings")
 
 
 # ============================================================
-# CUSTOM CSS
+# SETTINGS CSS
 # ============================================================
 
 st.html(
     """
     <style>
+
+    /* ======================================================
+       PAGE HEADER
+       ====================================================== */
 
     .settings-title {
         color: var(--hc-text);
@@ -79,6 +85,11 @@ st.html(
         margin-bottom: 28px;
     }
 
+
+    /* ======================================================
+       SECTION
+       ====================================================== */
+
     .settings-section {
         background: var(--hc-surface);
         border: 1px solid var(--hc-border);
@@ -92,8 +103,13 @@ st.html(
         color: var(--hc-text);
         font-size: 18px;
         font-weight: 800;
-        margin-bottom: 20px;
+        margin-bottom: 5px;
     }
+
+
+    /* ======================================================
+       SETTINGS LABEL
+       ====================================================== */
 
     .settings-label {
         color: var(--hc-text);
@@ -107,30 +123,60 @@ st.html(
         margin-top: 5px;
     }
 
-    .logout-box {
-        background: var(--hc-surface);
-        border: 1px solid var(--hc-border);
-        border-radius: var(--hc-radius-lg);
-        padding: 25px;
-        margin-top: 15px;
+
+    /* ======================================================
+       LOGOUT DIALOG
+       ====================================================== */
+
+    .logout-dialog {
         text-align: center;
+        padding: 5px 5px 10px 5px;
     }
 
     .logout-icon {
-        font-size: 40px;
+        font-size: 50px;
+        margin-bottom: 10px;
     }
 
     .logout-title {
         color: var(--hc-text);
-        font-size: 21px;
+        font-size: 22px;
         font-weight: 800;
-        margin-top: 8px;
+        margin-bottom: 8px;
     }
 
     .logout-text {
         color: var(--hc-text-soft);
         font-size: 14px;
-        margin-top: 6px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+
+
+    /* ======================================================
+       CHECKBOX
+       ====================================================== */
+
+    [data-testid="stCheckbox"] label {
+        color: var(--hc-text) !important;
+    }
+
+
+    /* ======================================================
+       BUTTONS
+       ====================================================== */
+
+    .stButton > button {
+        border-radius: 10px;
+        border: 1px solid var(--hc-border);
+        background: var(--hc-surface);
+        color: var(--hc-text);
+        font-weight: 600;
+    }
+
+    .stButton > button:hover {
+        border-color: var(--hc-purple);
+        color: var(--hc-purple);
     }
 
     </style>
@@ -171,6 +217,11 @@ st.html(
     """
 )
 
+
+# ------------------------------------------------------------
+# DARK THEME
+# ------------------------------------------------------------
+
 col1, col2 = st.columns([0.82, 0.18])
 
 with col1:
@@ -182,7 +233,7 @@ with col1:
         </div>
 
         <div class="settings-description">
-            Enable dark mode for the dashboard
+            Enable dark pastel mode for the entire application
         </div>
         """
     )
@@ -196,7 +247,11 @@ with col2:
         label_visibility="collapsed"
     )
 
-# Automatically apply dark theme
+
+# ------------------------------------------------------------
+# APPLY DARK THEME
+# ------------------------------------------------------------
+
 if dark_theme != st.session_state.dark_theme:
 
     st.session_state.dark_theme = dark_theme
@@ -345,9 +400,82 @@ st.html(
 )
 
 
-# ------------------------------------------------------------
-# LOGOUT
-# ------------------------------------------------------------
+# ============================================================
+# LOGOUT DIALOG
+# ============================================================
+
+@st.dialog("⚠️ Logout Confirmation")
+def logout_dialog():
+
+    st.html(
+        """
+        <div class="logout-dialog">
+
+            <div class="logout-icon">
+                ⚠️
+            </div>
+
+            <div class="logout-title">
+                Logout?
+            </div>
+
+            <div class="logout-text">
+                Are you sure you want to logout from your account?
+            </div>
+
+        </div>
+        """
+    )
+
+    st.write("")
+
+    col1, col2 = st.columns(2)
+
+    # --------------------------------------------------------
+    # YES LOGOUT
+    # --------------------------------------------------------
+
+    with col1:
+
+        if st.button(
+            "✓ Yes, Logout",
+            use_container_width=True,
+            key="confirm_logout"
+        ):
+
+            st.session_state.logged_in = False
+            st.session_state.logout_checked = False
+
+            if "logout_checkbox" in st.session_state:
+                st.session_state.logout_checkbox = False
+
+            st.switch_page(
+                "pages/login.py"
+            )
+
+    # --------------------------------------------------------
+    # CANCEL
+    # --------------------------------------------------------
+
+    with col2:
+
+        if st.button(
+            "✕ Cancel",
+            use_container_width=True,
+            key="cancel_logout"
+        ):
+
+            st.session_state.logout_checked = False
+
+            if "logout_checkbox" in st.session_state:
+                st.session_state.logout_checkbox = False
+
+            st.rerun()
+
+
+# ============================================================
+# SIGN OUT
+# ============================================================
 
 col1, col2 = st.columns([0.82, 0.18])
 
@@ -369,93 +497,33 @@ with col2:
 
     logout_checked = st.checkbox(
         "Logout",
-        value=False,
+        value=st.session_state.logout_checked,
         key="logout_checkbox",
         label_visibility="collapsed"
     )
 
 
 # ============================================================
-# LOGOUT CONFIRMATION
+# OPEN LOGOUT POPUP
 # ============================================================
 
 if logout_checked:
 
-    st.html(
-        """
-        <div class="logout-box">
+    st.session_state.logout_checked = True
 
-            <div class="logout-icon">
-                ⚠️
-            </div>
-
-            <div class="logout-title">
-                Logout?
-            </div>
-
-            <div class="logout-text">
-                Are you sure you want to logout from your account?
-            </div>
-
-        </div>
-        """
-    )
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-
-        confirm_logout = st.checkbox(
-            "✓ Yes, Logout",
-            key="confirm_logout_checkbox"
-        )
-
-    with col2:
-
-        cancel_logout = st.checkbox(
-            "✕ Cancel",
-            key="cancel_logout_checkbox"
-        )
-
-    # --------------------------------------------------------
-    # CONFIRM LOGOUT
-    # --------------------------------------------------------
-
-    if confirm_logout:
-
-        st.session_state.logged_in = False
-        st.session_state.logout_checkbox = False
-
-        if "confirm_logout_checkbox" in st.session_state:
-            st.session_state.confirm_logout_checkbox = False
-
-        st.switch_page(
-            "pages/login.py"
-        )
-
-    # --------------------------------------------------------
-    # CANCEL
-    # --------------------------------------------------------
-
-    if cancel_logout:
-
-        st.session_state.logout_checkbox = False
-
-        if "cancel_logout_checkbox" in st.session_state:
-            st.session_state.cancel_logout_checkbox = False
-
-        st.rerun()
+    logout_dialog()
 
 
 # ============================================================
 # BACK TO DASHBOARD
 # ============================================================
 
-st.markdown("")
+st.write("")
 
 if st.button(
     "← Back to Dashboard",
-    key="back_settings_btn"
+    key="back_settings_btn",
+    use_container_width=False
 ):
 
     st.switch_page(

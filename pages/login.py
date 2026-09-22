@@ -7,12 +7,15 @@ import pandas as pd
 import os
 
 from theme import THEME_CSS
+from theme import get_theme_css
 
 st.set_page_config(
     page_title="HC NEXUS",
     page_icon="🎓",
     layout="centered",
 )
+
+st.html(get_theme_css())
 
 def render(content: str):
     lines = content.strip("\n").split("\n")
@@ -159,7 +162,6 @@ div[class*="st-key-login_register_btn"] .stButton > button:hover {
 <div class="hc-blob hc-blob-2"></div>
 <div class="hc-blob hc-blob-3"></div>
 <div class="hc-blob hc-blob-4"></div>
-<div class="hc-illustration">📚</div>
 """)
 
 # ============================================================
