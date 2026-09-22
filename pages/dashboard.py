@@ -15,15 +15,6 @@ import math
 from nav_sidebar import render_sidebar
 from theme import get_theme_css
 
-
-# ============================================================
-# AUTH CHECK
-# ============================================================
-
-if not st.session_state.get("logged_in", False):
-    st.switch_page("pages/login.py")
-
-
 # ============================================================
 # PAGE CONFIG
 # ============================================================
@@ -42,6 +33,41 @@ st.set_page_config(
 
 st.html(get_theme_css())
 
+st.html("""
+<style>
+
+/* Hide the complete left sidebar */
+section[data-testid="stSidebar"] {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+}
+
+/* Hide sidebar navigation */
+[data-testid="stSidebarNav"] { 
+    display: none !important; 
+}
+
+[data-testid="stSidebarNavItems"] { 
+    display: none !important; 
+}
+
+/* Hide sidebar toggle button */
+[data-testid="stSidebarCollapseButton"] { 
+    display: none !important; 
+}
+
+button[kind="header"] { 
+    display: none !important; 
+}
+
+/* Hide toolbar */
+[data-testid="stToolbar"] { 
+    display: none !important; 
+}
+
+</style>
+""")
 
 # ============================================================
 # HTML RENDER HELPER
