@@ -6,7 +6,7 @@ import streamlit as st
 import pandas as pd
 import os
 
-from theme import THEME_CSS
+from pages.theme import THEME_CSS
 
 st.set_page_config(
     page_title="HC NEXUS",
