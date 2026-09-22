@@ -3,6 +3,8 @@ import pandas as pd
 from datetime import date
 import os
 import json
+from pathlib import Path
+import base64
 
 st.set_page_config(
     page_title="Add Notices", 
@@ -142,18 +144,36 @@ st.markdown("<div class='header-title'>📣 Add & Manage Notices</div>", unsafe_
 # ==================== INITIALIZE DATA ====================
 NOTICES_FILE = "data/notices.json"
 
-if not os.path.exists("data"):
-    os.makedirs("data")
+os.makedirs("data", exist_ok=True)
 
 def load_notices():
+    """Load all notices from JSON"""
     if os.path.exists(NOTICES_FILE):
-        with open(NOTICES_FILE, 'r') as f:
-            return json.load(f)
+        try:
+            with open(NOTICES_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            return []
     return []
 
 def save_notices(notices):
-    with open(NOTICES_FILE, 'w') as f:
-        json.dump(notices, f, indent=2)
+    """Save notices to JSON"""
+    try:
+        with open(NOTICES_FILE, 'w') as f:
+            json.dump(notices, f, indent=2)
+        return True
+    except Exception as e:
+        st.error(f"Error saving notices: {str(e)}")
+        return False
+
+def get_attachment_count(attachments):
+    """Safely get attachment count - handles both old and new formats"""
+    if isinstance(attachments, list):
+        return len(attachments)
+    elif isinstance(attachments, int):
+        return attachments
+    else:
+        return 0
 
 # ==================== CONFIGURATION ====================
 NOTICE_CATEGORIES = ["Academic", "Announcement", "Event", "Holiday", "Urgent", "General"]
@@ -192,12 +212,36 @@ with tab1:
     
     st.markdown("<div class='section-header'>📎 Attachments</div>", unsafe_allow_html=True)
     
-    uploaded_files = st.file_uploader("Upload attachments (PDF, Images, etc.)", accept_multiple_files=True, key="attachments")
+    uploaded_files = st.file_uploader(
+        "Upload attachments (PDF, Images, Documents, etc.)",
+        accept_multiple_files=True,
+        key="attachments"
+    )
+    
+    if uploaded_files:
+        st.info(f"✅ {len(uploaded_files)} file(s) ready to upload: {', '.join([f.name for f in uploaded_files])}")
     
     if st.button("📤 Publish Notice", use_container_width=True, key="publish_btn"):
         if notice_title and notice_content:
             notices = load_notices()
             
+            # Convert uploaded files to base64
+            attachments_data = []
+            try:
+                for uploaded_file in uploaded_files:
+                    file_bytes = uploaded_file.getbuffer()
+                    file_base64 = base64.b64encode(file_bytes).decode('utf-8')
+                    
+                    attachments_data.append({
+                        "filename": uploaded_file.name,
+                        "file_type": uploaded_file.type,
+                        "data": file_base64
+                    })
+            except Exception as e:
+                st.error(f"Error processing files: {str(e)}")
+                attachments_data = []
+            
+            # Create new notice record
             new_notice = {
                 "id": len(notices) + 1,
                 "title": notice_title,
@@ -207,13 +251,28 @@ with tab1:
                 "author": st.session_state.get("teacher_name", "Anonymous"),
                 "pinned": is_pinned,
                 "urgent": is_urgent,
-                "attachments": len(uploaded_files)
+                "attachments": attachments_data if attachments_data else []
             }
             
             notices.insert(0, new_notice)
-            save_notices(notices)
             
-            st.success("✅ Notice published successfully!")
+            # Save notices
+            if save_notices(notices):
+                # Success message
+                if attachments_data:
+                    st.success(f"✅ Notice published successfully with {len(attachments_data)} attachment(s)!")
+                else:
+                    st.success("✅ Notice published successfully!")
+                
+                # Clear form
+                st.session_state.pop("notice_title", None)
+                st.session_state.pop("notice_content", None)
+                st.session_state.pop("category", None)
+                st.session_state.pop("notice_date", None)
+                st.session_state.pop("is_pinned", None)
+                st.session_state.pop("is_urgent", None)
+                st.session_state.pop("attachments", None)
+                st.rerun()
         else:
             st.error("❌ Please fill in title and content")
 
@@ -244,6 +303,11 @@ with tab2:
             col1, col2, col3 = st.columns([0.8, 0.1, 0.1])
             
             with col1:
+                # Get attachment count safely
+                attachments = notice.get('attachments', [])
+                attachment_count = get_attachment_count(attachments)
+                attachment_info = f" | Attachments: {attachment_count}" if attachment_count > 0 else ""
+                
                 st.markdown(f"""
                 <div class='notice-card'>
                     <div class='notice-title'>
@@ -251,21 +315,29 @@ with tab2:
                     </div>
                     <div class='notice-content'>{notice['content']}</div>
                     <div class='notice-meta'>
-                        Category: {notice['category']} | Date: {notice['date']} | By: {notice['author']}
-                        {f" | Attachments: {notice['attachments']}" if notice.get('attachments', 0) > 0 else ""}
+                        Category: {notice['category']} | Date: {notice['date']} | By: {notice['author']}{attachment_info}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
+                
+                # Display attachment list
+                if attachment_count > 0 and isinstance(attachments, list):
+                    st.caption("📎 Attached Files:")
+                    for attachment in attachments:
+                        if isinstance(attachment, dict):
+                            st.caption(f"  ✅ {attachment.get('filename', 'Unknown')}")
             
             with col2:
                 if st.button("✏️", key=f"edit_{notice['id']}", help="Edit"):
-                    st.info("Edit functionality coming soon")
+                    st.info("✅ Edit functionality coming soon")
             
             with col3:
                 if st.button("🗑️", key=f"delete_{notice['id']}", help="Delete"):
+                    # Remove notice from JSON
                     notices = [n for n in notices if n['id'] != notice['id']]
-                    save_notices(notices)
-                    st.rerun()
+                    if save_notices(notices):
+                        st.success("✅ Notice deleted")
+                        st.rerun()
 
 # ==================== STATISTICS ====================
 st.markdown("---")
