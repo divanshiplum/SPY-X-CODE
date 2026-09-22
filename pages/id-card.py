@@ -307,7 +307,7 @@ div[class*="st-key-idcard_actions_row"] .stButton > button:hover {
 
 with st.container(key="idcard_header_row"):
 
-    if st.button("‹", key="idcard_back"):
+    if st.button("BACK", key="idcard_back"):
         st.switch_page("pages/dashboard.py")
 
     render("""

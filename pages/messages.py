@@ -118,7 +118,7 @@ messages_file = BASE_DIR.parent / "data" / "messages.csv"
 
 with st.container(key="msg_header_row"):
 
-    if st.button("‹", key="msg_back"):
+    if st.button("BACK", key="msg_back"):
         st.switch_page("pages/dashboard.py")
 
     render('<div class="msg-header-title">Important Message</div>')

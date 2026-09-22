@@ -835,7 +835,7 @@ def render_fees_list():
 
     with st.container(key="fees_header_row"):
 
-        if st.button("‹ Home", key="fees_home_back"):
+        if st.button("BACK", key="fees_home_back"):
             st.switch_page("pages/dashboard.py")
 
         render('<div class="fees-header-title">Fee Statements</div>')

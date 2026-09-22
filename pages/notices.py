@@ -364,7 +364,7 @@ div[class*="st-key-attach_"] .stDownloadButton > button:hover {
 
 with st.container(key="notice_header_row"):
 
-    if st.button("‹", key="notice_back"):
+    if st.button("BACK", key="notice_back"):
         st.switch_page("pages/dashboard.py")
 
     render('<div class="notice-header-title">Announcements</div>')

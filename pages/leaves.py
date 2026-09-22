@@ -374,7 +374,7 @@ div[class*="st-key-lv_doc_"] .stDownloadButton > button {
 
 with st.container(key="lv_header_row"):
 
-    if st.button("‹", key="lv_back"):
+    if st.button("BACK", key="lv_back"):
         st.switch_page("pages/dashboard.py")
 
     render('<div class="lv-header-title">Leaves</div>')
