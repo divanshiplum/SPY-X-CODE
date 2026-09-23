@@ -65,6 +65,7 @@ The dashboard can display information such as:
 * **Numpy**
 * **PyPDF2**
 * **Scikit-learn**
+* **ReportLab**
 
 ## 🎯 Project Objective
 
