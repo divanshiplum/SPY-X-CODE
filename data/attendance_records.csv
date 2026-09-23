@@ -1,0 +1,90 @@
+code,date,day,start_time,end_time,room,instructor,status,Date,Student Roll No,Subject,Status,Remarks
+23BDA-402,2026-09-02,Wednesday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Absent,2026-09-02,25267546,Cybersecurity Fundamentals,Absent,DL
+23BDA-402,2026-09-01,Tuesday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Absent,2026-09-01,25267546,Cybersecurity Fundamentals,Absent,DL
+23BDA-402,2026-08-31,Monday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Absent,2026-08-31,25267546,Cybersecurity Fundamentals,Absent,DL
+23BDA-402,2026-08-29,Saturday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Present,2026-08-29,25267546,Cybersecurity Fundamentals,Present
+23BDA-402,2026-08-28,Friday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Present,2026-08-28,25267546,Cybersecurity Fundamentals,Present
+23BDA-402,2026-08-27,Thursday,9:00 AM,9:40 AM,,Manpreet Kaur Dhaliwal,Present,2026-08-27,25267546,Cybersecurity Fundamentals,Present
+SPO-113,2026-09-02,Wednesday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Absent,2026-09-02,25267546,Computer Architecture,Present
+SPO-113,2026-09-01,Tuesday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Absent,2026-09-01,25267546,Computer Architecture,Absent,DL
+SPO-113,2026-08-31,Monday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Absent,2026-08-31,25267546,Computer Architecture,Absent,DL
+SPO-113,2026-08-29,Saturday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Present,2026-08-29,25267546,Computer Architecture,Present
+SPO-113,2026-08-28,Friday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Present,2026-08-28,25267546,Computer Architecture,Present
+SPO-113,2026-08-27,Thursday,9:40 AM,10:20 AM,,Manpreet Kaur Dhaliwal,Present,2026-08-27,25267546,Computer Architecture,Present
+23BDA-401,2026-08-26,Wednesday,10:20 AM,11:00 AM,,Neha Sethi,Absent,2026-08-26,25267564,Information System,Absent,DL
+23BDA-401,2026-08-25,Tuesday,10:20 AM,11:00 AM,,Neha Sethi,Absent,2026-08-25,25267546,Information System,Absent,DL
+23BDA-401,2026-08-24,Monday,10:20 AM,11:00 AM,,Neha Sethi,Absent,2026-08-24,25267546,Information System,Absent,DL
+23BDA-401,2026-08-22,Saturday,10:20 AM,11:00 AM,,Neha Sethi,Absent,2026-08-22,25267546,Information System,Absent,DL
+23BDA-401,2026-08-21,Friday,10:20 AM,11:00 AM,,Neha Sethi,Absent,2026-08-21,25267546,Information System,Absent,DL
+23BDA-401,2026-08-20,Thursday,10:20 AM,11:00 AM,,Neha Sethi,Absent,2026-08-20,25267546,Information System,Absent,DL
+23BDA-401,2026-08-19,Wednesday,10:20 AM,11:00 AM,,Neha Sethi,Present,2026-08-19,25267546,Information System,Present
+23BDA-401,2026-08-18,Tuesday,10:20 AM,11:00 AM,,Neha Sethi,Present,2026-08-18,25267546,Information System,Present
+23BDA-401,2026-08-17,Monday,10:20 AM,11:00 AM,,Neha Sethi,Present,2026-08-17,25267546,Information System,Present
+23BDA-401,2026-08-15,Saturday,10:20 AM,11:00 AM,,Neha Sethi,Present,2026-08-15,25267546,Information System,Present
+23BDA-401,2026-08-14,Friday,10:20 AM,11:00 AM,,Neha Sethi,Present,2026-08-14,25267546,Information System,Present
+23BDA-401,2026-08-13,Thursday,10:20 AM,11:00 AM,,Neha Sethi,Present,2026-08-13,25267546,Information System,Present
+23BDA-401,2026-08-12,Wednesday,10:20 AM,11:00 AM,,Neha Sethi,Present,2026-08-12,25267546,Information System,Present
+23BDA-401,2026-08-11,Tuesday,10:20 AM,11:00 AM,,Neha Sethi,Present,2026-08-11,25267546,Information System,Present
+23BDA-401,2026-08-10,Monday,10:20 AM,11:00 AM,,Neha Sethi,Present,2026-08-10,25267546,Information System,Present
+23CSR-449,2026-09-02,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent,2026-09-02,25267546,Data Structure,Absent,DL
+23CSR-449,2026-09-01,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent,2026-09-01,25267546,Data Structure,Absent,DL
+23CSR-449,2026-08-31,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-31,25267546,Data Structure,Present
+23CSR-449,2026-08-29,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-29,25267546,Data Structure,Present
+23CSR-449,2026-08-28,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-28,25267546,Data Structure,Present
+23CSR-449,2026-08-27,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-27,25267546,Data Structure,Present
+23CSR-449,2026-08-26,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent,2026-08-26,25267546,Data Structure,Absent,DL
+23CSR-449,2026-08-25,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent,2026-08-25,25267546,Data Structure,Absent,DL
+23CSR-449,2026-08-24,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent,2026-08-24,25267546,Data Structure,Absent,DL
+23CSR-449,2026-08-22,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-22,25267546,Data Structure,Present
+23CSR-449,2026-08-21,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-21,25267546,Data Structure,Present
+23CSR-449,2026-08-20,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-20,25267546,Data Structure,Present
+23CSR-449,2026-08-19,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-19,25267546,Data Structure,Present
+23CSR-449,2026-08-18,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-18,25267546,Data Structure,Present
+23CSR-449,2026-08-17,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-17,25267546,Data Structure,Present
+23CSR-449,2026-08-15,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent,2026-08-15,25267546,Data Structure,Absent,DL
+23CSR-449,2026-08-14,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent,2026-08-14,25267546,Data Structure,Absent,DL
+23CSR-449,2026-08-13,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-13,25267546,Data Structure,Present
+23CSR-449,2026-08-12,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-12,25267546,Data Structure,Present
+23CSR-449,2026-08-11,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-11,25267546,Data Structure,Present
+23CSR-449,2026-08-10,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-10,25267546,Data Structure,Present
+23CSR-449,2026-08-08,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-08,25267546,Data Structure,Present
+23CSR-449,2026-08-07,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-07,25267546,Data Structure,Present
+23CSR-449,2026-08-06,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-06,25267546,Data Structure,Present
+23CSR-449,2026-08-05,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-05,25267546,Data Structure,Present
+23CSR-449,2026-08-04,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-04,25267546,Data Structure,Present
+23CSR-449,2026-08-03,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-03,25267546,Data Structure,Present
+23CSR-449,2026-08-01,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-08-01,25267546,Data Structure,Present
+23CSR-449,2026-07-31,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-07-31,25267546,Data Structure,Present
+23CSR-449,2026-07-30,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-07-30,25267546,Data Structure,Present
+23CSR-449,2026-07-29,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-07-29,25267546,Data Structure,Present
+23CSR-449,2026-07-28,Tuesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-07-28,25267546,Data Structure,Present
+23CSR-449,2026-07-27,Monday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent,2026-07-27,25267546,Data Structure,Absent,DL
+23CSR-449,2026-07-25,Saturday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent,2026-07-25,25267546,Data Structure,Absent,DL
+23CSR-449,2026-07-24,Friday,11:00 AM,11:40 AM,,Anshuman Sharma,Absent,2026-07-24,25267546,Data Structure,Absent,DL
+23CSR-449,2026-07-23,Thursday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-07-23,25267546,Data Structure,Present
+23CSR-449,2026-07-22,Wednesday,11:00 AM,11:40 AM,,Anshuman Sharma,Present,2026-07-22,25267546,Data Structure,Present
+23BDA-403,2026-07-06,Monday,11:40 AM,12:20 PM,,Anshuman Sharma,Absent,2026-07-06,25267546,Operating System,Absent,DL
+23BDA-403,2026-07-04,Saturday,11:40 AM,12:20 PM,,Anshuman Sharma,Absent,2026-07-04,25267546,Operating System,Absent,DL
+23BDA-403,2026-07-03,Friday,11:40 AM,12:20 PM,,Anshuman Sharma,Absent,2026-07-03,25267546,Operating System,Absent,DL
+23BDA-403,2026-07-02,Thursday,11:40 AM,12:20 PM,,Anshuman Sharma,Absent,2026-07-02,25267546,Operating System,Absent,DL
+23BDA-403,2026-07-01,Wednesday,11:40 AM,12:20 PM,,Anshuman Sharma,Absent,2026-07-01,25267546,Operating System,Absent,DL
+23BDA-403,2026-06-30,Tuesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-30,25267546,Operating System,Present
+23BDA-403,2026-06-29,Monday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-29,25267546,Operating System,Present
+23BDA-403,2026-06-27,Saturday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-27,25267546,Operating System,Present
+23BDA-403,2026-06-26,Friday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-26,25267546,Operating System,Present
+23BDA-403,2026-06-25,Thursday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-25,25267546,Operating System,Present
+23BDA-403,2026-06-24,Wednesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-24,25267546,Operating System,Present
+23BDA-403,2026-06-23,Tuesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-23,25267546,Operating System,Present
+23BDA-403,2026-06-22,Monday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-22,25267546,Operating System,Present
+23BDA-403,2026-06-20,Saturday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-20,25267546,Operating System,Present
+23BDA-403,2026-06-19,Friday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-19,25267546,Operating System,Present
+23BDA-403,2026-06-18,Thursday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-18,25267546,Operating System,Present
+23BDA-403,2026-06-17,Wednesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-17,25267546,Operating System,Present
+23BDA-403,2026-06-16,Tuesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-16,25267546,Operating System,Present
+23BDA-403,2026-06-15,Monday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-15,25267546,Operating System,Present
+23BDA-403,2026-06-13,Saturday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-13,25267546,Operating System,Present
+23BDA-403,2026-06-12,Friday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-12,25267546,Operating System,Present
+23BDA-403,2026-06-11,Thursday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-11,25267546,Operating System,Present
+23BDA-403,2026-06-10,Wednesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-10,25267546,Operating System,Present
+23BDA-403,2026-06-09,Tuesday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-09,25267546,Operating System,Present
+23BDA-403,2026-06-08,Monday,11:40 AM,12:20 PM,,Anshuman Sharma,Present,2026-06-08,25267546,Operating System,Present

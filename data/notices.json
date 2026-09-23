@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "title": "Internship Report Guide",
+    "content": "This is to inform you all that a new report guide has been issued by GNDU. Kindly view the attached PDF.",
+    "category": "Academic",
+    "date": "2026-09-22",
+    "author": "Anonymous",
+    "pinned": true,
+    "urgent": false,
+    "attachments": 1
+  }
+]
