@@ -1,0 +1,12 @@
+{
+  "Monday": {
+    "11:40 - 12:20": {
+      "time_slot": "11:40 - 12:20",
+      "subject": "SPO-113 (Computer Architecture)",
+      "type": "Practical",
+      "room": "104",
+      "instructor": "Ms. Manpreet Kaur Dhaliwal",
+      "capacity": 40
+    }
+  }
+}
